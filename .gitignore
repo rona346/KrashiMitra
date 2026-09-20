@@ -1,0 +1,62 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local logs / temporary files
+*.log
+temp_*
+*.tmp
+
+# Earth Engine / local credentials
+credentials/
+earthengine_credentials/
+
+# Local backup files
+*.backup.py
+*.backup
+
+# Generated Graphify output
+graphify-out/
+
+# Unused duplicate Harimitra model
+backend/models/harimitra/trained_model.keras
+backend/main.py.before_irrigation_backup.py
+
+# Internal project notes
+PROJECT_MEMORY.md
