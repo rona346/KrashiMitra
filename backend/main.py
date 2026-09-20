@@ -10,8 +10,15 @@ from backend.weather_service import get_weather
 from backend.risk_engine import calculate_risk
 from backend.soil_service import build_soil_profile
 from backend.crop_recommendation import recommend_crops
+from backend.satellite_service import get_satellite_context, initialize_earth_engine
 
 app = FastAPI()
+
+
+@app.on_event("startup")
+def startup_event():
+    initialize_earth_engine()
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -54,6 +61,11 @@ async def analyze_crop(
 
         weather = get_weather(latitude, longitude)
 
+        satellite = get_satellite_context(
+            latitude,
+            longitude,
+        )
+
         soil_profile = build_soil_profile({})
 
         crop_recommendations = recommend_crops(
@@ -77,6 +89,7 @@ async def analyze_crop(
             "soil_moisture": soil_moisture,
             "soil_profile": soil_profile,
             "weather": weather,
+            "satellite": satellite,
             "disease": result["disease"],
             "disease_confidence": result["confidence"],
             "risk": risk,
@@ -96,6 +109,7 @@ async def analyze_crop(
             "class_index": result["class_index"],
             "soil_moisture": soil_moisture,
             "soil_profile": soil_profile,
+            "satellite": satellite,
             "irrigation": irrigation,
             "risk": risk,
             "crop_recommendations": crop_recommendations,
