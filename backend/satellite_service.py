@@ -1,3 +1,4 @@
+import time
 import ee
 from datetime import date
 
@@ -43,6 +44,7 @@ def get_recent_ndvi(latitude, longitude):
 
 
 def get_satellite_context(latitude, longitude):
+    satellite_start = time.perf_counter()
     try:
         image = get_recent_sentinel_image(latitude, longitude)
 
@@ -69,6 +71,10 @@ def get_satellite_context(latitude, longitude):
             ndvi_image,
             latitude,
             longitude,
+        )
+
+        print(
+            f"[PERF] Satellite internal total: {time.perf_counter() - satellite_start:.2f}s"
         )
 
         return {

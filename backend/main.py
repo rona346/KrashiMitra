@@ -2,7 +2,9 @@ from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 import requests
 import os
+import time
 from pydantic import BaseModel
+
 
 from backend.models.harimitra.harimitra_inference import predict_disease
 from backend.gemini_service import generate_advisory, generate_chat_reply
@@ -50,21 +52,28 @@ async def analyze_crop(
     latitude: float = Form(24.5854),
     longitude: float = Form(73.7125),
 ):
+    start_time = time.perf_counter()
     image_path = f"temp_{file.filename}"
 
     try:
         with open(image_path, "wb") as buffer:
             buffer.write(await file.read())
 
+        disease_start = time.perf_counter()
         result = predict_disease(image_path)
+        print(f"[PERF] Disease AI: {time.perf_counter() - disease_start:.2f}s")
         irrigation = get_irrigation_recommendation(soil_moisture)
 
         weather = get_weather(latitude, longitude)
+
+        satellite_start = time.perf_counter()
 
         satellite = get_satellite_context(
             latitude,
             longitude,
         )
+
+        print(f"[PERF] Satellite: {time.perf_counter() - satellite_start:.2f}s")
 
         soil_profile = build_soil_profile({})
 
@@ -95,8 +104,11 @@ async def analyze_crop(
             "risk": risk,
             "crop_recommendations": crop_recommendations,
         }
+        advisory_start = time.perf_counter()
 
         advisory = generate_advisory(farm_context)
+
+        print(f"[PERF] AI Advisory: {time.perf_counter() - advisory_start:.2f}s")
 
         return {
             "filename": file.filename,
@@ -109,6 +121,7 @@ async def analyze_crop(
             "class_index": result["class_index"],
             "soil_moisture": soil_moisture,
             "soil_profile": soil_profile,
+            "weather": weather,
             "satellite": satellite,
             "irrigation": irrigation,
             "risk": risk,
@@ -119,6 +132,8 @@ async def analyze_crop(
     finally:
         if os.path.exists(image_path):
             os.remove(image_path)
+
+        print(f"[PERF] TOTAL /analyze: {time.perf_counter() - start_time:.2f}s")
 
 
 class ChatRequest(BaseModel):

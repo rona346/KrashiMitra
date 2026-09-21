@@ -1,14 +1,21 @@
+import time
 from google import genai
+from google.genai import types
 import os
 import requests
 
-from google import genai
-
-client = genai.Client()
+client = genai.Client(
+    http_options={
+        "timeout": 10000,
+        "retry_options": {"attempts": 1},
+    }
+)
 
 
 def generate_openrouter_advisory(prompt: str) -> str:
     api_key = os.getenv("OPENROUTER_API_KEY")
+
+    openrouter_start = time.perf_counter()
 
     response = requests.post(
         "https://openrouter.ai/api/v1/chat/completions",
@@ -25,13 +32,16 @@ def generate_openrouter_advisory(prompt: str) -> str:
                 }
             ],
         },
-        timeout=60,
+        timeout=20,
     )
 
-    response.raise_for_status()
+    print(f"[PERF] OpenRouter: {time.perf_counter() - openrouter_start:.2f}s")
 
+    response.raise_for_status()
     data = response.json()
-    return data["choices"][0]["message"]["content"]
+    content = data["choices"][0]["message"]["content"]
+    print(f"[DEBUG] OpenRouter advisory: {content[:500]}")
+    return content
 
 
 def generate_advisory(farm_context: dict) -> str:
@@ -56,15 +66,23 @@ Return only the farmer advisory.
 """
 
     try:
+        gemini_start = time.perf_counter()
+
         interaction = client.interactions.create(
             model="gemini-3.6-flash",
             input=prompt,
         )
+        print(f"[PERF] Gemini: {time.perf_counter() - gemini_start:.2f}s")
+
         return interaction.output_text
 
     except Exception as gemini_error:
         print(f"Gemini advisory failed: {gemini_error}")
-        return generate_openrouter_advisory(prompt)
+        fallback_start = time.perf_counter()
+        fallback_response = generate_openrouter_advisory(prompt)
+        print(f"[PERF] Fallback total: {time.perf_counter() - fallback_start:.2f}s")
+        return fallback_response
+
 
 def generate_chat_reply(message: str) -> str:
     prompt = f"""
@@ -80,9 +98,14 @@ Farmer's question:
 Return only the answer.
 """
 
-    interaction = client.interactions.create(
-        model="gemini-3.6-flash",
-        input=prompt,
-    )
+    try:
+        interaction = client.interactions.create(
+            model="gemini-3.6-flash",
+            input=prompt,
+        )
 
-    return interaction.output_text
+        return interaction.output_text
+
+    except Exception as gemini_error:
+        print(f"Gemini chat failed: {gemini_error}")
+        return generate_openrouter_advisory(prompt)
