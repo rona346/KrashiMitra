@@ -8,6 +8,7 @@ function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [message, setMessage] = useState("");
   const [chatReply, setChatReply] = useState("");
+  const [language, setLanguage] = useState("hinglish");
   const [soilMoisture, setSoilMoisture] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -50,6 +51,36 @@ function App() {
         >
           Your Smart Farming Companion
         </p>
+        <div style={{ marginTop: "15px" }}>
+          <button
+            onClick={() => setLanguage("hinglish")}
+            style={{
+              marginRight: "8px",
+              padding: "8px 14px",
+              borderRadius: "8px",
+              border: "1px solid #15803d",
+              background: language === "hinglish" ? "#15803d" : "white",
+              color: language === "hinglish" ? "white" : "#15803d",
+              cursor: "pointer",
+            }}
+          >
+            हिंदी / Hinglish
+          </button>
+
+          <button
+            onClick={() => setLanguage("english")}
+            style={{
+              padding: "8px 14px",
+              borderRadius: "8px",
+              border: "1px solid #15803d",
+              background: language === "english" ? "#15803d" : "white",
+              color: language === "english" ? "white" : "#15803d",
+              cursor: "pointer",
+            }}
+          >
+            English
+          </button>
+        </div>
       </div>
 
       {/* Dashboard Cards */}
@@ -59,6 +90,7 @@ function App() {
           gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           gap: "20px",
           marginTop: "30px",
+          alignItems: "stretch",
         }}
       >
         {/* Crop Health */}
@@ -100,9 +132,17 @@ function App() {
         <div style={cardStyle}>
           <h2>🌡️ Temperature</h2>
 
-          <p style={valueStyle}>Unavailable</p>
+          <p style={valueStyle}>
+            {result?.weather?.temperature != null
+              ? `${result.weather.temperature}°C`
+              : "--"}
+          </p>
 
-          <p>Live weather data is currently unavailable.</p>
+          <p>
+            {result?.weather?.temperature != null
+              ? `Humidity: ${result.weather.humidity ?? "--"}%`
+              : "Analyze your crop to see weather."}
+          </p>
         </div>
 
         {/* Overall Risk */}
@@ -123,7 +163,8 @@ function App() {
           <h2>🛰️ Satellite NDVI</h2>
 
           <p style={valueStyle}>
-            {result?.satellite?.available
+            {result?.satellite?.available &&
+            typeof result.satellite.ndvi_mean === "number"
               ? result.satellite.ndvi_mean.toFixed(2)
               : "--"}
           </p>
@@ -139,12 +180,36 @@ function App() {
         <div style={cardStyle}>
           <h2>🚰 Irrigation</h2>
 
-          <p style={valueStyle}>{result ? result.irrigation : "--"}</p>
+          <p style={{ ...valueStyle, fontSize: "24px", lineHeight: "1.15" }}>
+            {result ? result.irrigation : "--"}
+          </p>
 
           <p>
             {result
               ? "Based on current soil moisture."
               : "Analyze your crop to get irrigation advice."}
+          </p>
+        </div>
+
+        {/* Rain Probability */}
+        <div style={cardStyle}>
+          <h2>🌧️ Rain Probability</h2>
+
+          <p style={valueStyle}>
+            {result?.weather?.rain_probability != null
+              ? `${result.weather.rain_probability}%`
+              : result?.weather?.forecast?.precipitation_probability_max?.[0] !=
+                  null
+                ? `${result.weather.forecast.precipitation_probability_max[0]}%`
+                : "--"}
+          </p>
+
+          <p>
+            {result?.weather?.rain_probability != null ||
+            result?.weather?.forecast?.precipitation_probability_max?.[0] !=
+              null
+              ? "Today's forecast"
+              : "Analyze your crop to see forecast."}
           </p>
         </div>
       </div>
@@ -354,8 +419,15 @@ function App() {
               marginTop: "30px",
             }}
           >
-            🌾 Recommended Crops
+            🌾 Alternative Crop Options
           </h2>
+
+          <p style={{ color: "#64748b", marginTop: "-10px" }}>
+            Current crop:{" "}
+            <strong>
+              {result.crop_recommendations?.current_crop || "Unknown"}
+            </strong>
+          </p>
 
           {result.crop_recommendations?.recommendations?.length > 0 ? (
             <div
@@ -386,10 +458,15 @@ function App() {
                       <strong>Score:</strong> {crop.score}
                     </p>
 
-                    {crop.reason && (
-                      <p>
-                        <strong>Reason:</strong> {crop.reason}
-                      </p>
+                    {crop.reasons?.length > 0 && (
+                      <div>
+                        <strong>Why:</strong>
+                        <ul style={{ marginTop: "6px", paddingLeft: "20px" }}>
+                          {crop.reasons.map((reason, reasonIndex) => (
+                            <li key={reasonIndex}>{reason}</li>
+                          ))}
+                        </ul>
+                      </div>
                     )}
                   </div>
                 ),
@@ -420,6 +497,139 @@ function App() {
               </ul>
             </div>
           )}
+
+          {/* AgriStack Farm Context */}
+          <div
+            style={{
+              marginTop: "25px",
+              padding: "20px",
+              background: "#eff6ff",
+              borderRadius: "12px",
+              color: "#1e3a8a",
+            }}
+          >
+            <h2 style={{ marginTop: 0 }}>🇮🇳 Farm Context</h2>
+
+            <p style={{ marginTop: 0, color: "#475569" }}>
+              AgriStack-compatible demo farm data
+            </p>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                gap: "12px",
+              }}
+            >
+              {[
+                ["Farmer", result.agristack?.name],
+                [
+                  "Location",
+                  result.agristack?.district && result.agristack?.state
+                    ? `${result.agristack.district}, ${result.agristack.state}`
+                    : null,
+                ],
+                ["Crop", result.agristack?.farm?.crop],
+                [
+                  "Farm Area",
+                  result.agristack?.farm?.area_acres != null
+                    ? `${result.agristack.farm.area_acres} acres`
+                    : null,
+                ],
+                ["Season", result.agristack?.farm?.season],
+                ["Irrigation", result.agristack?.farm?.irrigation],
+                ["Soil Type", result.agristack?.farm?.soil_type],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  style={{
+                    padding: "12px",
+                    background: "white",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <strong>{label}</strong>
+                  <div style={{ marginTop: "6px", fontSize: "17px" }}>
+                    {value ?? "--"}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p
+              style={{
+                marginBottom: 0,
+                marginTop: "15px",
+                color: "#92400e",
+                fontSize: "14px",
+              }}
+            >
+              ℹ️ Synthetic demo data — not an official AgriStack record.
+            </p>
+          </div>
+
+          {/* Soil Health */}
+          <div
+            style={{
+              marginTop: "25px",
+              padding: "20px",
+              background: "#f0fdf4",
+              borderRadius: "12px",
+              color: "#166534",
+            }}
+          >
+            <h2 style={{ marginTop: 0 }}>🌱 Soil Health</h2>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                gap: "12px",
+              }}
+            >
+              {[
+                ["Nitrogen", "nitrogen"],
+                ["Phosphorus", "phosphorus"],
+                ["Potassium", "potassium"],
+                ["Sulfur", "sulfur"],
+                ["Zinc", "zinc"],
+                ["Iron", "iron"],
+                ["Copper", "copper"],
+                ["Manganese", "manganese"],
+                ["Boron", "boron"],
+                ["pH", "ph"],
+                ["Electrical Conductivity", "electrical_conductivity"],
+                ["Organic Carbon", "organic_carbon"],
+              ].map(([label, key]) => (
+                <div
+                  key={key}
+                  style={{
+                    padding: "12px",
+                    background: "white",
+                    borderRadius: "10px",
+                    textAlign: "center",
+                  }}
+                >
+                  <strong>{label}</strong>
+                  <div style={{ marginTop: "6px", fontSize: "20px" }}>
+                    {typeof result.soil_profile?.[key] === "object"
+                      ? (result.soil_profile[key]?.level ?? "--")
+                      : (result.soil_profile?.[key] ?? "--")}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p
+              style={{
+                marginBottom: 0,
+                marginTop: "15px",
+                color: "#92400e",
+              }}
+            >
+              📋 Soil Health Card data — Rajasthan, Udaipur
+            </p>
+          </div>
         </div>
       )}
 
@@ -467,6 +677,7 @@ function App() {
                 },
                 body: JSON.stringify({
                   message: message,
+                  language: language,
                 }),
               });
 
@@ -519,22 +730,14 @@ const cardStyle = {
   padding: "24px",
   borderRadius: "16px",
   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+  minHeight: "160px",
+  boxSizing: "border-box",
 };
 
 const valueStyle = {
   fontSize: "28px",
   fontWeight: "bold",
   color: "#15803d",
-};
-
-const resultBoxStyle = {
-  display: "flex",
-  flexDirection: "column",
-  gap: "8px",
-  padding: "16px",
-  background: "#f0fdf4",
-  borderRadius: "12px",
-  color: "#166534",
 };
 
 const inputStyle = {

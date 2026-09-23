@@ -134,11 +134,15 @@ def _score_moisture(
 
 
 def _score_nutrient(
-    value: Optional[float],
+    value: Optional[Any],
     nutrient_requirement: str,
 ) -> Optional[int]:
     """
     Broad nutrient suitability score.
+
+    Supports both:
+    - numeric nutrient values
+    - SHC nutrient objects containing a nutrient level
 
     This is used for crop suitability screening only.
     It is NOT a fertilizer dosage recommendation.
@@ -147,21 +151,24 @@ def _score_nutrient(
     if value is None:
         return None
 
-    value = float(value)
+    if isinstance(value, dict):
+        level = str(value.get("level", "")).strip().lower()
 
-    # Broad screening bands.
-    if value < 20:
-        level = "low"
-    elif value < 50:
-        level = "medium"
+        if not level:
+            return None
     else:
-        level = "high"
+        numeric_value = float(value)
 
-    # Exact requirement match.
+        if numeric_value < 20:
+            level = "low"
+        elif numeric_value < 50:
+            level = "medium"
+        else:
+            level = "high"
+
     if nutrient_requirement == level:
         return 100
 
-    # Adjacent level = partial suitability.
     if nutrient_requirement == "high" and level == "medium":
         return 60
 
@@ -201,24 +208,27 @@ def score_crop(
     # ---------------------------------------------------------------
     # Soil pH
     # ---------------------------------------------------------------
-
     ph = soil_profile.get("ph")
 
     if ph is not None:
-        ph_score = _score_range(
-            float(ph),
-            profile["ideal_ph"],
-        )
+        if isinstance(ph, dict):
+            ph_level = str(ph.get("level", "")).strip().lower()
+        else:
+            ph_level = None
 
-        if ph_score is not None:
-            scores.append(ph_score)
+        if ph_level == "neutral":
+            scores.append(100)
+            reasons.append("Soil pH is reported as neutral.")
 
-            if ph_score == 100:
-                reasons.append("Soil pH is within the broad suitable range.")
-            elif ph_score == 60:
-                reasons.append("Soil pH is slightly outside the broad ideal range.")
-            else:
-                reasons.append("Soil pH is relatively far from the broad ideal range.")
+        elif ph_level == "alkaline":
+            scores.append(60)
+            reasons.append("Soil pH is reported as alkaline.")
+
+        elif ph_level:
+            limitations.append(f"Soil pH category '{ph_level}' is not mapped.")
+
+        else:
+            limitations.append("Soil pH category is unavailable.")
     else:
         limitations.append("Soil pH is unavailable.")
 
@@ -272,7 +282,7 @@ def score_crop(
             f"({rain_probability:.0f}%)."
         )
     else:
-        limitations.append("Live weather data is unavailable.")
+        limitations.append("Weather data is unavailable.")
 
     # ---------------------------------------------------------------
     # Soil nutrients: NPK
@@ -416,6 +426,7 @@ def recommend_crops(
         limitations.update(recommendation["limitations"])
 
     return {
+        "current_crop": current_crop,
         "recommendations": recommendations,
         "data_completeness": data_completeness,
         "available_data": data_available,

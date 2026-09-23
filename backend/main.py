@@ -10,9 +10,10 @@ from backend.models.harimitra.harimitra_inference import predict_disease
 from backend.gemini_service import generate_advisory, generate_chat_reply
 from backend.weather_service import get_weather
 from backend.risk_engine import calculate_risk
-from backend.soil_service import build_soil_profile
+from backend.soil_service import build_soil_profile, get_soil_nutrients
 from backend.crop_recommendation import recommend_crops
 from backend.satellite_service import get_satellite_context, initialize_earth_engine
+from backend.mock_agristack import MOCK_FARMER
 
 app = FastAPI()
 
@@ -20,6 +21,11 @@ app = FastAPI()
 @app.on_event("startup")
 def startup_event():
     initialize_earth_engine()
+
+
+@app.get("/mock-agristack/farmer")
+def get_mock_farmer():
+    return MOCK_FARMER
 
 
 app.add_middleware(
@@ -75,12 +81,24 @@ async def analyze_crop(
 
         print(f"[PERF] Satellite: {time.perf_counter() - satellite_start:.2f}s")
 
-        soil_profile = build_soil_profile({})
+        agristack_context = MOCK_FARMER
+
+        soil_start = time.perf_counter()
+
+        soil_data = get_soil_nutrients(
+            state=MOCK_FARMER["state"],
+            district=MOCK_FARMER["district"],
+        )
+
+        soil_profile = build_soil_profile(soil_data)
+
+        print(f"[PERF] SHC Soil: {time.perf_counter() - soil_start:.2f}s")
 
         crop_recommendations = recommend_crops(
             soil_profile=soil_profile,
             soil_moisture=soil_moisture,
             weather=weather,
+            current_crop="Tomato",
         )
 
         risk = calculate_risk(
@@ -126,6 +144,7 @@ async def analyze_crop(
             "irrigation": irrigation,
             "risk": risk,
             "crop_recommendations": crop_recommendations,
+            "agristack": agristack_context,
             "advisory": advisory,
         }
 
@@ -138,6 +157,7 @@ async def analyze_crop(
 
 class ChatRequest(BaseModel):
     message: str
+    language: str = "hinglish"
 
 
 @app.post("/chat")
@@ -157,4 +177,4 @@ Farmer's question:
 {request.message}
 """
 
-    return {"reply": generate_chat_reply(request.message)}
+    return {"reply": generate_chat_reply(request.message, request.language)}

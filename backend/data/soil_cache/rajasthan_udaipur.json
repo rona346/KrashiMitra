@@ -1,0 +1,50 @@
+{
+  "Electrical Conductivity": {
+    "level": "Saline",
+    "value": "0"
+  },
+  "Nitrogen": {
+    "level": "Medium",
+    "value": "0"
+  },
+  "Organic Carbon": {
+    "level": "Medium",
+    "value": "1"
+  },
+  "Phosphorus": {
+    "level": "Medium",
+    "value": "2"
+  },
+  "Potassium": {
+    "level": "Medium",
+    "value": "13"
+  },
+  "Soil Ph": {
+    "level": "Neutral",
+    "value": "14"
+  },
+  "Boron": {
+    "level": "Sufficient",
+    "value": "0"
+  },
+  "Copper": {
+    "level": "Sufficient",
+    "value": "16"
+  },
+  "Iron": {
+    "level": "Sufficient",
+    "value": "3"
+  },
+  "Manganese": {
+    "level": "Sufficient",
+    "value": "13"
+  },
+  "Sulphur": {
+    "level": "Sufficient",
+    "value": "13"
+  },
+  "Zinc": {
+    "level": "Sufficient",
+    "value": "11"
+  }
+}

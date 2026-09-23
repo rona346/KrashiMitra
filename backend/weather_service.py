@@ -14,6 +14,7 @@ def get_weather(lat: float, lon: float) -> dict:
         "latitude": lat,
         "longitude": lon,
         "current": "temperature_2m,relative_humidity_2m,precipitation",
+        "daily": "precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min",
         "forecast_days": 7,
     }
 
@@ -21,9 +22,7 @@ def get_weather(lat: float, lon: float) -> dict:
     response.raise_for_status()
     data = response.json()
     daily = data.get("daily", {})
-    rain_probability = (
-        daily.get("precipitation_probability_max", [None])[0]
-    )
+    rain_probability = daily.get("precipitation_probability_max", [None])[0]
     current = data["current"]
     temperature = current.get("temperature_2m")
     humidity = current.get("relative_humidity_2m")

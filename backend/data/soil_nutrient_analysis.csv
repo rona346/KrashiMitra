@@ -1,0 +1,501 @@
+Year (year),State Name (state_name),State Code (state_code),District Name (district_name),District Code (district_code),Block Name (block_name),Block Code (block_code),Village Name (village_name),Village Code (village_code),Nutrient Type (nutrient_type),Nutrient Name (nutrient_name),Nutrient Level (nutrient_level),Value (value)
+"2024-25","Gujarat","24","Mahisagar","669","Virpur","4165","Panta","517315","Macro","Soil Ph","Alkaline",0
+"2024-25","Bihar","10","Nalanda","209","Chandi","1898","Rupaspur","244325","Macro","Organic Carbon","High",2
+"2023-24","Bihar","10","Gaya","196","Tekari","1754","Badwa","254695","Macro","Soil Ph","Neutral",298
+"2024-25","Tamil Nadu","33","Dharmapuri","571","Pappireddipatty","6139","Kullampatty","643553","Macro","Phosphorus","Medium",3
+"2023-24","Haryana","6","Hisar","63","Barwala","486","Kharak(17)","60986","Macro","Nitrogen","Medium",0
+"2023-24","Gujarat","24","Panch Mahals","454","Kalol","4189","Delol","518685","Micro","Manganese","Sufficient",10
+"2023-24","Gujarat","24","Amreli","439","Saverkundla","4070","Vijayanagar","515797","Macro","Nitrogen","High",0
+"2024-25","Assam","18","Cachar","282","Lakhipur","2514","Sibpur Pt Iii","299865","Micro","Sulphur","Sufficient",3
+"2024-25","Bihar","10","Darbhanga","195","Keotirunway","1725","Karjapatti","226876","Macro","Phosphorus","Medium",0
+"2024-25","Odisha","21","Malkangiri","364","Kalimela","3480","Ambaguda","430992","Macro","Potassium","Medium",31
+"2023-24","West Bengal","19","Alipurduar","664","Kumargram","2925","Amarpur","307179","Macro","Potassium","High",0
+"2024-25","Madhya Pradesh","23","Sagar","425","Banda","3963","Pura Bineka","460173","Macro","Phosphorus","Low",1
+"2024-25","Odisha","21","Balangir","345","Khaprakhol","3290","Tambipadar","420722","Micro","Boron","Sufficient",6
+"2024-25","Bihar","10","Saharsa","216","Sattar Kattaiya","2035","Chauri Bijalpur","226309","Macro","Potassium","Medium",5
+"2023-24","West Bengal","19","Purba Bardhaman","306","Bhatar","2799","Banpash","319777","Micro","Iron","Deficient",0
+"2024-25","Himachal Pradesh","2","Mandi","22","Seraj","183","Sharan (96)","15088","Macro","Soil Ph","Neutral",16
+"2024-25","Andhra Pradesh","28","Anakapalli","744","Anakapalle","5582","Thummapala","586190","Macro","Potassium","Low",20
+"2023-24","Rajasthan","8","Sirohi","115","Sheoganj","784","Andor","89898","Macro","Organic Carbon","High",0
+"2024-25","Rajasthan","8","Churu","96","Rajgarh","655","Rampura","70228","Micro","Zinc","Sufficient",2
+"2023-24","Tamil Nadu","33","Mayiladuthurai","735","Sembanar Koil","6234","Keelamathur","637590","Micro","Zinc","Sufficient",100
+"2024-25","Madhya Pradesh","23","Rewa","424","Raipur Karchuliyan","3959","Kati","465887","Micro","Zinc","Sufficient",3
+"2024-25","Gujarat","24","Narmada","452","Dediyapada","4175","Arethi","521593","Macro","Organic Carbon","High",19
+"2024-25","Bihar","10","Kaimur (Bhabua)","200","Nuaon","1795","Partabpur","249074","Macro","Organic Carbon","Medium",0
+"2023-24","Jharkhand","20","Jamtara","333","Kundhit","3178","Alipur","373306","Macro","Potassium","Medium",0
+"2023-24","West Bengal","19","Bankura","305","Raipur-I","2788","Uparbanda","329508","Macro","Phosphorus","Low",2
+"2024-25","Madhya Pradesh","23","Khargone (West Nimar)","414","Kasrawad","3895","Chichalay","477138","Micro","Sulphur","Sufficient",70
+"2024-25","Uttarakhand","5","Udham Singh Nagar","56","Rudrapur","439","Bindu Khera","55926","Macro","Organic Carbon","High",0
+"2024-25","Bihar","10","Nalanda","209","Rahui","1909","Sherpur","244409","Micro","Manganese","Sufficient",18
+"2024-25","Bihar","10","Rohtas","215","Dinara","2015","Khalsapur","250938","Micro","Boron","Sufficient",1
+"2023-24","Rajasthan","8","Karauli","108","Sapotra","733","Asha Ki Guwari","77034","Macro","Electrical Conductivity","Saline",0
+"2023-24","Karnataka","29","Chitradurga","533","Hosdurga","5813","Doddabyladakere","606044","Micro","Sulphur","Sufficient",70
+"2024-25","Bihar","10","Banka","190","Bausi","1647","Phaga","242395","Micro","Sulphur","Deficient",0
+"2024-25","Rajasthan","8","Pali","111","Sojat","759","Nai Dhani","90615","Macro","Electrical Conductivity","Non Saline",15
+"2024-25","Karnataka","29","Bagalkote","524","Bagalkot","5754","Chebbi","598780","Macro","Potassium","Low",0
+"2024-25","Andhra Pradesh","28","Tirupati","752","Buchinadidu Khandriga","4752","Kanamanambedu","595929","Micro","Copper","Sufficient",29
+"2024-25","Assam","18","Nalbari","298","Tihu","2687","Goboradol","303651","Macro","Nitrogen","Medium",827
+"2023-24","Madhya Pradesh","23","Ujjain","435","Tarana","4037","Hajikhedi","471750","Macro","Phosphorus","Medium",0
+"2024-25","West Bengal","19","North 24 Parganas","303","Barasat-Ii","2727","Falti-Banpur","323293","Micro","Iron","Sufficient",28
+"2023-24","Gujarat","24","Dangs","444","Waghai","7108","Kumarbandh","522776","Micro","Zinc","Deficient",0
+"2023-24","Assam","18","Goalpara","287","Kamakhyabari","2572","Ram Hari Char Pt-Iii","282060","Micro","Sulphur","Sufficient",362
+"2024-25","Bihar","10","Vaishali","224","Bidupur","2138","Pakauli","235907","Micro","Zinc","Deficient",0
+"2024-25","Maharashtra","27","Nanded","485","Biloli","4459","Kotgyal","545058","Macro","Nitrogen","High",0
+"2024-25","Jharkhand","20","Koderma","334","Chandwara","3181","Sardarodih","350027","Micro","Iron","Sufficient",19
+"2024-25","Rajasthan","8","Jalore","104","Sanchore","705","Bichhawari","89644","Micro","Boron","Deficient",0
+"2024-25","Jharkhand","20","Saraikela Kharsawan","341","Gamharia","3247","Naryanpur","379135","Macro","Phosphorus","Medium",0
+"2024-25","Gujarat","24","Navsari","453","Navsari","4182","Kurel","522852","Micro","Iron","Sufficient",35
+"2023-24","Andhra Pradesh","28","Srikakulam","519","Sarubujjili","5573","Peddasowlapuram","581162","Macro","Phosphorus","High",7
+"2023-24","Tripura","16","Gomati","654","Killa","2428","Bagma","272145","Micro","Manganese","Sufficient",87
+"2023-24","Andhra Pradesh","28","Ananthapuramu","502","D.Hirehal","4699","Madenahalli","594647","Micro","Manganese","Deficient",0
+"2024-25","Bihar","10","Madhepura","205","Kumarkhand","1841","Mangarwara Milik","225955","Macro","Phosphorus","High",28
+"2023-24","Maharashtra","27","Amravati","468","Tiwsa","4310","Shendurjana Bk.","532500","Macro","Phosphorus","Low",31
+"2024-25","Madhya Pradesh","23","Shivpuri","432","Kolaras","4014","Semari","455869","Micro","Zinc","Sufficient",9
+"2023-24","Gujarat","24","Gir Somnath","675","Girgadhda","7158","Motisar","515246","Macro","Potassium","Low",0
+"2024-25","Maharashtra","27","Pune","490","Velhe","4524","Ghavar","556654","Macro","Organic Carbon","Medium",0
+"2023-24","Tamil Nadu","33","Dharmapuri","571","Harur","6134","Kokkarapatty","643508","Macro","Phosphorus","High",4
+"2023-24","Madhya Pradesh","23","Khargone (West Nimar)","414","Maheshwar","3897","Malshakhedi","476939","Micro","Manganese","Sufficient",6
+"2024-25","Andhra Pradesh","28","Prakasam","517","Zarugumilli","5509","Narasingolu","591380","Micro","Boron","Deficient",0
+"2024-25","Jharkhand","20","Ranchi","339","Angara","3217","Hesal","373676","Macro","Organic Carbon","Medium",6
+"2024-25","Uttar Pradesh","9","Amroha","154","Gangeshwari","1255","Ukabli Must. Hall","118474","Micro","Boron","Sufficient",100
+"2024-25","Rajasthan","8","Dungarpur","99","Aspur","669","Khaleel","97801","Macro","Soil Ph","Neutral",18
+"2024-25","Bihar","10","Saran","218","Sonepur","2077","Chhittu Pakar","234484","Macro","Organic Carbon","High",0
+"2023-24","Uttar Pradesh","9","Gorakhpur","148","Gola","1177","Khopapar","187659","Micro","Sulphur","Deficient",1
+"2023-24","Rajasthan","8","Sirohi","115","Sirohi","785","Mandawariya","89952","Macro","Soil Ph","Neutral",30
+"2024-25","Madhya Pradesh","23","Khargone (West Nimar)","414","Barwah","3891","Khudgaon","476860","Micro","Copper","Sufficient",8
+"2023-24","Rajasthan","8","Kotputli-Behror","782","Kotputli","691","Karwas","79015","Macro","Potassium","High",7
+"2023-24","Gujarat","24","Tapi","641","Vyara","4246","Rampura Najik","524737","Macro","Potassium","Medium",3
+"2024-25","Madhya Pradesh","23","Narmadapuram","409","Bankhedi","3856","Fatehpur Tekripura","488016","Macro","Phosphorus","High",0
+"2024-25","Madhya Pradesh","23","Narsimhapur","418","Kareli","3924","Ram Pipariya","491340","Macro","Potassium","Low",4
+"2023-24","West Bengal","19","Purba Medinipur","317","Moyna","2960","Chiranjibpur","344903","Micro","Manganese","Deficient",0
+"2023-24","Rajasthan","8","Jodhpur","107","Chamu","7459","Khanunagar","945514","Micro","Copper","Deficient",0
+"2024-25","Madhya Pradesh","23","Dhar","403","Umarban","3828","Khargone","475718","Macro","Nitrogen","Medium",0
+"2024-25","Tamil Nadu","33","Madurai","578","Madurai East","6219","Nattarmangalam","640661","Micro","Boron","Deficient",4
+"2024-25","Meghalaya","17","East Khasi Hills","274","Mawpat","7186","Mawpat (Ct)","278356","Macro","Nitrogen","Low",14
+"2023-24","Uttar Pradesh","9","Pilibhit","173","Puranpur","1445","Murainia Gandhi Nagar","132367","Macro","Phosphorus","High",4
+"2024-25","Jharkhand","20","Sahebganj","340","Sahibganj","3243","Rampur Ogairah","357942","Micro","Boron","Sufficient",1
+"2024-25","Tamil Nadu","33","Ariyalur","610","Jayamkondam","6257","Kulothunganallur","636387","Micro","Boron","Deficient",0
+"2023-24","West Bengal","19","Dakshin Dinajpur","310","Balurghat","2870","Dakshin Khhanpur","311191","Micro","Manganese","Deficient",0
+"2024-25","West Bengal","19","North 24 Parganas","303","Haroa","2737","Bhayda","323655","Macro","Nitrogen","Medium",7
+"2024-25","Madhya Pradesh","23","Dhar","403","Nalchha","3824","Billoda","474956","Micro","Copper","Deficient",7
+"2024-25","Bihar","10","Muzaffarpur","208","Sahebganj","1891","Naya Tola Urf Telia Chhapra","227999","Micro","Zinc","Deficient",0
+"2023-24","Gujarat","24","Arvalli","672","Malpur","4225","Mevda","510903","Micro","Boron","Sufficient",10
+"2024-25","Odisha","21","Rayagada","370","Gudari","3549","Malaguda","426853","Micro","Iron","Sufficient",11
+"2023-24","Gujarat","24","Chhotaudepur","668","Sankheda","4264","Bor Talav","520876","Micro","Zinc","Sufficient",8
+"2024-25","Assam","18","Tinsukia","302","Doomdooma","2719","Ouguri Gaon","290234","Micro","Copper","Sufficient",139
+"2024-25","Maharashtra","27","Dhule","474","Shindkhede","4369","Wadade","526098","Micro","Sulphur","Sufficient",104
+"2024-25","Rajasthan","8","Churu","96","Ratangarh","656","Meloosar","70582","Macro","Organic Carbon","Low",9
+"2024-25","Bihar","10","Saran","218","Chhapra","2061","Nandlal Chhapra","233662","Micro","Manganese","Deficient",0
+"2024-25","Odisha","21","Puri","369","Sadar","3545","Talajanga","409797","Macro","Phosphorus","Low",2
+"2023-24","Assam","18","Golaghat","288","Golaghat South","2581","Ranipukhuri","295004","Micro","Copper","Deficient",0
+"2024-25","Madhya Pradesh","23","Seoni","428","Dhanaura","3989","Kuddo","496420","Macro","Soil Ph","Alkaline",0
+"2023-24","West Bengal","19","Paschim Medinipur","318","Keshiary","2989","Hasim Pur","343612","Macro","Electrical Conductivity","Non Saline",2
+"2024-25","Andhra Pradesh","28","Sri Sathya Sai","754","Puttaparthi","4731","Amagondapalem","595451","Macro","Potassium","Medium",35
+"2024-25","Uttarakhand","5","Pauri Garhwal","52","Duggada","400","Charekha","48419","Macro","Soil Ph","Alkaline",0
+"2024-25","Punjab","3","Kapurthala","35","Dhilwan","287","Ratra (79)","29206","Macro","Electrical Conductivity","Saline",0
+"2024-25","Rajasthan","8","Beawar","774","Jawaja","568","Surajpura","91834","Macro","Soil Ph","Neutral",4
+"2024-25","Bihar","10","Saran","218","Sonepur","2077","Chhapra","234506","Macro","Soil Ph","Neutral",17
+"2023-24","Maharashtra","27","Gadchiroli","475","Kurkheda","4380","Gargada","538671","Micro","Iron","Deficient",4
+"2023-24","Madhya Pradesh","23","Bhind","395","Bhind","3772","Charthar","452957","Macro","Organic Carbon","High",0
+"2024-25","Odisha","21","Sonepur","372","Ullunda","3572","Kutmenda","419179","Macro","Soil Ph","Neutral",0
+"2024-25","Bihar","10","Purbi Champaran","213","Ramgarhwa","1990","Amodei","217602","Micro","Copper","Sufficient",30
+"2024-25","Odisha","21","Malkangiri","364","Korukonda","3482","Ramakrishnapalli M.V.109","430949","Micro","Copper","Sufficient",11
+"2024-25","Assam","18","Hojai","709","Lumding","2669","Shastri Gaon No.2","285459","Macro","Phosphorus","High",3
+"2024-25","Rajasthan","8","Jaipur","102","Shahpura","695","Rampura","79254","Micro","Boron","Sufficient",0
+"2024-25","Odisha","21","Sundargarh","373","Koida","3579","Kunchpani","384722","Macro","Soil Ph","Acidic",0
+"2024-25","Bihar","10","Gaya","196","Wazirganj","1755","Amu Chak","256865","Micro","Iron","Sufficient",8
+"2024-25","Punjab","3","Ferozepur","31","Mamdot","249","Mamdot Hithar (341)","34736","Macro","Soil Ph","Neutral",175
+"2024-25","Bihar","10","Kaimur (Bhabua)","200","Ramgarh","1796","Sumerpur Chotka","248944","Micro","Copper","Deficient",0
+"2023-24","West Bengal","19","Murshidabad","319","Suti-I","3025","Chakbahadurpur","313925","Macro","Soil Ph","Alkaline",0
+"2023-24","Tripura","16","Gomati","654","Karbook","2427","Patichhari","272359","Macro","Potassium","Medium",26
+"2024-25","Madhya Pradesh","23","Sagar","425","Khurai","3968","Dhikuwa","459804","Macro","Organic Carbon","High",32
+"2023-24","Rajasthan","8","Jhunjhunu","106","Nawalgarh","718","Ghisa Ki Dhani","71600","Macro","Electrical Conductivity","Non Saline",39
+"2024-25","Bihar","10","Vaishali","224","Chehrakala","2139","Rasulpur Fateh","235067","Macro","Soil Ph","Alkaline",2
+"2024-25","Maharashtra","27","Hingoli","477","Kalamnuri","4394","Puyana","546167","Macro","Electrical Conductivity","Saline",0
+"2023-24","Karnataka","29","Bengaluru Urban","525","Anekal","5759","Bhaktipura","613283","Macro","Potassium","High",0
+"2024-25","Maharashtra","27","Gadchiroli","475","Dhanora","4376","Katezari","539013","Micro","Manganese","Deficient",0
+"2024-25","Arunachal Pradesh","12","Upper Subansiri","241","Taliha","2285","Bimpak","262963","Macro","Nitrogen","Low",0
+"2024-25","Tamil Nadu","33","Krishnagiri","577","Kelamangalam","6208","Bairamangalam","644013","Macro","Phosphorus","High",0
+"2023-24","Bihar","10","Samastipur","217","Rosera","2050","Rasulpur Dharaha","237187","Micro","Iron","Deficient",0
+"2024-25","Rajasthan","8","Jaipur","102","Shahpura","695","Manoharpur (Ct)","79345","Macro","Phosphorus","Medium",7
+"2024-25","Uttar Pradesh","9","Jhansi","153","Babina","1244","Palida","152755","Micro","Boron","Sufficient",91
+"2024-25","Andhra Pradesh","28","Parvathipuram Manyam","743","Jiyyammavalasa","5638","Batlabhadra","582040","Macro","Nitrogen","High",0
+"2023-24","Madhya Pradesh","23","Sidhi","433","Sidhi","4024","Lahiya","502501","Macro","Nitrogen","Low",1
+"2024-25","Arunachal Pradesh","12","Kurung Kumey","233","Koloriang","2195","Furek","265495","Micro","Zinc","Deficient",0
+"2023-24","Andhra Pradesh","28","Eluru","748","Mudinepalle","5126","Devapudi","589433","Micro","Zinc","Sufficient",27
+"2023-24","Andhra Pradesh","28","Palnadu","751","Dachepalle","4933","Gamalapadu","589852","Macro","Electrical Conductivity","Non Saline",30
+"2024-25","Bihar","10","Saran","218","Dariapur","2062","Rahimapur","234149","Micro","Manganese","Sufficient",17
+"2023-24","Madhya Pradesh","23","Sheopur","431","Karahal","4008","Bagbaj","451665","Macro","Nitrogen","Low",8
+"2023-24","Madhya Pradesh","23","Ashoknagar","391","Isagarh","3742","Pach Bawadi","499999","Micro","Zinc","Deficient",7
+"2024-25","Madhya Pradesh","23","Sehore","427","Sehore","3986","Sonthi","482781","Micro","Sulphur","Sufficient",6
+"2023-24","West Bengal","19","Purba Medinipur","317","Nandakumar","2961","Ichhapur","344703","Macro","Potassium","High",0
+"2023-24","Gujarat","24","Valsad","462","Vapi","7123","Chala","930311","Macro","Organic Carbon","Low",0
+"2023-24","Rajasthan","8","Khairthal-Tijara","770","Mandawar","580","Rajwara","72000","Micro","Manganese","Sufficient",15
+"2023-24","Gujarat","24","Mahesana","451","Visnagar","4174","Gothva","509317","Macro","Nitrogen","High",0
+"2023-24","Uttar Pradesh","9","Ballia","126","Beruarbari","911","Karmmar Taluka Majhos","199505","Macro","Soil Ph","Alkaline",0
+"2023-24","Andhra Pradesh","28","Ntr","749","G.Konduru","5107","Bhimavarappadu","589139","Macro","Organic Carbon","Medium",0
+"2024-25","Odisha","21","Balangir","345","Puintala","3294","Brahmanipali","420160","Macro","Nitrogen","High",0
+"2024-25","Rajasthan","8","Beawar","774","Bhim","762","Peepli Ka Wadiya","96408","Macro","Soil Ph","Neutral",36
+"2024-25","Assam","18","Dhubri","285","Bilasipara","2550","Udmari Pt.Ii","281320","Micro","Iron","Deficient",0
+"2024-25","Tamil Nadu","33","Cuddalore","570","Kurinjipadi","6126","Thambipalayam","636703","Macro","Organic Carbon","Medium",0
+"2023-24","Andhra Pradesh","28","Chittoor","503","Puthalapattu","4788","Puthalapattu","596474","Macro","Electrical Conductivity","Non Saline",18
+"2023-24","Gujarat","24","Dahod","445","Devgad Bariya","4112","Nani Zari","519529","Micro","Zinc","Deficient",5
+"2023-24","Madhya Pradesh","23","Damoh","400","Patera","3804","Majholi","461957","Micro","Boron","Deficient",0
+"2024-25","Jharkhand","20","Latehar","335","Mahuadanr","3191","Bisrampur","367092","Macro","Organic Carbon","Medium",16
+"2023-24","West Bengal","19","Hooghly","312","Khanakul-I","2897","Gauran Mandaran","325836","Micro","Sulphur","Deficient",1
+"2024-25","Bihar","10","Nawada","210","Akbarpur","1914","Fatehpur","257985","Macro","Electrical Conductivity","Non Saline",7
+"2024-25","Gujarat","24","Kheda","450","Mehmedabad","4162","Moti Adboli","517432","Micro","Iron","Deficient",3
+"2024-25","Jharkhand","20","East Singhbum","327","Boram","6632","Chhota Susni","363368","Macro","Nitrogen","Medium",0
+"2024-25","Tamil Nadu","33","Ariyalur","610","Thirumanur","6261","Thirumanur","636512","Macro","Nitrogen","High",0
+"2024-25","West Bengal","19","Purulia","321","Arsha","3044","Rugri","331178","Micro","Manganese","Deficient",2
+"2024-25","Rajasthan","8","Didwana-Kuchaman","768","Didwana","741","Khunkhuna","82537","Macro","Electrical Conductivity","Non Saline",10
+"2024-25","Andhra Pradesh","28","Alluri Sitharama Raju","745","G.Madugula","5593","Balijipeta","584931","Micro","Manganese","Deficient",0
+"2024-25","Karnataka","29","Chikkamagaluru","532","Mudigere","5805","Javali","609922","Macro","Phosphorus","Medium",6
+"2024-25","Madhya Pradesh","23","Chhindwara","399","Chhindwara","3792","Marai","494966","Micro","Iron","Sufficient",1
+"2024-25","Gujarat","24","Bharuch","442","Jambusar","4095","Amanpor Nana","521882","Micro","Iron","Deficient",23
+"2024-25","Gujarat","24","Mahisagar","669","Santrampur","4193","Bhana Simal","518002","Macro","Phosphorus","Medium",16
+"2024-25","Madhya Pradesh","23","Chhindwara","399","Amarwara","3789","Jhirpani","493888","Micro","Iron","Deficient",56
+"2024-25","West Bengal","19","Darjeeling","309","Naxal Bari","2867","Shaibhita","306659","Macro","Phosphorus","High",0
+"2023-24","Madhya Pradesh","23","Balaghat","392","Balaghat","3745","Suriya","497711","Micro","Manganese","Deficient",0
+"2024-25","Maharashtra","27","Pune","490","Daund","4514","Pandharewadi","556397","Micro","Iron","Deficient",10
+"2023-24","Gujarat","24","Bharuch","442","Hansot","4094","Dantrai","522403","Macro","Organic Carbon","High",3
+"2023-24","Gujarat","24","Gir Somnath","675","Talala","4142","Rasulpura","514948","Macro","Phosphorus","Low",0
+"2024-25","Maharashtra","27","Ratnagiri","492","Khed","4543","Hodkhad","565106","Micro","Zinc","Deficient",0
+"2024-25","Rajasthan","8","Bhilwara","92","Sahara","628","Ummedpura (Khalsa)","95498","Micro","Boron","Deficient",0
+"2024-25","Madhya Pradesh","23","Satna","426","Majhgawan","3976","Gahira","463248","Macro","Electrical Conductivity","Non Saline",11
+"2024-25","Arunachal Pradesh","12","Tawang","238","Tawang","2251","Gomkang","261481","Macro","Potassium","High",0
+"2023-24","Madhya Pradesh","23","Singrauli","638","Chitrangi","4019","Dharauha (Dhaurhawa)","503631","Macro","Organic Carbon","Low",0
+"2023-24","Gujarat","24","Botad","676","Gadhada","4101","Khijadiya","516175","Macro","Nitrogen","Low",5
+"2024-25","Maharashtra","27","Jalgaon","478","Bhadgaon","4397","Kanashi","527711","Micro","Iron","Sufficient",48
+"2024-25","Andhra Pradesh","28","Sri Potti Sriramulu Nellore","515","Sydapuram","5408","Pokkandala","592248","Micro","Zinc","Deficient",3
+"2023-24","Maharashtra","27","Chandrapur","473","Bhadrawati","4353","Kuchana","541113","Micro","Manganese","Sufficient",16
+"2023-24","Andhra Pradesh","28","Nandyal","755","Sirivel","5196","Jeenepalle","594338","Macro","Potassium","High",13
+"2024-25","Maharashtra","27","Jalna","479","Ambad","4411","Hast Pokhari","547803","Macro","Nitrogen","Medium",4
+"2023-24","West Bengal","19","Purba Medinipur","317","Moyna","2960","Gobradan","344894","Micro","Manganese","Deficient",0
+"2023-24","Rajasthan","8","Jhalawar","105","Jhalrapatan","709","Kuwabhao @ Bhopatpura","104094","Macro","Soil Ph","Alkaline",0
+"2023-24","West Bengal","19","Jalpaiguri","314","Maynaguri","2929","Banglajhar","307546","Macro","Phosphorus","High",0
+"2023-24","Madhya Pradesh","23","Neemuch","419","Jawad","3927","Meghpura Chauhan","468421","Micro","Copper","Deficient",0
+"2023-24","West Bengal","19","Purulia","321","Jhalda-Ii","3052","Ukma","331422","Micro","Sulphur","Deficient",4
+"2024-25","Bihar","10","Purbi Champaran","213","Raxaul","1991","Parsauna Tapsi","217513","Macro","Potassium","Low",0
+"2024-25","Odisha","21","Nabarangpur","366","Jharigam","3515","Bakadabeda","427412","Micro","Sulphur","Deficient",4
+"2024-25","Odisha","21","Puri","369","Kanas","3541","Guadia","410132","Macro","Soil Ph","Neutral",1
+"2024-25","Karnataka","29","Vijayanagara","738","Hadagalli","5782","Hiremallinakeri","604629","Macro","Organic Carbon","Medium",17
+"2024-25","Tamil Nadu","33","Kallakurichi","729","Tirukkoyilur","6469","Kattupaiyur","633175","Micro","Copper","Deficient",0
+"2023-24","West Bengal","19","Bankura","305","Jaypur","2782","Adhakata","328074","Macro","Potassium","Medium",14
+"2024-25","Uttar Pradesh","9","Muzaffarnagar","172","Charthawal","1427","Balwakheri","110772","Macro","Electrical Conductivity","Non Saline",100
+"2024-25","Bihar","10","Jamui","198","Jamui","1774","Indpe","258680","Macro","Soil Ph","Neutral",7
+"2024-25","Himachal Pradesh","2","Kullu","20","Banjar","169","Kalwari (4/12)","12913","Macro","Organic Carbon","Low",24
+"2024-25","Karnataka","29","Mysuru","545","Hunsur","5887","Hullenahalli","618464","Micro","Copper","Deficient",0
+"2024-25","Odisha","21","Sambalpur","371","Kuchinda","3562","Kusumi","381450","Macro","Nitrogen","Medium",0
+"2024-25","Karnataka","29","Bagalkote","524","Ilkal","7369","Chamalapur","598983","Macro","Phosphorus","Low",10
+"2024-25","Gujarat","24","Banas Kantha","441","Amirgadh","4079","Kengora","507812","Micro","Iron","Sufficient",23
+"2024-25","Odisha","21","Puri","369","Brahmagiri","3537","Girola","409887","Micro","Sulphur","Deficient",1
+"2024-25","Rajasthan","8","Bikaner","93","Panchoo","7063","Khara","69666","Micro","Boron","Sufficient",0
+"2024-25","Madhya Pradesh","23","Rajgarh","422","Narsinghgarh","3944","Salaya","480180","Macro","Nitrogen","Medium",1
+"2024-25","Andhra Pradesh","28","Sri Potti Sriramulu Nellore","515","Nellore Rural","5400","Upputur","592083","Macro","Electrical Conductivity","Non Saline",16
+"2024-25","Karnataka","29","Davanagere","535","Channagiri","5820","Hiremalali","607038","Micro","Iron","Sufficient",21
+"2024-25","Andhra Pradesh","28","Tirupati","752","Tirupati (Rural)","4804","Mallavaram","595714","Macro","Nitrogen","Medium",6
+"2023-24","Madhya Pradesh","23","Narsimhapur","418","Chawarpatha","3922","Ghaghrola Kalan","490712","Macro","Organic Carbon","High",3
+"2024-25","Karnataka","29","Ballari","528","Siruguppa","5787","Talur","604853","Macro","Electrical Conductivity","Saline",0
+"2024-25","Bihar","10","Kishanganj","203","Pothia","1825","Koltha","222606","Macro","Organic Carbon","High",0
+"2024-25","Gujarat","24","Surat","459","Mandvi","4236","Amalsadi","524041","Micro","Boron","Deficient",42
+"2024-25","West Bengal","19","Hooghly","312","Khanakul-Ii","2898","Ganeshpur","325941","Macro","Organic Carbon","High",7
+"2024-25","Maharashtra","27","Chhatrapati Sambhajinagar","469","Chhatrapati Sambhajinagar","4312","Mangrul","548845","Macro","Soil Ph","Acidic",0
+"2024-25","Bihar","10","Bhagalpur","192","Sultanganj","1688","Sirampur","239584","Micro","Copper","Deficient",0
+"2023-24","Gujarat","24","Vadodara","461","Waghodia","4268","Gutal","519956","Macro","Potassium","Low",0
+"2023-24","Bihar","10","Begusarai","191","Bhagwanpur","1660","Malhipur","237608","Macro","Soil Ph","Neutral",196
+"2023-24","Rajasthan","8","Bharatpur","91","Rupbas","617","Kakraua","75283","Micro","Zinc","Sufficient",0
+"2023-24","Madhya Pradesh","23","Ratlam","423","Sailana","3953","Kariya","470452","Micro","Iron","Sufficient",146
+"2024-25","Rajasthan","8","Beawar","774","Jawaja","568","Ramkhera Dhanar","91771","Macro","Phosphorus","Low",0
+"2024-25","Odisha","21","Deogarh","351","Barkote","3346","Kanchhada","382649","Micro","Sulphur","Sufficient",1
+"2024-25","Gujarat","24","Arvalli","672","Malpur","4225","Surana Pahadiya","510947","Micro","Copper","Sufficient",36
+"2024-25","Maharashtra","27","Washim","499","Mangrulpir","4614","Lakhamapur","530745","Macro","Nitrogen","High",0
+"2024-25","Madhya Pradesh","23","Katni","413","Rithi","3889","Dharampura","488278","Macro","Organic Carbon","High",0
+"2024-25","Karnataka","29","Uttara Kannada","550","Mundgod","5924","Hudelkoppa","603062","Macro","Phosphorus","High",23
+"2024-25","West Bengal","19","Paschim Medinipur","318","Mohanpur","2994","Kukuria","344028","Micro","Copper","Sufficient",2
+"2024-25","Bihar","10","Madhubani","206","Madhwapur","1865","Bishunpur","219850","Micro","Boron","Deficient",31
+"2023-24","Jharkhand","20","Dumka","326","Masaliya","3103","Dhawadangal","371935","Macro","Phosphorus","Medium",136
+"2024-25","Maharashtra","27","Nashik","487","Trimbak","4492","Nandurkipada","550869","Micro","Zinc","Sufficient",0
+"2024-25","West Bengal","19","Cooch Behar","308","Dinhata-I","2848","Bara Atiabari Pratham Khanda (P)","308538","Macro","Potassium","Low",21
+"2023-24","Madhya Pradesh","23","Chhindwara","399","Jamai","3794","Patniya","494631","Micro","Iron","Deficient",4
+"2024-25","Mizoram","15","Kolasib","263","Bilkhawthlir","6521","Saipum-I","271160","Macro","Potassium","Low",0
+"2024-25","Karnataka","29","Bengaluru Rural","526","Dodballapur","5765","Karim Sonnenahalli","625214","Micro","Iron","Sufficient",7
+"2023-24","Rajasthan","8","Pratapgarh","629","Dhamotar","7467","Nakor","108486","Macro","Organic Carbon","Low",5
+"2024-25","Rajasthan","8","Baran","89","Shahbad","602","Danta","103355","Macro","Electrical Conductivity","Saline",0
+"2023-24","Gujarat","24","Surendranagar","460","Wadhwan","4256","Rampara","512240","Micro","Copper","Sufficient",3
+"2024-25","Tamil Nadu","33","Virudhunagar","597","Sattur","6479","Peddureddipatti","641738","Macro","Soil Ph","Acidic",0
+"2024-25","Uttar Pradesh","9","Budaun","133","Usawan","1015","Sathra","129082","Macro","Potassium","Low",2
+"2024-25","Maharashtra","27","Jalgaon","478","Parola","4408","Shevage Bk.","527566","Macro","Phosphorus","Low",0
+"2024-25","Rajasthan","8","Jaipur","102","Shahpura","695","Raopura","79287","Macro","Electrical Conductivity","Non Saline",2
+"2023-24","Himachal Pradesh","2","Kinnaur","19","Pooh","167","Khabo (32/1)","26829","Macro","Nitrogen","Low",1
+"2024-25","Bihar","10","Saran","218","Nagra","2073","Chainpur","233743","Micro","Sulphur","Sufficient",13
+"2024-25","Bihar","10","Rohtas","215","Kargahar","2017","Delhua","251762","Micro","Copper","Deficient",0
+"2024-25","Maharashtra","27","Hingoli","477","Hingoli","4393","Bondala","545854","Micro","Sulphur","Sufficient",23
+"2024-25","Madhya Pradesh","23","Dhar","403","Sardarpur","3826","Semalya","474658","Micro","Sulphur","Sufficient",3
+"2024-25","Odisha","21","Cuttack","350","Niali","3341","Gobindapada","400318","Macro","Potassium","High",0
+"2023-24","Andhra Pradesh","28","Ntr","749","Gampalagudem","5108","Gosaveedu","588949","Micro","Iron","Deficient",16
+"2023-24","West Bengal","19","North 24 Parganas","303","Swarupnagar","2744","Damhati","322783","Macro","Organic Carbon","High",12
+"2024-25","Bihar","10","Buxar","194","Rajpur","1712","Deyalpur","248584","Macro","Organic Carbon","Medium",1
+"2024-25","Bihar","10","Vaishali","224","Vaishali","2152","Chak Moinuddin Urf Chak Munni","234688","Macro","Electrical Conductivity","Non Saline",22
+"2023-24","Maharashtra","27","Raigad","491","Uran","4539","Vindhane","553324","Macro","Potassium","Low",0
+"2023-24","Gujarat","24","Kachchh","449","Abdasa","4146","Karodiya Mota","507191","Micro","Boron","Sufficient",6
+"2024-25","Odisha","21","Bargarh","347","Bargarh","3312","Ambasadha","380606","Macro","Nitrogen","Medium",5
+"2024-25","Rajasthan","8","Hanumangarh","101","Hanumangarh","682","10 Md-C","67863","Macro","Nitrogen","Low",0
+"2024-25","Madhya Pradesh","23","Gwalior","407","Morar","3851","Khargu Kheda","453933","Micro","Iron","Deficient",1
+"2024-25","Maharashtra","27","Pune","490","Khed","4518","Bahul","555845","Macro","Phosphorus","Low",0
+"2024-25","Rajasthan","8","Tonk","116","Uniara","791","Maharaj Pura","93588","Micro","Boron","Sufficient",0
+"2024-25","Madhya Pradesh","23","Dindori","404","Amarpur","3829","Alauni Ryt.","492066","Macro","Phosphorus","Low",22
+"2023-24","Haryana","6","Karnal","67","Indri","513","Manak Majra (41)","59130","Macro","Electrical Conductivity","Saline",0
+"2023-24","Rajasthan","8","Banswara","88","Arthuna","6827","Timruwa","98869","Macro","Phosphorus","Medium",5
+"2024-25","Gujarat","24","Surat","459","Kamrej","4234","Machhi","524108","Macro","Potassium","Medium",6
+"2024-25","West Bengal","19","Birbhum","307","Mayureswar-I","2832","Idrakpur","316603","Macro","Potassium","Medium",20
+"2024-25","Jammu And Kashmir","1","Doda","4","Doda","43","Jodhpur","4169","Macro","Organic Carbon","Medium",22
+"2023-24","West Bengal","19","Paschim Medinipur","318","Kharagpur-I","2991","Charipal","341618","Micro","Copper","Deficient",0
+"2024-25","Karnataka","29","Chitradurga","533","Chitradurga","5810","Pallavagere","605575","Macro","Nitrogen","Medium",0
+"2024-25","Bihar","10","Bhagalpur","192","Goradih","1676","Tahbalpur","239930","Macro","Nitrogen","Low",9
+"2024-25","Rajasthan","8","Balotra","775","Kalyanpur","6825","Araba Dudawatan","87510","Micro","Zinc","Sufficient",0
+"2024-25","Rajasthan","8","Hanumangarh","101","Nohar","683","Ratusar","68788","Macro","Nitrogen","Low",0
+"2024-25","Tamil Nadu","33","Tiruchirappalli","591","Turaiyur","6381","Veeramachanpatti","635803","Micro","Iron","Sufficient",24
+"2024-25","Tamil Nadu","33","Krishnagiri","577","Kaveripattinam","6207","Kudimenahalli","644138","Macro","Nitrogen","High",0
+"2023-24","Gujarat","24","Sabar Kantha","458","Vadali","4230","Math Bhojayat","510000","Micro","Boron","Deficient",8
+"2024-25","Andhra Pradesh","28","Kakinada","746","Sankhavaram","4914","Rajaram","587045","Macro","Phosphorus","Low",0
+"2024-25","Tamil Nadu","33","Thanjavur","586","Pattukkottai","6326","Kondikulam","639042","Micro","Boron","Sufficient",40
+"2024-25","Rajasthan","8","Tonk","116","Tonk","790","Yusufganj @ Ramnagar","93073","Micro","Zinc","Sufficient",10
+"2024-25","Assam","18","Darrang","283","Bechimari","2523","Bargara Bagisa","947618","Micro","Boron","Deficient",16
+"2023-24","Jammu And Kashmir","1","Baramulla","3","Rohama","29","Rohama","2300","Micro","Iron","Deficient",5
+"2024-25","Andhra Pradesh","28","Sri Sathya Sai","754","Dharmavaram","4700","Pothulanagepalle","595160","Micro","Manganese","Deficient",0
+"2024-25","Rajasthan","8","Churu","96","Rajgarh","655","Mahlana Dikhnada","70128","Macro","Potassium","Low",0
+"2024-25","Rajasthan","8","Sawai Madhopur","113","Sawai Madhopur","772","Khat Kalan","77610","Macro","Potassium","Medium",6
+"2024-25","Madhya Pradesh","23","Rewa","424","Sirmour","3961","Hatawa","465527","Micro","Manganese","Sufficient",58
+"2024-25","West Bengal","19","Paschim Medinipur","318","Garbeta-I","2981","Gopalsol","336962","Macro","Phosphorus","High",8
+"2024-25","Bihar","10","Kishanganj","203","Kochadhaman","1824","Boaldah","222874","Macro","Nitrogen","High",0
+"2024-25","Tamil Nadu","33","Ramanathapuram","583","Kamudi","6279","Musittaikurichi","642030","Micro","Iron","Sufficient",3
+"2023-24","Rajasthan","8","Pratapgarh","629","Dhariawad","794","Shivpuri","107920","Micro","Copper","Deficient",0
+"2024-25","Odisha","21","Angul","344","Kishorenagar","3281","Ranibhuin","404547","Macro","Soil Ph","Alkaline",0
+"2024-25","Bihar","10","Katihar","201","Pranpur","1812","Dharhan","225363","Micro","Boron","Deficient",1
+"2023-24","Haryana","6","Ambala","58","Shahzadpur","452","Rajauli (288)","57212","Macro","Potassium","Low",196
+"2024-25","Odisha","21","Sundargarh","373","Bonaigarh","3576","Badgogua","385192","Macro","Organic Carbon","High",4
+"2024-25","Bihar","10","Muzaffarpur","208","Sakra","1892","Mahammadpur Banwari","229670","Micro","Copper","Deficient",0
+"2023-24","Gujarat","24","Porbandar","456","Porbandar","4203","Natvarnagar","514187","Macro","Nitrogen","High",0
+"2024-25","Gujarat","24","Panch Mahals","454","Kalol","4189","Mokal","518653","Micro","Zinc","Deficient",14
+"2023-24","Gujarat","24","Banas Kantha","441","Deesa","4083","Chhatrala","508367","Macro","Nitrogen","Medium",2
+"2024-25","Odisha","21","Dhenkanal","352","Bhuban","3349","Kansaragoda","402539","Micro","Iron","Deficient",0
+"2023-24","Maharashtra","27","Raigad","491","Alibag","4525","Gavkhar","554060","Micro","Manganese","Deficient",0
+"2024-25","Maharashtra","27","Jalgaon","478","Chalisgaon","4400","Mandurne","527823","Micro","Boron","Sufficient",19
+"2024-25","Karnataka","29","Vijayanagara","738","Kottur","7376","Hosa Kodihalli","605059","Micro","Copper","Sufficient",36
+"2024-25","Jharkhand","20","Gumla","331","Dumri","3155","Kanji","376165","Macro","Phosphorus","Medium",14
+"2024-25","Madhya Pradesh","23","Narsimhapur","418","Kareli","3924","Gobargaon","491379","Macro","Phosphorus","High",12
+"2024-25","Maharashtra","27","Solapur","496","Mohol","4584","Diksal","562235","Macro","Organic Carbon","High",5
+"2023-24","Madhya Pradesh","23","Barwani","393","Thikri","3760","Deola","478220","Macro","Potassium","Medium",1
+"2023-24","Rajasthan","8","Ganganagar","100","Gharsana","6719","11 Dol-B","66050","Macro","Potassium","Medium",0
+"2024-25","Rajasthan","8","Dausa","97","Dausa","661","Neem Ka Pada","926380","Micro","Copper","Deficient",0
+"2024-25","Jharkhand","20","Bokaro","322","Nawadih","3070","Birni","362255","Micro","Sulphur","Sufficient",1
+"2023-24","Madhya Pradesh","23","Sagar","425","Bina","3964","Mohansa","459589","Micro","Boron","Deficient",0
+"2023-24","West Bengal","19","Paschim Medinipur","318","Dantan-I","2976","Urisal","343827","Macro","Organic Carbon","Low",12
+"2023-24","Gujarat","24","Kachchh","449","Rapar","4155","Kalyanpar","506559","Macro","Organic Carbon","Medium",9
+"2023-24","Maharashtra","27","Kolhapur","480","Hatkanangale","4424","Korochi","567319","Macro","Phosphorus","Low",1
+"2024-25","Andhra Pradesh","28","Vizianagaram","521","Vepada","5655","Pedagudipala","583013","Macro","Potassium","Medium",0
+"2023-24","Maharashtra","27","Buldhana","472","D. Raja","4341","Jambhora","529379","Micro","Boron","Deficient",0
+"2023-24","Madhya Pradesh","23","Agar-Malwa","667","Barod","4001","Dhodhar","472374","Micro","Manganese","Deficient",0
+"2024-25","Odisha","21","Kandhamal","359","G.Udayagiri","3425","Raikala","415822","Macro","Phosphorus","High",0
+"2023-24","Jharkhand","20","Deoghar","324","Sarwan","3089","Dahua","353900","Macro","Phosphorus","High",0
+"2024-25","Madhya Pradesh","23","Mandsaur","416","Malhargarh","3911","Sudwas","469294","Micro","Sulphur","Deficient",3
+"2024-25","Gujarat","24","Mahisagar","669","Santrampur","4193","Ora","518130","Micro","Zinc","Sufficient",26
+"2023-24","West Bengal","19","Birbhum","307","Rajnagar","2840","Tabadumra","316931","Macro","Potassium","High",2
+"2024-25","Maharashtra","27","Pune","490","Khed","4518","Kharpudi Kh.","555800","Macro","Phosphorus","High",5
+"2024-25","Bihar","10","Khagaria","202","Alauli","1814","Budhaura","238572","Macro","Soil Ph","Neutral",27
+"2024-25","West Bengal","19","Purba Bardhaman","306","Kalna Ii","2807","Kumarpara","320539","Macro","Phosphorus","Low",0
+"2024-25","Odisha","21","Ganjam","354","Digapahandi","3372","Chaitanyaprasad","412948","Micro","Manganese","Sufficient",17
+"2024-25","Jharkhand","20","Saraikela Kharsawan","341","Chandil","3246","Urmal","378765","Macro","Potassium","Medium",8
+"2023-24","Rajasthan","8","Bhilwara","92","Mandalgarh","626","Gariyan","96245","Macro","Electrical Conductivity","Saline",0
+"2024-25","Rajasthan","8","Jhunjhunu","106","Nawalgarh","718","Nawalgarh","926285","Macro","Potassium","Low",0
+"2023-24","West Bengal","19","Murshidabad","319","Raghunathganj-Ii","3020","Babupur","314126","Macro","Soil Ph","Neutral",16
+"2024-25","West Bengal","19","Paschim Medinipur","318","Pingla","2997","Khanbi Chak","342675","Micro","Zinc","Sufficient",1
+"2024-25","Madhya Pradesh","23","Guna","406","Bamori","3844","Gudha","499090","Macro","Nitrogen","Low",22
+"2023-24","Andhra Pradesh","28","Alluri Sitharama Raju","745","Gangavaram","4876","Komaravaram","587086","Macro","Soil Ph","Alkaline",0
+"2024-25","Jharkhand","20","Garhwa","328","Ramkanda","3128","Nawadih","347917","Micro","Iron","Sufficient",2
+"2024-25","Odisha","21","Mayurbhanj","365","Kuliana","3500","Badbhaliadiha","389275","Macro","Phosphorus","Medium",0
+"2024-25","West Bengal","19","Paschim Medinipur","318","Daspur-Ii","2979","Kashiyara","338029","Micro","Copper","Sufficient",16
+"2024-25","Tamil Nadu","33","Theni","588","Chinnamanur","6340","Veppampatti","641117","Macro","Organic Carbon","Medium",0
+"2023-24","West Bengal","19","Murshidabad","319","Domkal","3009","Char Salikadaha","314705","Macro","Nitrogen","Low",0
+"2024-25","Maharashtra","27","Wardha","498","Seloo","4610","Wadgaon (Jangli)","533975","Micro","Copper","Sufficient",2
+"2024-25","West Bengal","19","Nadia","320","Nakashipara","3038","Chak Madandanga","321434","Macro","Soil Ph","Alkaline",0
+"2023-24","West Bengal","19","Birbhum","307","Sainthia","2843","Paschim Sahapur","317354","Macro","Soil Ph","Alkaline",0
+"2024-25","Assam","18","Dhubri","285","Nayeralga","2560","Gutipara Pt.Iii","281083","Micro","Iron","Deficient",18
+"2023-24","Chhattisgarh","22","Korba","383","Kartala","3669","Makundpur","436461","Micro","Iron","Deficient",0
+"2024-25","Andhra Pradesh","28","Eluru","748","Chintalapudi","5714","Ponukumadu","587951","Micro","Copper","Deficient",0
+"2024-25","Andhra Pradesh","28","Y.S.R. Kadapa","504","Simhadripuram","4854","Chavvaripalle","593181","Macro","Phosphorus","Medium",5
+"2024-25","Gujarat","24","Amreli","439","Dhari","4063","Garamali Moti","515702","Micro","Iron","Sufficient",15
+"2024-25","Punjab","3","Amritsar","27","Jandiala Guru","216","Jand (150)","37562","Macro","Nitrogen","Medium",0
+"2023-24","Andhra Pradesh","28","Ntr","749","Veerullapadu","5144","Ramapuram","588904","Macro","Organic Carbon","High",2
+"2024-25","Bihar","10","Kaimur (Bhabua)","200","Bhabua","1788","Paiyan","250172","Micro","Copper","Sufficient",6
+"2024-25","Odisha","21","Bargarh","347","Bargarh","3312","Ulba","380617","Macro","Phosphorus","High",88
+"2023-24","Gujarat","24","Bhavnagar","443","Gariadhar","4102","Sarambhada","516457","Macro","Potassium","High",8
+"2024-25","Bihar","10","Purbi Champaran","213","Bankatwa","1972","Jitpur","217764","Macro","Phosphorus","High",0
+"2024-25","Karnataka","29","Mandya","544","Shrirangapattana","5885","Garakahalli","614269","Macro","Nitrogen","Low",131
+"2023-24","Punjab","3","Faridkot","29","Faridkot","234","Machaki Khurd (57)","35528","Micro","Boron","Sufficient",0
+"2023-24","Madhya Pradesh","23","Ujjain","435","Badnagar","4033","Likhoda","472060","Micro","Zinc","Deficient",1
+"2024-25","West Bengal","19","Nadia","320","Tehatta-I","3042","Nishchintapur","321207","Macro","Nitrogen","Low",35
+"2024-25","Madhya Pradesh","23","Tikamgarh","434","Jatara","4028","Varana Khas","456726","Micro","Copper","Deficient",0
+"2023-24","Maharashtra","27","Gadchiroli","475","Aheri","4371","Mahagaon Kh","539838","Macro","Potassium","Medium",78
+"2023-24","West Bengal","19","South 24 Parganas","304","Magra Hat-Ii","2765","Dihi Kalas (Ct)","334102","Micro","Manganese","Sufficient",68
+"2024-25","Gujarat","24","Ahmedabad","438","Dholka","4055","Saragvala","511758","Macro","Organic Carbon","Medium",14
+"2023-24","West Bengal","19","Murshidabad","319","Raghunathganj-Ii","3020","Dighir Pahar","314125","Macro","Organic Carbon","High",3
+"2024-25","Odisha","21","Sundargarh","373","Lephripara","3584","Beheramal","383685","Micro","Boron","Sufficient",1
+"2024-25","Bihar","10","Arwal","611","Kurtha","6509","Ahmadpur Harna","260908","Macro","Nitrogen","Medium",13
+"2023-24","West Bengal","19","North 24 Parganas","303","Barrackpur-Ii","2729","Nabharanda","323123","Micro","Sulphur","Deficient",5
+"2023-24","West Bengal","19","Paschim Bardhaman","704","Salanpur","2826","Uttar Rampur","318504","Micro","Copper","Sufficient",8
+"2023-24","Madhya Pradesh","23","Anuppur","390","Anuppur","3736","Bhad","501839","Macro","Electrical Conductivity","Saline",0
+"2023-24","West Bengal","19","Purulia","321","Puncha","3058","Lakhra","331099","Macro","Nitrogen","Low",0
+"2024-25","Odisha","21","Bargarh","347","Padampur","3319","Arjunnagar","379934","Macro","Nitrogen","Medium",0
+"2024-25","Madhya Pradesh","23","Agar-Malwa","667","Susner","4007","Jeewapura","472171","Macro","Nitrogen","High",0
+"2024-25","Madhya Pradesh","23","Shahdol","429","Beohari","3995","Bara Baghelaha","500894","Micro","Boron","Sufficient",53
+"2024-25","Madhya Pradesh","23","Jabalpur","411","Jabalpur","3866","Harrai","489882","Macro","Potassium","High",1
+"2023-24","West Bengal","19","Uttar Dinajpur","311","Islampur","2882","Nachankula","308995","Macro","Potassium","Low",0
+"2024-25","Odisha","21","Gajapati","353","Kasinagar","3359","Chandrayapetta","414517","Macro","Soil Ph","Acidic",0
+"2024-25","Madhya Pradesh","23","Katni","413","Badwara","3885","Banahra","488354","Micro","Sulphur","Sufficient",8
+"2023-24","Rajasthan","8","Jodhpur","107","Bawadi","6718","Lawera Khurd","84763","Macro","Soil Ph","Neutral",0
+"2024-25","Bihar","10","Aurangabad","189","Obra","1642","Ekauna","253328","Macro","Organic Carbon","Low",2
+"2024-25","Madhya Pradesh","23","Sagar","425","Bina","3964","Dudhawani","459578","Macro","Nitrogen","High",0
+"2024-25","Tamil Nadu","33","Chengalpattu","730","St.Thomas Mount","6183","Chittlapakkam","932830","Micro","Sulphur","Sufficient",2
+"2024-25","Bihar","10","Madhubani","206","Bisfi","1852","Tisi Narsam","220360","Micro","Zinc","Sufficient",49
+"2023-24","Gujarat","24","Navsari","453","Jalalpore","4181","Asana","522926","Macro","Phosphorus","Low",0
+"2023-24","Tamil Nadu","33","Ranipet","731","Arcot","6436","Sathur","630696","Macro","Organic Carbon","Medium",15
+"2024-25","Andhra Pradesh","28","Vizianagaram","521","Nellimarla","5646","Atmaramuni Agraharam","583147","Macro","Soil Ph","Acidic",0
+"2024-25","Madhya Pradesh","23","Ashoknagar","391","Chanderi","3741","Hasari","500183","Micro","Boron","Deficient",18
+"2023-24","West Bengal","19","Purulia","321","Hura","3049","Keshargarh","330855","Macro","Potassium","Medium",21
+"2024-25","Maharashtra","27","Ahilyanagar","466","Shevgaon","4288","Madke","557891","Micro","Copper","Sufficient",5
+"2024-25","Bihar","10","Darbhanga","195","Singhwara","1730","Bisaul","226857","Macro","Nitrogen","Low",7
+"2024-25","Madhya Pradesh","23","Ashoknagar","391","Mungaoli","3743","Pipriya Malhargarh","500732","Macro","Potassium","Medium",4
+"2024-25","Madhya Pradesh","23","Jabalpur","411","Jabalpur","3866","Diya Kheda","489859","Micro","Boron","Deficient",2
+"2024-25","Odisha","21","Sundargarh","373","Subdega","3587","Dainidihi","383848","Micro","Boron","Sufficient",9
+"2024-25","Bihar","10","Araria","188","Forbesganj","1626","Samaul","221580","Micro","Iron","Sufficient",13
+"2024-25","Gujarat","24","Sabar Kantha","458","Himatnagar","4222","Agiyol","510553","Macro","Electrical Conductivity","Saline",0
+"2023-24","Madhya Pradesh","23","Vidisha","437","Nateran","4046","Boodhar","481481","Macro","Potassium","Low",0
+"2024-25","Karnataka","29","Chitradurga","533","Hiriyur","5811","Halumadenahalli","606196","Macro","Organic Carbon","Low",26
+"2024-25","Gujarat","24","Mahisagar","669","Lunawada","4191","Jamana Muvada","518332","Macro","Potassium","Low",0
+"2024-25","Gujarat","24","Ahmedabad","438","Dhandhuka","4054","Pipal","511917","Macro","Electrical Conductivity","Non Saline",35
+"2023-24","Madhya Pradesh","23","Seoni","428","Lakhnadon","3993","Kondra Mal","495738","Macro","Soil Ph","Alkaline",0
+"2023-24","Madhya Pradesh","23","Raisen","421","Sanchi","3939","Semra Kadeem","483818","Macro","Organic Carbon","High",2
+"2024-25","Madhya Pradesh","23","Dindori","404","Amarpur","3829","Bhaganwara Ryt.","492089","Macro","Soil Ph","Neutral",64
+"2023-24","West Bengal","19","Purulia","321","Purulia-Ii","3060","Chepra","329975","Macro","Nitrogen","High",0
+"2023-24","Jharkhand","20","Saraikela Kharsawan","341","Kukru","6652","Datam","378987","Micro","Copper","Sufficient",19
+"2024-25","Jharkhand","20","Lohardaga","336","Kuru","3195","Jilinga","363030","Micro","Sulphur","Sufficient",4
+"2024-25","Maharashtra","27","Parbhani","489","Sonpeth","4510","Dighol Islampur","546945","Micro","Boron","Sufficient",12
+"2024-25","Tamil Nadu","33","Kancheepuram","574","Sriperumbudur","6182","Mahanyam (Rf)","629339","Micro","Copper","Deficient",0
+"2024-25","Odisha","21","Jagatsinghapur","355","Jagatsinghpur","3389","Kantar","397990","Micro","Manganese","Deficient",0
+"2024-25","Andhra Pradesh","28","Vizianagaram","521","Santhakavati","5571","Kondagudem","581264","Macro","Nitrogen","High",0
+"2024-25","Haryana","6","Sirsa","74","Baragudha","546","Alikan(176)","60639","Macro","Nitrogen","Low",3
+"2023-24","Rajasthan","8","Nagaur","110","Nagaur","748","Barani","82848","Macro","Soil Ph","Alkaline",2
+"2023-24","West Bengal","19","Cooch Behar","308","Mathabhanga-I","2852","Bhurkuldanga","307956","Micro","Copper","Deficient",0
+"2023-24","Rajasthan","8","Rajsamand","112","Bhim","762","Jalpa","96437","Macro","Nitrogen","High",0
+"2023-24","Maharashtra","27","Sangli","493","Atpadi","4549","Khanjodwadi","568586","Macro","Soil Ph","Neutral",5
+"2023-24","Gujarat","24","Narmada","452","Garudeshwar","7129","Songam","521375","Micro","Manganese","Deficient",0
+"2024-25","Rajasthan","8","Jhunjhunu","106","Chirawa","715","Nari","71279","Micro","Boron","Sufficient",0
+"2024-25","West Bengal","19","North 24 Parganas","303","Baduria","2724","Rajbaria","323468","Macro","Phosphorus","High",13
+"2024-25","West Bengal","19","Birbhum","307","Dubrajpur","2828","Kapastari","318140","Micro","Iron","Sufficient",4
+"2024-25","Rajasthan","8","Tonk","116","Malpura","787","Bheepur","92594","Micro","Iron","Deficient",8
+"2023-24","Sikkim","11","Mangan","226","Mangan","2156","Sentam","260939","Macro","Organic Carbon","Low",6
+"2023-24","Andhra Pradesh","28","Sri Potti Sriramulu Nellore","515","Kandukur","5471","Vikkiralapeta","591530","Micro","Boron","Sufficient",13
+"2023-24","West Bengal","19","Malda","316","Habibpur","2937","Nakail","312935","Micro","Zinc","Deficient",0
+"2023-24","Rajasthan","8","Ganganagar","100","Sadulshahar","679","11 Krw","64734","Macro","Phosphorus","Low",0
+"2024-25","Rajasthan","8","Banswara","88","Sajjangarh","595","Somaji Para","99700","Macro","Nitrogen","Low",0
+"2024-25","Madhya Pradesh","23","Shahdol","429","Sohagpur","3999","Kunar Seja","501334","Macro","Electrical Conductivity","Saline",0
+"2024-25","Tamil Nadu","33","Thanjavur","586","Thanjavur","6329","Valampuri Unit","932534","Macro","Soil Ph","Acidic",0
+"2024-25","Uttar Pradesh","9","Kushinagar","160","Padrauna","1317","Dharampur Buzurg","188659","Macro","Phosphorus","Medium",50
+"2024-25","Uttar Pradesh","9","Farrukhabad","141","Barhpur","1096","Rampur Daferpur","146212","Micro","Boron","Sufficient",197
+"2024-25","Tamil Nadu","33","Karur","576","Karur","6200","N.Kadambankurichi","635552","Micro","Sulphur","Sufficient",5
+"2023-24","West Bengal","19","Birbhum","307","Suri-Ii","2845","Damdam","317145","Macro","Potassium","High",0
+"2023-24","Rajasthan","8","Bhilwara","92","Suwana","630","Suwana","95554","Micro","Iron","Sufficient",22
+"2023-24","Andhra Pradesh","28","Chittoor","503","Nagari","4773","Agaram","596387","Micro","Sulphur","Deficient",4
+"2024-25","Madhya Pradesh","23","Damoh","400","Damoh","3801","Parasai","462269","Macro","Phosphorus","Medium",5
+"2024-25","Rajasthan","8","Tonk","116","Todaraisingh","789","Ramsinghpura","93156","Macro","Organic Carbon","Low",24
+"2023-24","Gujarat","24","Jamnagar","447","Jamjodhpur","4124","Mota Vadiya","514122","Micro","Sulphur","Sufficient",8
+"2024-25","West Bengal","19","Birbhum","307","Rampurhat-I","2841","Banhat","316368","Micro","Boron","Deficient",29
+"2024-25","Rajasthan","8","Banswara","88","Ghatol","592","Badana","98552","Micro","Zinc","Deficient",10
+"2023-24","Madhya Pradesh","23","Khargone (West Nimar)","414","Khargone","3896","Kolyapura","477552","Micro","Boron","Deficient",1
+"2024-25","West Bengal","19","South 24 Parganas","304","Jaynagar-I","2759","Gumuk Beria","334951","Micro","Copper","Deficient",0
+"2023-24","West Bengal","19","North 24 Parganas","303","Haroa","2737","Makhali","323692","Micro","Boron","Deficient",12
+"2024-25","Assam","18","Sonitpur","301","Balipara","2703","Tara Bari (A)","286158","Micro","Copper","Deficient",0
+"2023-24","Uttar Pradesh","9","Auraiya","122","Sahar","865","Bhahadur Pur Sahar","148350","Macro","Electrical Conductivity","Non Saline",100
+"2023-24","Gujarat","24","Gandhinagar","446","Kalol","4120","Pansar","511145","Macro","Phosphorus","Low",0
+"2024-25","Madhya Pradesh","23","Rewa","424","Teonthar","3962","Bara Kalan","465077","Micro","Manganese","Sufficient",7
+"2024-25","Madhya Pradesh","23","Khargone (West Nimar)","414","Barwah","3891","Sangvi","476770","Macro","Phosphorus","High",0
+"2024-25","Gujarat","24","Arvalli","672","Modasa","4227","Rampur (Sinavad)","510770","Micro","Copper","Deficient",0
+"2023-24","West Bengal","19","Purba Medinipur","317","Kolaghat","2958","Bara Barisha (P)","344430","Macro","Nitrogen","Low",11
+"2024-25","Andhra Pradesh","28","Nandyal","755","Kothapalle","5175","Guvvalakunta","593966","Macro","Phosphorus","High",29
+"2024-25","Odisha","21","Mayurbhanj","365","Joshipur","3496","Balijodi","388455","Macro","Potassium","Low",5
+"2023-24","Assam","18","Goalpara","287","Rongjuli","2577","Domnapara","282473","Micro","Manganese","Sufficient",0
+"2024-25","West Bengal","19","Hooghly","312","Dhaniakhali","2892","Deulpara","324600","Macro","Potassium","Low",0
+"2024-25","Madhya Pradesh","23","Betul","394","Betul","3763","Kumhartak","485603","Macro","Phosphorus","High",0
+"2024-25","Madhya Pradesh","23","Morena","417","Sabalgarh","3920","Hirapur","452677","Micro","Boron","Deficient",13
+"2024-25","Madhya Pradesh","23","Bhopal","396","Berasia","3777","Garenthiya Bazyft","482192","Micro","Manganese","Sufficient",11
+"2024-25","Madhya Pradesh","23","Umaria","436","Manpur","4040","Amarpur","467884","Micro","Manganese","Sufficient",26
+"2023-24","Bihar","10","Purbi Champaran","213","Ghorasahan","1977","Amwa","217779","Micro","Iron","Deficient",0
+"2024-25","Rajasthan","8","Churu","96","Sujangarh","658","Basi Agooni","70786","Macro","Phosphorus","High",0
+"2024-25","West Bengal","19","Jhargram","703","Binpur-I","2972","Baratilabani","336015","Macro","Soil Ph","Alkaline",0
+"2023-24","West Bengal","19","Nadia","320","Nakashipara","3038","Chak Shukpukuria","321445","Micro","Zinc","Sufficient",4
+"2023-24","West Bengal","19","Purba Medinipur","317","Panskura-I","2964","Chaugere","344334","Micro","Zinc","Deficient",1
+"2024-25","Rajasthan","8","Alwar","87","Govindgarh","7397","Nyana","73486","Micro","Sulphur","Sufficient",30
+"2024-25","Gujarat","24","Mahisagar","669","Kadana","4188","Vachhalawada","517872","Micro","Manganese","Deficient",0
+"2024-25","Bihar","10","Saharsa","216","Sour Bazar","2038","Bhada","226489","Macro","Soil Ph","Alkaline",0
+"2023-24","West Bengal","19","Birbhum","307","Nanoor","2839","Ramkrishnapur","317687","Macro","Phosphorus","Medium",5
+"2024-25","Gujarat","24","Mahesana","451","Satlasna","4170","Chelana","509123","Micro","Boron","Deficient",7
+"2024-25","Uttar Pradesh","9","Bahraich","125","Mihinpurwa","900","Songawa","171274","Macro","Soil Ph","Acidic",0
+"2024-25","Andhra Pradesh","28","Eluru","748","Koyyalagudem","5728","Kuntalagudem","588165","Micro","Zinc","Sufficient",1
+"2024-25","Andhra Pradesh","28","Alluri Sitharama Raju","745","Chintoor","5062","Vegithota","579191","Macro","Phosphorus","High",7
+"2024-25","Bihar","10","Vaishali","224","Chehrakala","2139","Rampur Dumri","235064","Macro","Soil Ph","Neutral",8
+"2024-25","Madhya Pradesh","23","Mandsaur","416","Bhanpura","3909","Nayagaon","935215","Macro","Phosphorus","High",4
+"2024-25","West Bengal","19","Nadia","320","Chapra","3028","Brittihuda","321557","Macro","Potassium","Low",7
+"2023-24","Bihar","10","Madhubani","206","Laukaha (Khutauna)","1861","Bela","220009","Macro","Electrical Conductivity","Non Saline",58
+"2024-25","Maharashtra","27","Nashik","487","Trimbak","4492","Metkawara","550892","Micro","Zinc","Sufficient",0
+"2024-25","West Bengal","19","Jhargram","703","Jambani","2987","Bijrabandh","340120","Macro","Electrical Conductivity","Non Saline",3
+"2024-25","Gujarat","24","Bharuch","442","Vagra","4097","Vav","522039","Micro","Boron","Sufficient",4
+"2024-25","Rajasthan","8","Bikaner","93","Lunkaransar","633","Loonkaransar","69286","Macro","Phosphorus","Low",0
+"2024-25","Rajasthan","8","Deeg","767","Kumher","614","Dandoo","74555","Macro","Potassium","Medium",34
+"2024-25","Rajasthan","8","Bundi","94","Nainwa","638","Rajlawata","93881","Macro","Electrical Conductivity","Non Saline",20
+"2024-25","Uttar Pradesh","9","Unnao","186","Bighapur","1604","Belhadyal Ganj","142743","Micro","Sulphur","Sufficient",100
+"2023-24","Andhra Pradesh","28","Krishna","510","Movva","5125","Avurupudi","589680","Macro","Electrical Conductivity","Non Saline",30
+"2024-25","Odisha","21","Kendujhar","361","Harichadanpur","3448","Kaberiposi","386487","Macro","Phosphorus","Medium",18
+"2024-25","Madhya Pradesh","23","Narsimhapur","418","Chawarpatha","3922","Kothiya","490706","Macro","Potassium","High",31
+"2023-24","Gujarat","24","Kachchh","449","Bhachau","4148","Bharudia","506633","Macro","Organic Carbon","High",1
+"2023-24","West Bengal","19","Cooch Behar","308","Dinhata-I","2848","Khar Kharia","308521","Macro","Phosphorus","Medium",0
+"2024-25","Madhya Pradesh","23","Umaria","436","Manpur","4040","Urdana","467942","Macro","Potassium","High",13
+"2023-24","Gujarat","24","Banas Kantha","441","Danta","4081","Gangva","507934","Macro","Potassium","Low",2
+"2023-24","Gujarat","24","Banas Kantha","441","Lakhani","7119","Detal Duva","507585","Micro","Iron","Sufficient",8
+"2024-25","Madhya Pradesh","23","Barwani","393","Thikri","3760","Sakad","478262","Macro","Potassium","Low",0
+"2024-25","Odisha","21","Jajpur","356","Badchana","3394","Ramadaspur","401819","Micro","Manganese","Sufficient",35
+"2024-25","Madhya Pradesh","23","Harda","408","Harda","3852","Kunjargaon","486889","Macro","Organic Carbon","High",146
+"2024-25","Telangana","36","Jogulamba Gadwal","695","Ghattu","5224","Aragidda","576267","Macro","Soil Ph","Acidic",0
+"2024-25","Uttarakhand","5","Pauri Garhwal","52","Khirsu","404","Chopda","45545","Micro","Iron","Deficient",4
+"2024-25","Bihar","10","Gopalganj","197","Kuchaikote","1763","Tula Chhapar","230311","Macro","Nitrogen","Low",9
+"2024-25","Bihar","10","Rohtas","215","Nokha","2021","Shivpur","251565","Macro","Nitrogen","Medium",10
+"2024-25","Odisha","21","Kendrapara","360","Rajkanika","3441","Gunthala","395604","Macro","Soil Ph","Acidic",2
+"2024-25","Jammu And Kashmir","1","Pulwama","11","Pulwama","109","Bandzoo","3228","Micro","Boron","Deficient",0
+"2024-25","Bihar","10","Aurangabad","189","Kutumba","1639","Ghoghra","254127","Macro","Phosphorus","Medium",2
+"2024-25","Jharkhand","20","Hazaribagh","332","Ichak","3169","Chhaoni","368095","Macro","Organic Carbon","Medium",0
+"2024-25","Bihar","10","Araria","188","Narpatganj","1629","Ajitnagar","221531","Micro","Copper","Sufficient",19
+"2023-24","Bihar","10","Buxar","194","Simri","1713","Ekauna","247857","Micro","Copper","Deficient",0
+"2024-25","Maharashtra","27","Thane","497","Bhiwandi","4590","Pimpalshet Bhuishet","552463","Micro","Zinc","Sufficient",2
+"2024-25","Odisha","21","Kandhamal","359","Kotagarh","3428","Budaguda","416969","Micro","Manganese","Sufficient",4
+"2024-25","Bihar","10","Siwan","222","Darauli","2111","Tariwan","232342","Macro","Soil Ph","Acidic",0
+"2023-24","Madhya Pradesh","23","Mauganj","766","Naigarhi","3958","Mauliya","466985","Micro","Iron","Deficient",0
+"2024-25","Odisha","21","Balangir","345","Balangir","3285","Sargadpali","420126","Macro","Soil Ph","Acidic",0
+"2023-24","Madhya Pradesh","23","Chhindwara","399","Jamai","3794","Bichhuwa","494470","Micro","Copper","Sufficient",1
+"2023-24","Gujarat","24","Patan","455","Santalpur","4200","Navagam","508662","Macro","Potassium","Medium",0
+"2023-24","Madhya Pradesh","23","Neemuch","419","Neemuch","3929","Narsinghpura","468601","Macro","Organic Carbon","Medium",3
+"2023-24","Rajasthan","8","Udaipur","117","Gogunda","796","Jaswant Garh","105683","Macro","Phosphorus","Medium",10
+"2024-25","Bihar","10","Nalanda","209","Harnaut","1901","Tar Bigha","244261","Micro","Sulphur","Deficient",2
+"2023-24","Madhya Pradesh","23","Chhindwara","399","Chaurai","3791","Nandna","494341","Macro","Phosphorus","Low",0
+"2023-24","Gujarat","24","Vadodara","461","Dabhoi","4258","Karmal","521016","Macro","Potassium","High",9
+"2023-24","Maharashtra","27","Nashik","487","Igatpuri","4483","Nandurvaidya","551059","Macro","Potassium","High",11
+"2024-25","Himachal Pradesh","2","Shimla","23","Kupvi","7348","Jokhar (131)","25598","Macro","Soil Ph","Neutral",64
+"2024-25","Rajasthan","8","Jaisalmer","103","Bhaniyana","7449","Jograjgarh","86426","Macro","Electrical Conductivity","Non Saline",30
+"2024-25","Andhra Pradesh","28","Ananthapuramu","502","Kambadur","4711","Ralla Anantapuram","595139","Micro","Manganese","Sufficient",27
+"2023-24","Bihar","10","Nalanda","209","Hilsa","1902","Kusaita","244777","Macro","Organic Carbon","Low",53
+"2023-24","Madhya Pradesh","23","Barwani","393","Sendhawa","3759","Julwaniya","478591","Micro","Manganese","Sufficient",8
+"2023-24","West Bengal","19","Jalpaiguri","314","Maynaguri","2929","Panbari","307511","Macro","Potassium","Low",3
+"2024-25","Haryana","6","Palwal","619","Prithla","6734","Kaluka (212)","63765","Macro","Nitrogen","High",0
+"2024-25","Maharashtra","27","Parbhani","489","Purna","4508","Dagadwadi","547252","Micro","Sulphur","Sufficient",1
+"2024-25","West Bengal","19","Bankura","305","Barjora","2776","Mathuradanga","327353","Micro","Sulphur","Deficient",0
+"2024-25","Madhya Pradesh","23","Barwani","393","Barwani","3754","Nandgaon","477998","Macro","Soil Ph","Alkaline",0

@@ -24,7 +24,7 @@ def generate_openrouter_advisory(prompt: str) -> str:
             "Content-Type": "application/json",
         },
         json={
-            "model": "openrouter/free",
+            "model": "nex-agi/nex-n2.5-mini:free",
             "messages": [
                 {
                     "role": "user",
@@ -36,6 +36,8 @@ def generate_openrouter_advisory(prompt: str) -> str:
     )
 
     print(f"[PERF] OpenRouter: {time.perf_counter() - openrouter_start:.2f}s")
+    print(f"[DEBUG] OpenRouter status: {response.status_code}")
+    print(f"[DEBUG] OpenRouter body: {response.text[:1000]}")
 
     response.raise_for_status()
     data = response.json()
@@ -84,18 +86,37 @@ Return only the farmer advisory.
         return fallback_response
 
 
-def generate_chat_reply(message: str) -> str:
+def generate_chat_reply(message: str, language: str = "hinglish") -> str:
+    if language == "english":
+        language_instruction = "Answer only in simple English."
+    else:
+        language_instruction = "Answer only in simple Hindi using Devanagari script."
+
     prompt = f"""
 You are KrashiMitra AI, a helpful agriculture assistant for Indian farmers.
 
-Answer the farmer naturally and directly in simple Hindi or easy Hinglish.
-Be friendly, practical, and concise.
-Do not invent facts, disease names, medicines, or treatments.
+{language_instruction}
+
+STRICT LANGUAGE RULES:
+- Use only Hindi and English/Hinglish.
+- Do NOT use Japanese, Bengali, Gujarati, Punjabi, Tamil, Telugu, or any other language.
+- Do NOT use random Unicode words or characters from other languages.
+- Do not mix languages unnecessarily.
+- Keep the answer natural, simple, and farmer-friendly.
+- You may use normal English agriculture terms when commonly used.
+- Before returning the answer, check that no words from another language or script are present.
+- For Hindi, use Devanagari script. Do not use Hinglish or Roman Hindi.
+
+SAFETY RULES:
+- Do not invent facts, disease names, medicines, treatments, or chemical dosages.
+- Do not give specific pesticide/fungicide dosage unless it is explicitly provided in reliable context.
+- If the exact treatment is uncertain, recommend consulting a local agricultural expert/KVK.
+- Be practical and concise.
 
 Farmer's question:
 {message}
 
-Return only the answer.
+Return only the final answer.
 """
 
     try:
@@ -108,4 +129,11 @@ Return only the answer.
 
     except Exception as gemini_error:
         print(f"Gemini chat failed: {gemini_error}")
-        return generate_openrouter_advisory(prompt)
+
+        try:
+            return generate_openrouter_advisory(prompt)
+        except Exception as openrouter_error:
+            print(f"OpenRouter chat failed: {openrouter_error}")
+            return (
+                "AI service is temporarily unavailable. Please try again in a moment."
+            )
