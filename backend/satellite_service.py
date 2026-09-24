@@ -2,7 +2,7 @@ import time
 import ee
 from datetime import date
 
-EE_PROJECT = "graphic-adapter-380009"
+EE_PROJECT = "krashimitra-ai-2026"
 
 
 def initialize_earth_engine():

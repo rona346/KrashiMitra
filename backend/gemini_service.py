@@ -4,11 +4,14 @@ from google.genai import types
 import os
 import requests
 
+print("GEMINI_API_KEY loaded:", bool(os.environ.get("GEMINI_API_KEY")))
+
 client = genai.Client(
+    api_key=os.environ.get("GEMINI_API_KEY"),
     http_options={
         "timeout": 10000,
         "retry_options": {"attempts": 1},
-    }
+    },
 )
 
 
