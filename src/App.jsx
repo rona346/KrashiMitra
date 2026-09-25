@@ -958,7 +958,7 @@ function App() {
                             }}
                           >
                             {crop.reasons.map((reason, rIdx) => (
-                              <li key={rIdx}>{formatCropReason(reason, language)}</li>
+                              <li key={rIdx}>{formatCropReason(reason, language, crop.crop, result?.soil_moisture)}</li>
                             ))}
                           </ul>
                         </div>
@@ -1472,10 +1472,49 @@ function formatInlineText(text) {
   });
 }
 
-function formatCropReason(reason, language) {
-  if (!reason || language === "english") return reason;
+const CROP_MOISTURE_PROFILES = {
+  Mustard: { min: 30, max: 60, range: "30–60%", nameHi: "सरसों (Mustard: 30–60%)" },
+  Wheat: { min: 40, max: 70, range: "40–70%", nameHi: "गेहूं (Wheat: 40–70%)" },
+  Rice: { min: 60, max: 90, range: "60–90%", nameHi: "धान (Rice: 60–90%)" },
+  Maize: { min: 45, max: 70, range: "45–70%", nameHi: "मक्का (Maize: 45–70%)" },
+  Chickpea: { min: 30, max: 60, range: "30–60%", nameHi: "चना (Chickpea: 30–60%)" },
+  Cotton: { min: 40, max: 75, range: "40–75%", nameHi: "कपास (Cotton: 40–75%)" },
+};
+
+function formatCropReason(reason, language, cropName, soilMoisture) {
+  if (!reason) return reason;
 
   const r = reason.trim();
+  const profile = CROP_MOISTURE_PROFILES[cropName];
+
+  // Crop-specific moisture statement in both English & Hindi
+  if (profile && r.includes("soil moisture")) {
+    const m = soilMoisture != null && soilMoisture !== "" ? Math.round(Number(soilMoisture)) : 62;
+
+    if (r === "Current soil moisture is within the crop's broad suitable range.") {
+      if (language === "english") {
+        return `Current soil moisture (${m}%) is within ${cropName}'s suitable range (${profile.range}).`;
+      }
+      return `वर्तमान मिट्टी की नमी (${m}%) ${profile.nameHi} के अनुकूल दायरे में है।`;
+    }
+
+    if (r === "Current soil moisture is slightly outside the broad suitable range.") {
+      const isAbove = m > profile.max;
+      if (language === "english") {
+        return `Current soil moisture (${m}%) is slightly ${isAbove ? "above" : "below"} ${cropName}'s ideal range (${profile.range}).`;
+      }
+      return `वर्तमान मिट्टी की नमी (${m}%) ${profile.nameHi} के आदर्श दायरे से थोड़ी ${isAbove ? "अधिक" : "कम"} है।`;
+    }
+
+    if (r === "Current soil moisture is outside the broad suitable range.") {
+      if (language === "english") {
+        return `Current soil moisture (${m}%) is outside ${cropName}'s suitable range (${profile.range}).`;
+      }
+      return `वर्तमान मिट्टी की नमी (${m}%) ${profile.nameHi} के उपयुक्त दायरे से बाहर है।`;
+    }
+  }
+
+  if (!reason || language === "english") return reason;
 
   // Soil pH
   if (r === "Soil pH is reported as neutral.") {
@@ -1485,7 +1524,7 @@ function formatCropReason(reason, language) {
     return "मिट्टी का pH क्षारीय (alkaline) स्तर पर है।";
   }
 
-  // Soil moisture
+  // Generic soil moisture fallback
   if (r === "Current soil moisture is within the crop's broad suitable range.") {
     return "वर्तमान मिट्टी की नमी फसल के उपयुक्त दायरे में है।";
   }
