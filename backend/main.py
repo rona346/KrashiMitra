@@ -57,6 +57,7 @@ async def analyze_crop(
     soil_moisture: float = Form(62.0),
     latitude: float = Form(24.5854),
     longitude: float = Form(73.7125),
+    language: str = Form("hinglish"),
 ):
     start_time = time.perf_counter()
     image_path = f"temp_{file.filename}"
@@ -124,7 +125,7 @@ async def analyze_crop(
         }
         advisory_start = time.perf_counter()
 
-        advisory = generate_advisory(farm_context)
+        advisory = generate_advisory(farm_context, language=language)
 
         print(f"[PERF] AI Advisory: {time.perf_counter() - advisory_start:.2f}s")
 
@@ -146,6 +147,8 @@ async def analyze_crop(
             "crop_recommendations": crop_recommendations,
             "agristack": agristack_context,
             "advisory": advisory,
+            "advisory_en": getattr(advisory, "advisory_en", str(advisory)),
+            "advisory_hi": getattr(advisory, "advisory_hi", str(advisory)),
         }
 
     finally:

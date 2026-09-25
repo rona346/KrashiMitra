@@ -216,6 +216,7 @@ function App() {
     formData.append("soil_moisture", soilMoisture !== "" ? soilMoisture : "62.0");
     formData.append("latitude", latitude !== "" ? latitude : "24.5854");
     formData.append("longitude", longitude !== "" ? longitude : "73.7125");
+    formData.append("language", language);
 
     try {
       const response = await fetch(`${API_URL}/analyze`, {
@@ -848,7 +849,12 @@ function App() {
             </div>
 
             <div className="km-advisory-container">
-              {renderFormattedAdvisory(result.advisory)}
+              {renderFormattedAdvisory(
+                language === "hinglish"
+                  ? (result.advisory_hi || result.advisory)
+                  : (result.advisory_en || result.advisory),
+                language
+              )}
             </div>
           </section>
 
@@ -926,7 +932,7 @@ function App() {
                                 : "km-badge-red"
                           }`}
                         >
-                          {crop.suitability} SUITABILITY
+                          {crop.suitability} {language === "english" ? "SUITABILITY" : "उपयुक्तता"}
                         </span>
                       </div>
 
@@ -940,7 +946,7 @@ function App() {
                       {crop.reasons?.length > 0 && (
                         <div>
                           <strong style={{ fontSize: "12px", color: "#334155" }}>
-                            Agronomic Rationale:
+                            {language === "english" ? "Agronomic Rationale:" : "सिफारिश का कारण (Agronomic Rationale):"}
                           </strong>
                           <ul
                             style={{
@@ -952,7 +958,7 @@ function App() {
                             }}
                           >
                             {crop.reasons.map((reason, rIdx) => (
-                              <li key={rIdx}>{reason}</li>
+                              <li key={rIdx}>{formatCropReason(reason, language)}</li>
                             ))}
                           </ul>
                         </div>
@@ -963,7 +969,9 @@ function App() {
               </div>
             ) : (
               <p style={{ margin: 0, color: "#64748b", fontSize: "14px" }}>
-                No alternative crop recommendations available for current telemetry.
+                {language === "english"
+                  ? "No alternative crop recommendations available for current telemetry."
+                  : "वर्तमान परिस्थितियों के लिए कोई वैकल्पिक फसल सिफारिश उपलब्ध नहीं है।"}
               </p>
             )}
 
@@ -979,10 +987,10 @@ function App() {
                   fontSize: "12px",
                 }}
               >
-                <strong>Data Limitations:</strong>
+                <strong>{language === "english" ? "Data Limitations:" : "डेटा सीमाएं (Data Limitations):"}</strong>
                 <ul style={{ margin: "4px 0 0", paddingLeft: "16px" }}>
                   {result.crop_recommendations.limitations.map((lim, lIdx) => (
-                    <li key={lIdx}>{lim}</li>
+                    <li key={lIdx}>{formatCropLimitation(lim, language)}</li>
                   ))}
                 </ul>
               </div>
@@ -1464,8 +1472,104 @@ function formatInlineText(text) {
   });
 }
 
+function formatCropReason(reason, language) {
+  if (!reason || language === "english") return reason;
+
+  const r = reason.trim();
+
+  // Soil pH
+  if (r === "Soil pH is reported as neutral.") {
+    return "मिट्टी का pH सामान्य (neutral) स्तर पर है।";
+  }
+  if (r === "Soil pH is reported as alkaline.") {
+    return "मिट्टी का pH क्षारीय (alkaline) स्तर पर है।";
+  }
+
+  // Soil moisture
+  if (r === "Current soil moisture is within the crop's broad suitable range.") {
+    return "वर्तमान मिट्टी की नमी फसल के उपयुक्त दायरे में है।";
+  }
+  if (r === "Current soil moisture is slightly outside the broad suitable range.") {
+    return "वर्तमान मिट्टी की नमी उपयुक्त दायरे से थोड़ी बाहर है।";
+  }
+  if (r === "Current soil moisture is outside the broad suitable range.") {
+    return "वर्तमान मिट्टी की नमी उपयुक्त दायरे से बाहर है।";
+  }
+
+  // Rainfall
+  const rainMatch = r.match(/Available rainfall probability data was considered \((\d+)%\)\./);
+  if (rainMatch) {
+    return `उपलब्ध वर्षा संभावना डेटा (${rainMatch[1]}%) को ध्यान में रखा गया।`;
+  }
+
+  // NPK
+  if (r === "Available soil NPK values were considered for crop suitability.") {
+    return "फसल उपयुक्तता के लिए उपलब्ध मिट्टी NPK मानों को ध्यान में रखा गया।";
+  }
+
+  return reason;
+}
+
+function formatCropLimitation(limitation, language) {
+  if (!limitation || language === "english") return limitation;
+
+  const l = limitation.trim();
+
+  const phUnmappedMatch = l.match(/Soil pH category '(.*?)' is not mapped\./);
+  if (phUnmappedMatch) {
+    return `मिट्टी pH श्रेणी '${phUnmappedMatch[1]}' मैप नहीं है।`;
+  }
+  if (l === "Soil pH category is unavailable." || l === "Soil pH is unavailable.") {
+    return "मिट्टी का pH उपलब्ध नहीं है।";
+  }
+  if (l === "Current soil moisture is unavailable.") {
+    return "वर्तमान मिट्टी की नमी उपलब्ध नहीं है।";
+  }
+  if (l === "Weather data is unavailable.") {
+    return "मौसम डेटा उपलब्ध नहीं है।";
+  }
+  if (l === "Soil NPK values are unavailable.") {
+    return "मिट्टी NPK मान उपलब्ध नहीं हैं।";
+  }
+
+  return limitation;
+}
+
+function formatAdvisoryHeader(title, language) {
+  if (!title) return title;
+  const t = title.trim().toLowerCase();
+  if (language === "hinglish") {
+    if (t.includes("main risk") || t.includes("agricultural risk") || t.includes("identified risk")) {
+      return "मुख्य जोखिम (Main Risk):";
+    }
+    if (t.includes("why the risk matters") || t.includes("why the risk is higher") || t.includes("risk factor") || t.includes("important factor")) {
+      return "जोखिम क्यों महत्वपूर्ण है (Why the Risk Matters):";
+    }
+    if (t.includes("what to do now") || t.includes("practical action") || t.includes("action step") || t.includes("recommended action")) {
+      return "अभी क्या करें (What to Do Now):";
+    }
+    if (t.includes("more information needed") || t.includes("additional information") || t.includes("more info")) {
+      return "अतिरिक्त जानकारी की आवश्यकता (More Info Needed):";
+    }
+  } else if (language === "english") {
+    if (t.includes("मुख्य जोखिम")) {
+      return "Main Agricultural Risk:";
+    }
+    if (t.includes("जोखिम क्यों महत्वपूर्ण है") || t.includes("जोखिम के कारण")) {
+      return "Why the Risk Matters:";
+    }
+    if (t.includes("अभी क्या करें") || t.includes("व्यावहारिक कदम")) {
+      return "What to Do Now (Practical Actions):";
+    }
+    if (t.includes("अतिरिक्त जानकारी")) {
+      return "More Information Needed:";
+    }
+  }
+  return title;
+}
+
 // Custom Markdown parser for AI Advisory without raw symbols
-function renderFormattedAdvisory(text) {
+function renderFormattedAdvisory(text, language = "hinglish") {
   if (!text) return <p>AI advisory is currently unavailable.</p>;
 
   const lines = text.split("\n");
@@ -1482,7 +1586,7 @@ function renderFormattedAdvisory(text) {
       return (
         <h4 key={idx} className="km-advisory-section-heading">
           <span>🌿</span>
-          <span>{cleanHeader}</span>
+          <span>{formatAdvisoryHeader(cleanHeader, language)}</span>
         </h4>
       );
     }
@@ -1497,7 +1601,7 @@ function renderFormattedAdvisory(text) {
       return (
         <h4 key={idx} className="km-advisory-section-heading">
           <span>📌</span>
-          <span>{cleanTitle}</span>
+          <span>{formatAdvisoryHeader(cleanTitle, language)}</span>
         </h4>
       );
     }
