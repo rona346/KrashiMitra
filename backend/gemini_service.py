@@ -17,6 +17,7 @@ client = genai.Client(
 
 class AdvisoryResult(str):
     """String subclass that also carries advisory_en and advisory_hi attributes and dict-like access."""
+
     def __new__(cls, content, advisory_en=None, advisory_hi=None):
         obj = super().__new__(cls, content)
         obj.advisory_en = advisory_en or content
@@ -59,7 +60,7 @@ def generate_openrouter_advisory(prompt: str) -> str:
             "Content-Type": "application/json",
         },
         json={
-            "model": "nex-agi/nex-n2.5-mini:free",
+            "model": "openrouter/free",
             "messages": [
                 {
                     "role": "user",
@@ -142,7 +143,9 @@ Return only the farmer advisory.
 
     en_advisory, hi_advisory = split_bilingual_advisory(raw_output)
     selected_advisory = hi_advisory if language != "english" else en_advisory
-    return AdvisoryResult(selected_advisory, advisory_en=en_advisory, advisory_hi=hi_advisory)
+    return AdvisoryResult(
+        selected_advisory, advisory_en=en_advisory, advisory_hi=hi_advisory
+    )
 
 
 def generate_chat_reply(message: str, language: str = "hinglish") -> str:
