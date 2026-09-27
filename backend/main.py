@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import requests
 import os
 import time
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 
 
 from backend.models.harimitra.harimitra_inference import predict_disease
@@ -159,25 +159,25 @@ async def analyze_crop(
 
 
 class ChatRequest(BaseModel):
-    message: str
+    message: str = Field(
+        ...,
+        min_length=1,
+        max_length=1000,
+        description="Farmer's chat question message",
+    )
     language: str = "hinglish"
+
+    @field_validator("message")
+    @classmethod
+    def validate_message(cls, v: str) -> str:
+        clean = v.strip()
+        if not clean:
+            raise ValueError("Message cannot be empty or whitespace only.")
+        if len(clean) > 1000:
+            raise ValueError("Message exceeds the maximum allowed length of 1000 characters.")
+        return clean
 
 
 @app.post("/chat")
 async def chat_with_gemma(request: ChatRequest):
-    prompt = f"""
-You are KrishiMitra AI, a helpful agriculture assistant for Indian farmers.
-
-Answer the farmer naturally and directly in simple Hindi or easy Hinglish.
-Be friendly, practical, and concise.
-Stay focused on the farmer's exact question.
-Do not mix Bengali, Gujarati, or other languages.
-Do not invent facts, disease names, medicines, or treatments.
-If you cannot determine the exact cause from the question, say that clearly
-and suggest what the farmer should check or ask them to upload a crop/leaf photo.
-
-Farmer's question:
-{request.message}
-"""
-
     return {"reply": generate_chat_reply(request.message, request.language)}
