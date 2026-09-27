@@ -855,3 +855,110 @@
 @keyframes km-spin {
   to { transform: rotate(360deg); }
 }
+
+/* Voice Assistant Styles */
+.km-mic-btn {
+  padding: 11px 16px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #334155;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.km-mic-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.km-mic-btn.listening {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #dc2626;
+  animation: km-pulse-glow 1.5s infinite;
+}
+
+.km-mic-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@keyframes km-pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.km-tts-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #15803d;
+  background: #ffffff;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.km-tts-btn:hover {
+  background: #dcfce7;
+  border-color: #4ade80;
+}
+
+.km-tts-btn.playing {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.km-tts-btn.playing:hover {
+  background: #fecaca;
+}
+
+.km-voice-listening-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #dc2626;
+  padding: 6px 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  width: fit-content;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.km-voice-pulse {
+  width: 9px;
+  height: 9px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  animation: km-blink 1s ease-in-out infinite;
+}
+
+@keyframes km-blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+.km-voice-error {
+  margin: 8px 0 0;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 500;
+}

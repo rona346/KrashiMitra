@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 
 // -------------------------------------------------------------------
@@ -135,6 +135,35 @@ function IconWaterTap({ size = 18, color = "currentColor" }) {
   );
 }
 
+function IconMic({ size = 16, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+      <line x1="12" y1="19" x2="12" y2="22" />
+      <line x1="8" y1="22" x2="16" y2="22" />
+    </svg>
+  );
+}
+
+function IconVolume({ size = 16, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+    </svg>
+  );
+}
+
+function IconSquare({ size = 14, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+    </svg>
+  );
+}
+
 // -------------------------------------------------------------------
 // Main Component
 // -------------------------------------------------------------------
@@ -155,8 +184,82 @@ function App() {
   const [longitude, setLongitude] = useState("");
   const [isDragOver, setIsDragOver] = useState(false);
 
+  // Voice Assistant State
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceError, setVoiceError] = useState("");
+
   const fileInputRef = useRef(null);
+  const recognitionRef = useRef(null);
+  const languageRef = useRef(language);
   const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
+  // Keep languageRef synchronized
+  useEffect(() => {
+    languageRef.current = language;
+  }, [language]);
+
+  // Cleanup speech synthesis and recognition on unmount
+  useEffect(() => {
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.onresult = null;
+          recognitionRef.current.onerror = null;
+          recognitionRef.current.onend = null;
+          recognitionRef.current.abort();
+        } catch {
+          // ignore
+        }
+        recognitionRef.current = null;
+      }
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        try {
+          window.speechSynthesis.cancel();
+        } catch {
+          // ignore
+        }
+      }
+    };
+  }, []);
+
+  // Safe language switcher that stops any active voice sessions and clears input
+  const handleLanguageChange = (newLang) => {
+    if (newLang === language) return;
+
+    // 1. Immediately clear the chat message input, including any existing voice transcript
+    setMessage("");
+    setChatError("");
+
+    // 2. Stop any active speech synthesis
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // ignore
+      }
+    }
+    setIsSpeaking(false);
+
+    // 2. Stop any active speech recognition
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.onresult = null;
+        recognitionRef.current.onerror = null;
+        recognitionRef.current.onend = null;
+        recognitionRef.current.abort();
+      } catch {
+        // ignore
+      }
+      recognitionRef.current = null;
+    }
+    setIsListening(false);
+    setVoiceError("");
+
+    // 3. Update language ref & state so the next microphone session uses the new language (hi-IN or en-IN)
+    languageRef.current = newLang;
+    setLanguage(newLang);
+  };
 
   // Handle image selection
   const handleFile = (file) => {
@@ -250,7 +353,32 @@ function App() {
       return;
     }
 
+    // Stop listening if active
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.onresult = null;
+        recognitionRef.current.onerror = null;
+        recognitionRef.current.onend = null;
+        recognitionRef.current.abort();
+      } catch {
+        // ignore
+      }
+      recognitionRef.current = null;
+    }
+    setIsListening(false);
+
+    // Stop speech synthesis if active
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // ignore
+      }
+    }
+    setIsSpeaking(false);
+
     setChatError("");
+    setVoiceError("");
     setChatReply("Thinking...");
     setIsChatting(true);
 
@@ -278,6 +406,182 @@ function App() {
     } finally {
       setIsChatting(false);
     }
+  };
+
+  // Voice Input (STT) Toggle
+  const handleToggleListening = () => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // ignore
+      }
+      setIsSpeaking(false);
+    }
+
+    const currentLang = languageRef.current || language;
+    const SpeechRecognition =
+      typeof window !== "undefined" &&
+      (window.SpeechRecognition || window.webkitSpeechRecognition);
+
+    if (!SpeechRecognition) {
+      setVoiceError(
+        currentLang === "english"
+          ? "Speech recognition is not supported in this browser. Please use Google Chrome or Microsoft Edge."
+          : "आपके ब्राउज़र में आवाज़ पहचान समर्थित नहीं है। कृपया Google Chrome या Microsoft Edge का उपयोग करें।"
+      );
+      return;
+    }
+
+    if (isListening) {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch {
+          // ignore
+        }
+      }
+      setIsListening(false);
+      return;
+    }
+
+    setVoiceError("");
+    if (chatError) setChatError("");
+
+    try {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.onresult = null;
+          recognitionRef.current.onerror = null;
+          recognitionRef.current.onend = null;
+          recognitionRef.current.abort();
+        } catch {
+          // ignore
+        }
+        recognitionRef.current = null;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = currentLang === "english" ? "en-IN" : "hi-IN";
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event) => {
+        if (event.results && event.results[0] && event.results[0][0]) {
+          const transcript = event.results[0][0].transcript;
+          setMessage(transcript);
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.warn("Speech recognition error:", event.error);
+        setIsListening(false);
+        recognitionRef.current = null;
+        const errLang = languageRef.current || language;
+        if (event.error === "not-allowed" || event.error === "permission-denied") {
+          setVoiceError(
+            errLang === "english"
+              ? "Microphone access denied. Please allow microphone access in browser permissions."
+              : "माइक्रोफ़ोन की अनुमति अस्वीकृत है। कृपया ब्राउज़र सेटिंग्स में माइक्रोफ़ोन की अनुमति दें।"
+          );
+        } else if (event.error === "no-speech") {
+          setVoiceError(
+            errLang === "english"
+              ? "No speech detected. Please speak clearly into your microphone."
+              : "कोई आवाज़ नहीं सुनाई दी। कृपया माइक्रोफ़ोन के पास साफ़ आवाज़ में बोलें।"
+          );
+        } else if (event.error !== "aborted") {
+          setVoiceError(
+            errLang === "english"
+              ? `Voice recognition error (${event.error}). Please try again.`
+              : `आवाज़ पहचान में समस्या आई (${event.error})। कृपया दोबारा प्रयास करें।`
+          );
+        }
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        recognitionRef.current = null;
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch (err) {
+      console.error("Speech recognition start failed:", err);
+      setIsListening(false);
+      recognitionRef.current = null;
+      const errLang = languageRef.current || language;
+      setVoiceError(
+        errLang === "english"
+          ? "Unable to start speech recognition. Please try again."
+          : "आवाज़ पहचान शुरू नहीं हो सकी। कृपया दोबारा प्रयास करें।"
+      );
+    }
+  };
+
+  // Voice Output (TTS) Toggle
+  const handleToggleSpeak = (rawText) => {
+    const activeLang = languageRef.current || language;
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+      setVoiceError(
+        activeLang === "english"
+          ? "Text-to-speech is not supported in this browser."
+          : "इस ब्राउज़र में बोलकर सुनाने की सुविधा समर्थित नहीं है।"
+      );
+      return;
+    }
+
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+
+    const cleanText = (rawText || "")
+      .replace(/[*#_`~]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!cleanText) return;
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    const targetLang = activeLang === "english" ? "en-IN" : "hi-IN";
+    utterance.lang = targetLang;
+
+    try {
+      const voices = window.speechSynthesis.getVoices() || [];
+      const prefix = activeLang === "english" ? "en" : "hi";
+      const matched = voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(prefix));
+      if (matched) {
+        utterance.voice = matched;
+      }
+    } catch {
+      // ignore
+    }
+
+    utterance.onstart = () => {
+      setIsSpeaking(true);
+    };
+
+    utterance.onend = () => {
+      setIsSpeaking(false);
+    };
+
+    utterance.onerror = (e) => {
+      if (e.error !== "canceled" && e.error !== "interrupted") {
+        console.warn("Speech synthesis error:", e);
+      }
+      setIsSpeaking(false);
+    };
+
+    window.speechSynthesis.speak(utterance);
   };
 
   // Rain probability resolver from Open-Meteo
@@ -315,14 +619,14 @@ function App() {
             <button
               type="button"
               className={`km-lang-btn ${language === "hinglish" ? "active" : ""}`}
-              onClick={() => setLanguage("hinglish")}
+              onClick={() => handleLanguageChange("hinglish")}
             >
               हिंदी / Hinglish
             </button>
             <button
               type="button"
               className={`km-lang-btn ${language === "english" ? "active" : ""}`}
-              onClick={() => setLanguage("english")}
+              onClick={() => handleLanguageChange("english")}
             >
               English
             </button>
@@ -1250,6 +1554,7 @@ function App() {
               onClick={() => {
                 setMessage(chipText);
                 if (chatError) setChatError("");
+                if (voiceError) setVoiceError("");
               }}
             >
               {chipText}
@@ -1266,6 +1571,7 @@ function App() {
             onChange={(e) => {
               setMessage(e.target.value);
               if (chatError) setChatError("");
+              if (voiceError) setVoiceError("");
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
@@ -1276,11 +1582,31 @@ function App() {
               }
             }}
             placeholder={
-              language === "english"
-                ? "Ask a farming question (e.g., What precautions should I take for tomato crop?)..."
-                : "अपनी फसल के बारे में पूछें (उदा. टमाटर की फसल में क्या सावधानी रखें?)..."
+              isListening
+                ? (language === "english" ? "Listening to your voice... Speak now" : "आपकी आवाज़ सुन रहे हैं... कृपया बोलें")
+                : (language === "english"
+                    ? "Ask a farming question (e.g., What precautions should I take for tomato crop?)..."
+                    : "अपनी फसल के बारे में पूछें (उदा. टमाटर की फसल में क्या सावधानी रखें?)...")
             }
           />
+          <button
+            type="button"
+            onClick={handleToggleListening}
+            disabled={isChatting}
+            className={`km-mic-btn ${isListening ? "listening" : ""}`}
+            title={
+              isListening
+                ? (language === "english" ? "Stop listening" : "आवाज़ सुनना बंद करें")
+                : (language === "english" ? "Voice Input (Speak in English)" : "बोलकर पूछें (आवाज़ इनपुट)")
+            }
+          >
+            <IconMic size={17} color={isListening ? "#dc2626" : "currentColor"} />
+            <span className="km-mic-btn-label">
+              {isListening
+                ? (language === "english" ? "Stop" : "रोकें")
+                : (language === "english" ? "Speak" : "बोलें")}
+            </span>
+          </button>
           <button
             type="button"
             onClick={() => handleChat()}
@@ -1294,12 +1620,31 @@ function App() {
               </>
             ) : (
               <>
-                <span>Ask AI</span>
+                <span>{language === "english" ? "Ask AI" : "AI से पूछें"}</span>
                 <IconSend size={15} color="#ffffff" />
               </>
             )}
           </button>
         </div>
+
+        {/* Listening Indicator */}
+        {isListening && (
+          <div className="km-voice-listening-indicator">
+            <span className="km-voice-pulse" />
+            <span>
+              {language === "english"
+                ? "Listening... Speak your question now."
+                : "सुन रहे हैं... कृपया अपना सवाल बोलें।"}
+            </span>
+          </div>
+        )}
+
+        {/* Voice Error Display */}
+        {voiceError && (
+          <p className="km-voice-error">
+            {voiceError}
+          </p>
+        )}
 
         {chatError && (
           <p
@@ -1321,7 +1666,9 @@ function App() {
             <div
               style={{
                 display: "flex",
+                justifyContent: "space-between",
                 alignItems: "center",
+                flexWrap: "wrap",
                 gap: "8px",
                 marginBottom: "8px",
                 fontWeight: "700",
@@ -1329,8 +1676,34 @@ function App() {
                 color: "#166534",
               }}
             >
-              <IconSparkles size={16} color="#16a34a" />
-              <span>KrishiMitra Assistant</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <IconSparkles size={16} color="#16a34a" />
+                <span>KrishiMitra Assistant</span>
+              </div>
+              {!isChatting && chatReply !== "Thinking..." && (
+                <button
+                  type="button"
+                  className={`km-tts-btn ${isSpeaking ? "playing" : ""}`}
+                  onClick={() => handleToggleSpeak(chatReply)}
+                  title={
+                    isSpeaking
+                      ? (language === "english" ? "Stop audio" : "आवाज़ रोकें")
+                      : (language === "english" ? "Listen to response" : "उत्तर बोलकर सुनें")
+                  }
+                >
+                  {isSpeaking ? (
+                    <>
+                      <IconSquare size={13} color="currentColor" />
+                      <span>{language === "english" ? "Stop" : "रोकें"}</span>
+                    </>
+                  ) : (
+                    <>
+                      <IconVolume size={15} color="currentColor" />
+                      <span>{language === "english" ? "Listen" : "सुनें"}</span>
+                    </>
+                  )}
+                </button>
+              )}
             </div>
             <div
               style={{
