@@ -60,7 +60,7 @@ def generate_openrouter_advisory(prompt: str) -> str:
             "Content-Type": "application/json",
         },
         json={
-            "model": "openrouter/free",
+            "model": "inclusionai/ling-3.0-flash-sante:free",
             "messages": [
                 {
                     "role": "user",
@@ -141,6 +141,7 @@ Return only the farmer advisory.
         interaction = client.interactions.create(
             model="gemini-3.6-flash",
             input=prompt,
+            timeout=60,
         )
         print(f"[PERF] Gemini: {time.perf_counter() - gemini_start:.2f}s")
         raw_output = interaction.output_text
@@ -208,6 +209,7 @@ Instruction: Address the farmer's agricultural inquiry enclosed inside <farmer_m
         interaction = client.interactions.create(
             model="gemini-3.6-flash",
             input=prompt,
+            timeout=60,
         )
 
         return interaction.output_text
