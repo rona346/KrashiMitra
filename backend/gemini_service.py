@@ -50,6 +50,8 @@ def split_bilingual_advisory(text: str) -> tuple[str, str]:
 
 def generate_openrouter_advisory(prompt: str) -> str:
     api_key = os.getenv("OPENROUTER_API_KEY")
+    if not api_key:
+        raise ValueError("OPENROUTER_API_KEY is not configured.")
 
     openrouter_start = time.perf_counter()
 
@@ -80,12 +82,38 @@ def generate_openrouter_advisory(prompt: str) -> str:
 
     response.raise_for_status()
     data = response.json()
+    if not isinstance(data, dict) or "choices" not in data or not data["choices"]:
+        raise ValueError(f"Malformed OpenRouter response structure: {data}")
     content = data["choices"][0]["message"]["content"]
     try:
         print(f"[DEBUG] OpenRouter advisory: {content[:300]}")
     except Exception:
         pass
     return content
+
+
+def get_service_unavailable_advisory(display_disease: str = "Crop Condition") -> str:
+    return f"""=== ENGLISH ===
+**Main risk:** AI advisory service is temporarily unavailable. Please refer to the verified diagnostic and risk assessment panels above.
+**Why the risk matters:**
+- External AI advisory services encountered a temporary connection or timeout issue.
+- Computer vision detection for {display_disease}, soil telemetry, and risk metrics remain fully computed and verified.
+**What to do now:**
+- Review the detected condition, irrigation status, and risk ratings displayed on your dashboard.
+- For certified chemical or biological treatment guidelines, consult your local Krishi Vigyan Kendra (KVK) or agricultural extension officer.
+**More information needed:**
+- Real-time generative advisory will resume automatically once external AI connectivity is restored.
+
+=== HINDI ===
+**मुख्य जोखिम:** एआई कृषि परामर्श सेवा वर्तमान में अस्थायी रूप से अनुपलब्ध है। कृपया ऊपर दिए गए प्रमाणित निदान और जोखिम पैनल देखें।
+**जोखिम क्यों महत्वपूर्ण है:**
+- बाहरी एआई परामर्श सेवा में अस्थायी नेटवर्क या टाइमआउट समस्या आई है।
+- {display_disease} के लिए कंप्यूटर विज़न पहचान, मिट्टी के पोषक तत्व और जोखिम स्कोर पूरी तरह सुरक्षित और प्रमाणित हैं।
+**अभी क्या करें:**
+- डैशबोर्ड में दिखाए गए रोग निदान, सिंचाई सलाह और जोखिम स्तर का अवलोकन करें।
+- प्रमाणित रासायनिक या जैविक उपचार के लिए अपने नजदीकी कृषि विज्ञान केंद्र (KVK) या कृषि अधिकारी से संपर्क करें।
+**अतिरिक्त जानकारी की आवश्यकता:**
+- बाहरी एआई सेवा सक्रिय होते ही विस्तृत परामर्श स्वतः उपलब्ध हो जाएगा।"""
 
 
 def generate_advisory(farm_context: dict, language: str = "hinglish") -> AdvisoryResult:
@@ -144,13 +172,20 @@ Return only the farmer advisory.
             timeout=60,
         )
         print(f"[PERF] Gemini: {time.perf_counter() - gemini_start:.2f}s")
-        raw_output = interaction.output_text
+        raw_output = interaction.output_text or ""
 
     except Exception as gemini_error:
         print(f"Gemini advisory failed: {gemini_error}")
-        fallback_start = time.perf_counter()
-        raw_output = generate_openrouter_advisory(prompt)
-        print(f"[PERF] Fallback total: {time.perf_counter() - fallback_start:.2f}s")
+        try:
+            fallback_start = time.perf_counter()
+            raw_output = generate_openrouter_advisory(prompt)
+            print(f"[PERF] Fallback total: {time.perf_counter() - fallback_start:.2f}s")
+        except Exception as openrouter_error:
+            print(f"OpenRouter advisory failed: {openrouter_error}")
+            raw_output = get_service_unavailable_advisory(display_disease)
+
+    if not raw_output or not raw_output.strip():
+        raw_output = get_service_unavailable_advisory(display_disease)
 
     en_advisory, hi_advisory = split_bilingual_advisory(raw_output)
     selected_advisory = hi_advisory if language != "english" else en_advisory
@@ -221,6 +256,6 @@ Instruction: Address the farmer's agricultural inquiry enclosed inside <farmer_m
             return generate_openrouter_advisory(prompt)
         except Exception as openrouter_error:
             print(f"OpenRouter chat failed: {openrouter_error}")
-            return (
-                "AI service is temporarily unavailable. Please try again in a moment."
-            )
+            if language == "english":
+                return "AI service is temporarily unavailable. Please try again in a moment."
+            return "एआई सेवा वर्तमान में अस्थायी रूप से अनुपलब्ध है। कृपया कुछ समय बाद पुनः प्रयास करें।"

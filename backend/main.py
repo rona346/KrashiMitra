@@ -7,7 +7,13 @@ from pydantic import BaseModel, Field, field_validator
 
 
 from backend.models.harimitra.harimitra_inference import predict_disease
-from backend.gemini_service import generate_advisory, generate_chat_reply
+from backend.gemini_service import (
+    generate_advisory,
+    generate_chat_reply,
+    get_service_unavailable_advisory,
+    AdvisoryResult,
+    split_bilingual_advisory,
+)
 from backend.weather_service import get_weather
 from backend.risk_engine import calculate_risk
 from backend.soil_service import build_soil_profile, get_soil_nutrients
@@ -124,8 +130,16 @@ async def analyze_crop(
             "crop_recommendations": crop_recommendations,
         }
         advisory_start = time.perf_counter()
-
-        advisory = generate_advisory(farm_context, language=language)
+        try:
+            advisory = generate_advisory(farm_context, language=language)
+        except Exception as advisory_err:
+            print(f"[ERROR] generate_advisory unexpected exception: {advisory_err}")
+            fallback_text = get_service_unavailable_advisory(
+                result.get("disease", "Crop Condition").replace("___", " ")
+            )
+            en_adv, hi_adv = split_bilingual_advisory(fallback_text)
+            sel_adv = hi_adv if language != "english" else en_adv
+            advisory = AdvisoryResult(sel_adv, advisory_en=en_adv, advisory_hi=hi_adv)
 
         print(f"[PERF] AI Advisory: {time.perf_counter() - advisory_start:.2f}s")
 
