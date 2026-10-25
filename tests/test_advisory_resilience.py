@@ -141,6 +141,8 @@ class TestAdvisoryResilience(unittest.TestCase):
         mock_client.interactions.create.assert_called_once()
         # Verify OpenRouter was called as fallback
         mock_post.assert_called_once()
+        call_kwargs = mock_post.call_args[1]
+        self.assertEqual(call_kwargs["json"]["model"], "nvidia/nemotron-3.5-lightning:free")
 
         self.assertIsInstance(result, AdvisoryResult)
         self.assertIn("ओपनराउटर बैकअप द्वारा टमाटर में टार्गेट स्पॉट", result)
@@ -188,6 +190,63 @@ class TestAdvisoryResilience(unittest.TestCase):
             with self.assertRaises(ValueError) as ctx:
                 generate_openrouter_advisory("test prompt")
             self.assertIn("OPENROUTER_API_KEY is not configured", str(ctx.exception))
+
+    @patch("backend.gemini_service.requests.post")
+    def test_openrouter_custom_model_env_override(self, mock_post):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "choices": [{"message": {"content": "Custom model response"}}]
+        }
+        mock_post.return_value = mock_response
+
+        with patch.dict(os.environ, {
+            "OPENROUTER_API_KEY": "test-key-mock",
+            "OPENROUTER_MODEL": "custom-org/custom-model:free",
+        }):
+            reply = generate_openrouter_advisory("test prompt")
+
+        self.assertEqual(reply, "Custom model response")
+        mock_post.assert_called_once()
+        call_kwargs = mock_post.call_args[1]
+        self.assertEqual(call_kwargs["json"]["model"], "custom-org/custom-model:free")
+
+    @patch("backend.gemini_service.requests.post")
+    @patch("backend.gemini_service.client")
+    def test_chat_gemini_failure_openrouter_fallback_success(self, mock_client, mock_post):
+        mock_client.interactions.create.side_effect = Exception("Gemini timeout")
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "choices": [{"message": {"content": "टमाटर में ड्रिप सिंचाई करें।"}}]
+        }
+        mock_post.return_value = mock_response
+
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": "test-key-mock"}):
+            reply = generate_chat_reply("सिंचाई सलाह", language="hinglish")
+
+        self.assertEqual(reply, "टमाटर में ड्रिप सिंचाई करें।")
+        mock_post.assert_called_once()
+        call_kwargs = mock_post.call_args[1]
+        self.assertEqual(call_kwargs["json"]["model"], "nvidia/nemotron-3.5-lightning:free")
+
+    @patch("backend.gemini_service.requests.post")
+    @patch("backend.gemini_service.client")
+    def test_chat_openrouter_404_handled_gracefully(self, mock_client, mock_post):
+        mock_client.interactions.create.side_effect = Exception("Gemini intermittent error")
+        mock_response = MagicMock()
+        mock_response.status_code = 404
+        mock_response.text = '{"error":{"message":"no provider serves this model anymore","code":404}}'
+        http_err = requests.exceptions.HTTPError("404 Client Error: Not Found", response=mock_response)
+        mock_response.raise_for_status.side_effect = http_err
+        mock_post.return_value = mock_response
+
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": "test-key-mock"}):
+            reply_hi = generate_chat_reply("टमाटर में सिंचाई?", language="hinglish")
+            self.assertIn("एआई सेवा वर्तमान में अस्थायी रूप से अनुपलब्ध है", reply_hi)
+
+            reply_en = generate_chat_reply("Tomato irrigation?", language="english")
+            self.assertIn("AI service is temporarily unavailable", reply_en)
 
     # -------------------------------------------------------------------------
     # 5. Endpoint-level: POST /chat behavior under success and double failure

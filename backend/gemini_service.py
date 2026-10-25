@@ -53,6 +53,7 @@ def generate_openrouter_advisory(prompt: str) -> str:
     if not api_key:
         raise ValueError("OPENROUTER_API_KEY is not configured.")
 
+    fallback_model = os.getenv("OPENROUTER_MODEL", "nvidia/nemotron-3.5-lightning:free")
     openrouter_start = time.perf_counter()
 
     response = requests.post(
@@ -62,7 +63,7 @@ def generate_openrouter_advisory(prompt: str) -> str:
             "Content-Type": "application/json",
         },
         json={
-            "model": "inclusionai/ling-3.0-flash-sante:free",
+            "model": fallback_model,
             "messages": [
                 {
                     "role": "user",
@@ -74,7 +75,7 @@ def generate_openrouter_advisory(prompt: str) -> str:
     )
 
     print(f"[PERF] OpenRouter: {time.perf_counter() - openrouter_start:.2f}s")
-    print(f"[DEBUG] OpenRouter status: {response.status_code}")
+    print(f"[DEBUG] OpenRouter model: {fallback_model}, status: {response.status_code}")
     try:
         print(f"[DEBUG] OpenRouter body: {response.text[:500]}")
     except Exception:

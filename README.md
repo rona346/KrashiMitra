@@ -87,7 +87,7 @@ flowchart TD
     subgraph AdvisorySystem["Dual-LLM Resilient Advisory"]
         AdvisoryService["Advisory Orchestrator (backend/gemini_service.py)"]
         Gemini["Primary: Google Gemini (gemini-3.6-flash)"]
-        OpenRouter["Fallback: OpenRouter (openrouter/free)"]
+        OpenRouter["Fallback: OpenRouter (nvidia/nemotron-3.5-lightning:free)"]
     end
 
     UI -->|"Upload Leaf + Farm Parameters"| Analyze
@@ -167,7 +167,7 @@ When a farmer submits a leaf image and telemetry parameters via `POST /analyze`:
 
 ### Cloud, Geospatial & LLM Integrations
 * **Generative AI Primary:** Google GenAI SDK 2.24.0 (`gemini-3.6-flash`)
-* **Generative AI Fallback:** OpenRouter API (`openrouter/free`)
+* **Generative AI Fallback:** OpenRouter API (`nvidia/nemotron-3.5-lightning:free`)
 * **Earth Observation:** Google Earth Engine (`earthengine-api` — Sentinel-2 Harmonized SR)
 * **Meteorology:** Open-Meteo REST API (free open-access weather API)
 
@@ -265,6 +265,7 @@ The backend and frontend reference the following environment variable names (do 
 | :--- | :--- | :--- | :--- |
 | `GEMINI_API_KEY` | Backend | **Required** for AI advisory | Google Gemini API key used by the `google-genai` SDK (`gemini-3.6-flash`). |
 | `OPENROUTER_API_KEY` | Backend | **Optional** (Recommended) | OpenRouter API key used as the automated fallback provider if Gemini encounters quota limits or errors. |
+| `OPENROUTER_MODEL` | Backend | **Optional** | Fallback model identifier (defaults to `nvidia/nemotron-3.5-lightning:free`). |
 | `VITE_API_URL` | Frontend | **Optional** (Defaults to `http://127.0.0.1:8000`) | Base URL pointing the React frontend to the FastAPI backend API. |
 
 *Note on Google Earth Engine:* The satellite service uses project `krashimitra-ai-2026`. For local execution of Earth Engine features, authenticate via the Earth Engine CLI (`earthengine authenticate`) or ensure Google Application Default Credentials are configured. If unauthenticated, satellite telemetry gracefully falls back with `available: False`.
