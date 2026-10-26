@@ -7,7 +7,16 @@ import "./App.css";
 
 function IconLeaf({ size = 20, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
       <path d="M2 21c0-3 1.85-5.36 5.08-6" />
     </svg>
@@ -16,7 +25,16 @@ function IconLeaf({ size = 20, color = "currentColor" }) {
 
 function IconUpload({ size = 24, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="17 8 12 3 7 8" />
       <line x1="12" y1="3" x2="12" y2="15" />
@@ -26,7 +44,16 @@ function IconUpload({ size = 24, color = "currentColor" }) {
 
 function IconCamera({ size = 20, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
       <circle cx="12" cy="13" r="3" />
     </svg>
@@ -35,7 +62,16 @@ function IconCamera({ size = 20, color = "currentColor" }) {
 
 function IconDroplet({ size = 18, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
     </svg>
   );
@@ -43,7 +79,16 @@ function IconDroplet({ size = 18, color = "currentColor" }) {
 
 function IconSun({ size = 18, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <circle cx="12" cy="12" r="5" />
       <line x1="12" y1="1" x2="12" y2="3" />
       <line x1="12" y1="21" x2="12" y2="23" />
@@ -59,7 +104,16 @@ function IconSun({ size = 18, color = "currentColor" }) {
 
 function IconCloudRain({ size = 18, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <line x1="16" y1="13" x2="16" y2="21" />
       <line x1="8" y1="13" x2="8" y2="21" />
       <line x1="12" y1="15" x2="12" y2="23" />
@@ -70,7 +124,16 @@ function IconCloudRain({ size = 18, color = "currentColor" }) {
 
 function IconSatellite({ size = 18, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M13 7 9 3 5 7l4 4" />
       <path d="m17 11 4 4-4 4-4-4" />
       <path d="m8 12 4 4 6-6-4-4Z" />
@@ -82,7 +145,16 @@ function IconSatellite({ size = 18, color = "currentColor" }) {
 
 function IconShield({ size = 18, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
     </svg>
   );
@@ -90,7 +162,16 @@ function IconShield({ size = 18, color = "currentColor" }) {
 
 function IconAlertTriangle({ size = 18, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
       <line x1="12" y1="9" x2="12" y2="13" />
       <line x1="12" y1="17" x2="12.01" y2="17" />
@@ -100,7 +181,16 @@ function IconAlertTriangle({ size = 18, color = "currentColor" }) {
 
 function IconSparkles({ size = 18, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
     </svg>
   );
@@ -108,7 +198,16 @@ function IconSparkles({ size = 18, color = "currentColor" }) {
 
 function IconSend({ size = 16, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <line x1="22" y1="2" x2="11" y2="13" />
       <polygon points="22 2 15 22 11 13 2 9 22 2" />
     </svg>
@@ -117,7 +216,16 @@ function IconSend({ size = 16, color = "currentColor" }) {
 
 function IconPin({ size = 14, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
       <circle cx="12" cy="10" r="3" />
     </svg>
@@ -126,7 +234,16 @@ function IconPin({ size = 14, color = "currentColor" }) {
 
 function IconWaterTap({ size = 18, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M9 2h6v3H9z" />
       <path d="M12 5v5" />
       <path d="M4 14h16a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2z" />
@@ -137,7 +254,16 @@ function IconWaterTap({ size = 18, color = "currentColor" }) {
 
 function IconMic({ size = 16, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
       <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
       <line x1="12" y1="19" x2="12" y2="22" />
@@ -148,7 +274,16 @@ function IconMic({ size = 16, color = "currentColor" }) {
 
 function IconVolume({ size = 16, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
       <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
       <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
@@ -158,7 +293,16 @@ function IconVolume({ size = 16, color = "currentColor" }) {
 
 function IconSquare({ size = 14, color = "currentColor" }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
     </svg>
   );
@@ -193,6 +337,7 @@ function App() {
   const recognitionRef = useRef(null);
   const languageRef = useRef(language);
   const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+  console.log("Current API_URL:", API_URL);
 
   // Keep languageRef synchronized
   useEffect(() => {
@@ -311,12 +456,17 @@ function App() {
       return;
     }
 
-    setAnalysis("Running Harimitra Disease AI, weather telemetry & Sentinel-2 analysis...");
+    setAnalysis(
+      "Running Harimitra Disease AI, weather telemetry & Sentinel-2 analysis...",
+    );
     setIsAnalyzing(true);
 
     const formData = new FormData();
     formData.append("file", selectedFile);
-    formData.append("soil_moisture", soilMoisture !== "" ? soilMoisture : "62.0");
+    formData.append(
+      "soil_moisture",
+      soilMoisture !== "" ? soilMoisture : "62.0",
+    );
     formData.append("latitude", latitude !== "" ? latitude : "24.5854");
     formData.append("longitude", longitude !== "" ? longitude : "73.7125");
     formData.append("language", language);
@@ -334,11 +484,13 @@ function App() {
       const data = await response.json();
       setResult(data);
       setAnalysis(
-        `Analysis complete: ${data.analysis?.replaceAll("___", " ") || "Processed"} | Confidence: ${(data.confidence * 100).toFixed(1)}%`
+        `Analysis complete: ${data.analysis?.replaceAll("___", " ") || "Processed"} | Confidence: ${(data.confidence * 100).toFixed(1)}%`,
       );
     } catch (error) {
       console.error("Analyze error:", error);
-      setAnalysis("Unable to connect to backend server. Please verify backend status.");
+      setAnalysis(
+        "Unable to connect to backend server. Please verify backend status.",
+      );
     } finally {
       setIsAnalyzing(false);
     }
@@ -347,7 +499,9 @@ function App() {
   // POST /chat
   const handleChat = async (customQuestion) => {
     if (isChatting) return;
-    const questionText = (typeof customQuestion === "string" ? customQuestion : message).trim();
+    const questionText = (
+      typeof customQuestion === "string" ? customQuestion : message
+    ).trim();
     if (!questionText) {
       setChatError("Please enter a question.");
       return;
@@ -428,7 +582,7 @@ function App() {
       setVoiceError(
         currentLang === "english"
           ? "Speech recognition is not supported in this browser. Please use Google Chrome or Microsoft Edge."
-          : "आपके ब्राउज़र में आवाज़ पहचान समर्थित नहीं है। कृपया Google Chrome या Microsoft Edge का उपयोग करें।"
+          : "आपके ब्राउज़र में आवाज़ पहचान समर्थित नहीं है। कृपया Google Chrome या Microsoft Edge का उपयोग करें।",
       );
       return;
     }
@@ -483,23 +637,26 @@ function App() {
         setIsListening(false);
         recognitionRef.current = null;
         const errLang = languageRef.current || language;
-        if (event.error === "not-allowed" || event.error === "permission-denied") {
+        if (
+          event.error === "not-allowed" ||
+          event.error === "permission-denied"
+        ) {
           setVoiceError(
             errLang === "english"
               ? "Microphone access denied. Please allow microphone access in browser permissions."
-              : "माइक्रोफ़ोन की अनुमति अस्वीकृत है। कृपया ब्राउज़र सेटिंग्स में माइक्रोफ़ोन की अनुमति दें।"
+              : "माइक्रोफ़ोन की अनुमति अस्वीकृत है। कृपया ब्राउज़र सेटिंग्स में माइक्रोफ़ोन की अनुमति दें।",
           );
         } else if (event.error === "no-speech") {
           setVoiceError(
             errLang === "english"
               ? "No speech detected. Please speak clearly into your microphone."
-              : "कोई आवाज़ नहीं सुनाई दी। कृपया माइक्रोफ़ोन के पास साफ़ आवाज़ में बोलें।"
+              : "कोई आवाज़ नहीं सुनाई दी। कृपया माइक्रोफ़ोन के पास साफ़ आवाज़ में बोलें।",
           );
         } else if (event.error !== "aborted") {
           setVoiceError(
             errLang === "english"
               ? `Voice recognition error (${event.error}). Please try again.`
-              : `आवाज़ पहचान में समस्या आई (${event.error})। कृपया दोबारा प्रयास करें।`
+              : `आवाज़ पहचान में समस्या आई (${event.error})। कृपया दोबारा प्रयास करें।`,
           );
         }
       };
@@ -519,7 +676,7 @@ function App() {
       setVoiceError(
         errLang === "english"
           ? "Unable to start speech recognition. Please try again."
-          : "आवाज़ पहचान शुरू नहीं हो सकी। कृपया दोबारा प्रयास करें।"
+          : "आवाज़ पहचान शुरू नहीं हो सकी। कृपया दोबारा प्रयास करें।",
       );
     }
   };
@@ -531,7 +688,7 @@ function App() {
       setVoiceError(
         activeLang === "english"
           ? "Text-to-speech is not supported in this browser."
-          : "इस ब्राउज़र में बोलकर सुनाने की सुविधा समर्थित नहीं है।"
+          : "इस ब्राउज़र में बोलकर सुनाने की सुविधा समर्थित नहीं है।",
       );
       return;
     }
@@ -558,7 +715,9 @@ function App() {
     try {
       const voices = window.speechSynthesis.getVoices() || [];
       const prefix = activeLang === "english" ? "en" : "hi";
-      const matched = voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(prefix));
+      const matched = voices.find(
+        (v) => v.lang && v.lang.toLowerCase().startsWith(prefix),
+      );
       if (matched) {
         utterance.voice = matched;
       }
@@ -606,10 +765,13 @@ function App() {
             <div className="km-hero-title-group">
               <div className="km-hero-title-row">
                 <h1 className="km-hero-title">KrishiMitra AI</h1>
-                <span className="km-hero-badge">Your Smart Farming Companion</span>
+                <span className="km-hero-badge">
+                  Your Smart Farming Companion
+                </span>
               </div>
               <p className="km-hero-subtitle">
-                AI-powered crop disease detection, soil insights &amp; farm advisory
+                AI-powered crop disease detection, soil insights &amp; farm
+                advisory
               </p>
             </div>
           </div>
@@ -645,12 +807,14 @@ function App() {
               Crop Disease Diagnostics &amp; Field Telemetry
             </h2>
             <p className="km-section-subtitle">
-              Upload a clear leaf photo and provide farm parameters to get AI-powered insights.
+              Upload a clear leaf photo and provide farm parameters to get
+              AI-powered insights.
             </p>
           </div>
           {selectedFile && (
             <span className="km-badge km-badge-green">
-              ✓ Ready ({selectedFile.name} • {(selectedFile.size / 1024).toFixed(1)} KB)
+              ✓ Ready ({selectedFile.name} •{" "}
+              {(selectedFile.size / 1024).toFixed(1)} KB)
             </span>
           )}
         </div>
@@ -679,7 +843,9 @@ function App() {
             <div className="km-dropzone-icon-wrap">
               <IconUpload size={26} color="#15803d" />
             </div>
-            <div className="km-dropzone-title">Click or Drag &amp; Drop a Leaf Photo</div>
+            <div className="km-dropzone-title">
+              Click or Drag &amp; Drop a Leaf Photo
+            </div>
             <div className="km-dropzone-desc">
               Upload healthy or diseased leaf images for pathology diagnosis
             </div>
@@ -698,11 +864,24 @@ function App() {
                   className="km-preview-img"
                 />
                 <div className="km-preview-meta">
-                  <div style={{ fontSize: "13px", fontWeight: "700", color: "#14532d" }}>
+                  <div
+                    style={{
+                      fontSize: "13px",
+                      fontWeight: "700",
+                      color: "#14532d",
+                    }}
+                  >
                     Leaf Image Loaded
                   </div>
-                  <div style={{ fontSize: "12px", color: "#64748b", marginTop: "2px" }}>
-                    {selectedFile?.name} ({(selectedFile?.size / 1024).toFixed(1)} KB)
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      color: "#64748b",
+                      marginTop: "2px",
+                    }}
+                  >
+                    {selectedFile?.name} (
+                    {(selectedFile?.size / 1024).toFixed(1)} KB)
                   </div>
                   <button
                     type="button"
@@ -728,10 +907,23 @@ function App() {
                 <div className="km-preview-empty-icon">
                   <IconCamera size={26} color="#94a3b8" />
                 </div>
-                <div style={{ fontSize: "14px", fontWeight: "700", color: "#475569" }}>
+                <div
+                  style={{
+                    fontSize: "14px",
+                    fontWeight: "700",
+                    color: "#475569",
+                  }}
+                >
                   No image selected
                 </div>
-                <div style={{ fontSize: "12px", color: "#94a3b8", marginTop: "4px", maxWidth: "200px" }}>
+                <div
+                  style={{
+                    fontSize: "12px",
+                    color: "#94a3b8",
+                    marginTop: "4px",
+                    maxWidth: "200px",
+                  }}
+                >
                   Upload a leaf image to begin analysis
                 </div>
               </div>
@@ -747,7 +939,8 @@ function App() {
                   <IconPin size={15} color="#059669" />
                 </span>
                 <div>
-                  <strong>Default Demo Location:</strong> Udaipur, Rajasthan (24.5854°N, 73.7125°E) • Baseline Moisture: 62%
+                  <strong>Default Demo Location:</strong> Udaipur, Rajasthan
+                  (24.5854°N, 73.7125°E) • Baseline Moisture: 62%
                 </div>
               </div>
 
@@ -855,7 +1048,9 @@ function App() {
               Unified Telemetry &amp; Diagnostics Overview
             </h2>
             <p className="km-section-subtitle">
-              Integrated multi-modal intelligence across computer vision, in-situ soil records, meteorological forecasts &amp; Sentinel-2 satellite observation.
+              Integrated multi-modal intelligence across computer vision,
+              in-situ soil records, meteorological forecasts &amp; Sentinel-2
+              satellite observation.
             </p>
           </div>
           <span className="km-badge km-badge-gray">
@@ -896,10 +1091,17 @@ function App() {
                     wordBreak: "break-word",
                   }}
                 >
-                  {result.analysis?.replaceAll("___", " ") || "No condition detected"}
+                  {result.analysis?.replaceAll("___", " ") ||
+                    "No condition detected"}
                 </div>
               ) : (
-                <div style={{ fontSize: "16px", fontWeight: "600", color: "#94a3b8" }}>
+                <div
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    color: "#94a3b8",
+                  }}
+                >
                   Awaiting analysis
                 </div>
               )}
@@ -922,7 +1124,10 @@ function App() {
           >
             <div className="km-metric-header">
               <span className="km-metric-label">
-                <IconAlertTriangle size={16} color={getRiskColor(result?.risk?.overall_risk)} />
+                <IconAlertTriangle
+                  size={16}
+                  color={getRiskColor(result?.risk?.overall_risk)}
+                />
                 Overall Farm Risk
               </span>
               {result?.risk?.overall_risk && (
@@ -952,7 +1157,13 @@ function App() {
                   {result.risk.overall_risk}
                 </div>
               ) : (
-                <div style={{ fontSize: "16px", fontWeight: "600", color: "#94a3b8" }}>
+                <div
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    color: "#94a3b8",
+                  }}
+                >
                   Awaiting analysis
                 </div>
               )}
@@ -996,7 +1207,11 @@ function App() {
               style={{
                 fontSize: "15px",
                 fontWeight: "700",
-                color: result?.irrigation?.includes("Not Required") ? "#15803d" : result?.irrigation ? "#d97706" : "#0f172a",
+                color: result?.irrigation?.includes("Not Required")
+                  ? "#15803d"
+                  : result?.irrigation
+                    ? "#d97706"
+                    : "#0f172a",
                 lineHeight: "1.3",
                 margin: "6px 0 4px",
               }}
@@ -1017,7 +1232,9 @@ function App() {
               </span>
             </div>
             <div className="km-metric-value" style={{ color: "#ea580c" }}>
-              {result?.weather?.temperature != null ? `${result.weather.temperature}°C` : "—"}
+              {result?.weather?.temperature != null
+                ? `${result.weather.temperature}°C`
+                : "—"}
             </div>
             <p className="km-metric-sub">
               {result?.weather?.humidity != null
@@ -1055,7 +1272,10 @@ function App() {
                 <IconSatellite size={15} color="#059669" />
                 Satellite NDVI
               </span>
-              <span className="km-badge km-badge-green" style={{ fontSize: "10px", padding: "1px 6px" }}>
+              <span
+                className="km-badge km-badge-green"
+                style={{ fontSize: "10px", padding: "1px 6px" }}
+              >
                 Sentinel-2
               </span>
             </div>
@@ -1070,7 +1290,8 @@ function App() {
                   margin: "4px 0 2px",
                 }}
               >
-                {result?.satellite?.available && typeof result.satellite.ndvi_mean === "number"
+                {result?.satellite?.available &&
+                typeof result.satellite.ndvi_mean === "number"
                   ? result.satellite.ndvi_mean.toFixed(2)
                   : result
                     ? "Unavailable"
@@ -1093,16 +1314,20 @@ function App() {
             >
               {result?.satellite?.observation_date && (
                 <div>
-                  <strong>Observation:</strong> {formatObservationDate(result.satellite.observation_date)}
+                  <strong>Observation:</strong>{" "}
+                  {formatObservationDate(result.satellite.observation_date)}
                 </div>
               )}
               {result?.satellite?.cloud_percentage != null && (
                 <div>
-                  <strong>Cloud:</strong> {result.satellite.cloud_percentage.toFixed(1)}%
+                  <strong>Cloud:</strong>{" "}
+                  {result.satellite.cloud_percentage.toFixed(1)}%
                 </div>
               )}
               <div style={{ color: "#64748b", marginTop: "2px" }}>
-                <strong>Source:</strong> {result?.satellite?.source || "Sentinel-2 / Google Earth Engine"}
+                <strong>Source:</strong>{" "}
+                {result?.satellite?.source ||
+                  "Sentinel-2 / Google Earth Engine"}
               </div>
             </div>
           </div>
@@ -1113,7 +1338,14 @@ function App() {
           DEEP INTELLIGENCE PANELS (Conditional on result)
           =================================================================== */}
       {result && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px", marginBottom: "24px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+            marginBottom: "24px",
+          }}
+        >
           {/* 7. AI AGRICULTURAL ADVISORY */}
           <section className="km-card km-advisory-card">
             <div
@@ -1143,8 +1375,15 @@ function App() {
                   <IconSparkles size={20} color="#15803d" />
                   AI Agricultural Advisory
                 </h2>
-                <p style={{ margin: "3px 0 0", color: "#64748b", fontSize: "13px" }}>
-                  Agronomic recommendations generated from Harimitra disease alert, soil health card &amp; weather telemetry
+                <p
+                  style={{
+                    margin: "3px 0 0",
+                    color: "#64748b",
+                    fontSize: "13px",
+                  }}
+                >
+                  Agronomic recommendations generated from Harimitra disease
+                  alert, soil health card &amp; weather telemetry
                 </p>
               </div>
               <span className="km-badge km-badge-green">
@@ -1155,9 +1394,9 @@ function App() {
             <div className="km-advisory-container">
               {renderFormattedAdvisory(
                 language === "hinglish"
-                  ? (result.advisory_hi || result.advisory)
-                  : (result.advisory_en || result.advisory),
-                language
+                  ? result.advisory_hi || result.advisory
+                  : result.advisory_en || result.advisory,
+                language,
               )}
             </div>
           </section>
@@ -1189,7 +1428,13 @@ function App() {
                   <IconLeaf size={20} color="#166534" />
                   Alternative Crop Recommendations
                 </h2>
-                <p style={{ margin: "3px 0 0", color: "#64748b", fontSize: "13px" }}>
+                <p
+                  style={{
+                    margin: "3px 0 0",
+                    color: "#64748b",
+                    fontSize: "13px",
+                  }}
+                >
                   Current Farm Crop:{" "}
                   <strong style={{ color: "#166534" }}>
                     {result.crop_recommendations?.current_crop || "Tomato"}
@@ -1206,70 +1451,94 @@ function App() {
 
             {result.crop_recommendations?.recommendations?.length > 0 ? (
               <div className="km-crops-grid">
-                {result.crop_recommendations.recommendations.map((crop, index) => (
-                  <div key={index} className="km-crop-card">
-                    <div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          marginBottom: "8px",
-                        }}
-                      >
-                        <h3
+                {result.crop_recommendations.recommendations.map(
+                  (crop, index) => (
+                    <div key={index} className="km-crop-card">
+                      <div>
+                        <div
                           style={{
-                            margin: 0,
-                            color: "#14532d",
-                            fontSize: "17px",
-                            fontWeight: "700",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            marginBottom: "8px",
                           }}
                         >
-                          {crop.crop}
-                        </h3>
-                        <span
-                          className={`km-badge ${
-                            crop.suitability === "HIGH"
-                              ? "km-badge-green"
-                              : crop.suitability === "MODERATE"
-                                ? "km-badge-amber"
-                                : "km-badge-red"
-                          }`}
-                        >
-                          {crop.suitability} {language === "english" ? "SUITABILITY" : "उपयुक्तता"}
-                        </span>
-                      </div>
-
-                      <div style={{ fontSize: "13px", color: "#475569", marginBottom: "10px" }}>
-                        Match Score:{" "}
-                        <strong style={{ color: "#166534", fontSize: "15px" }}>
-                          {crop.score}/100
-                        </strong>
-                      </div>
-
-                      {crop.reasons?.length > 0 && (
-                        <div>
-                          <strong style={{ fontSize: "12px", color: "#334155" }}>
-                            {language === "english" ? "Agronomic Rationale:" : "सिफारिश का कारण (Agronomic Rationale):"}
-                          </strong>
-                          <ul
+                          <h3
                             style={{
-                              margin: "4px 0 0",
-                              paddingLeft: "16px",
-                              fontSize: "12px",
-                              color: "#4b5563",
-                              lineHeight: "1.5",
+                              margin: 0,
+                              color: "#14532d",
+                              fontSize: "17px",
+                              fontWeight: "700",
                             }}
                           >
-                            {crop.reasons.map((reason, rIdx) => (
-                              <li key={rIdx}>{formatCropReason(reason, language, crop.crop, result?.soil_moisture)}</li>
-                            ))}
-                          </ul>
+                            {crop.crop}
+                          </h3>
+                          <span
+                            className={`km-badge ${
+                              crop.suitability === "HIGH"
+                                ? "km-badge-green"
+                                : crop.suitability === "MODERATE"
+                                  ? "km-badge-amber"
+                                  : "km-badge-red"
+                            }`}
+                          >
+                            {crop.suitability}{" "}
+                            {language === "english"
+                              ? "SUITABILITY"
+                              : "उपयुक्तता"}
+                          </span>
                         </div>
-                      )}
+
+                        <div
+                          style={{
+                            fontSize: "13px",
+                            color: "#475569",
+                            marginBottom: "10px",
+                          }}
+                        >
+                          Match Score:{" "}
+                          <strong
+                            style={{ color: "#166534", fontSize: "15px" }}
+                          >
+                            {crop.score}/100
+                          </strong>
+                        </div>
+
+                        {crop.reasons?.length > 0 && (
+                          <div>
+                            <strong
+                              style={{ fontSize: "12px", color: "#334155" }}
+                            >
+                              {language === "english"
+                                ? "Agronomic Rationale:"
+                                : "सिफारिश का कारण (Agronomic Rationale):"}
+                            </strong>
+                            <ul
+                              style={{
+                                margin: "4px 0 0",
+                                paddingLeft: "16px",
+                                fontSize: "12px",
+                                color: "#4b5563",
+                                lineHeight: "1.5",
+                              }}
+                            >
+                              {crop.reasons.map((reason, rIdx) => (
+                                <li key={rIdx}>
+                                  {formatCropReason(
+                                    reason,
+                                    language,
+                                    crop.crop,
+                                    result?.soil_moisture,
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ),
+                )}
               </div>
             ) : (
               <p style={{ margin: 0, color: "#64748b", fontSize: "14px" }}>
@@ -1291,7 +1560,11 @@ function App() {
                   fontSize: "12px",
                 }}
               >
-                <strong>{language === "english" ? "Data Limitations:" : "डेटा सीमाएं (Data Limitations):"}</strong>
+                <strong>
+                  {language === "english"
+                    ? "Data Limitations:"
+                    : "डेटा सीमाएं (Data Limitations):"}
+                </strong>
                 <ul style={{ margin: "4px 0 0", paddingLeft: "16px" }}>
                   {result.crop_recommendations.limitations.map((lim, lIdx) => (
                     <li key={lIdx}>{formatCropLimitation(lim, language)}</li>
@@ -1330,8 +1603,15 @@ function App() {
                   <IconDroplet size={20} color="#166534" />
                   Soil Health Card (12 Parameters)
                 </h2>
-                <p style={{ margin: "3px 0 0", color: "#64748b", fontSize: "13px" }}>
-                  National Soil Health Card Scheme benchmark data • Udaipur District, Rajasthan
+                <p
+                  style={{
+                    margin: "3px 0 0",
+                    color: "#64748b",
+                    fontSize: "13px",
+                  }}
+                >
+                  National Soil Health Card Scheme benchmark data • Udaipur
+                  District, Rajasthan
                 </p>
               </div>
               <span className="km-badge km-badge-green">
@@ -1384,8 +1664,15 @@ function App() {
               </div>
             </div>
 
-            <p style={{ margin: "14px 0 0", fontSize: "11.5px", color: "#64748b" }}>
-              Data source: Soil Health Card portal records for Rajasthan state, Udaipur district.
+            <p
+              style={{
+                margin: "14px 0 0",
+                fontSize: "11.5px",
+                color: "#64748b",
+              }}
+            >
+              Data source: Soil Health Card portal records for Rajasthan state,
+              Udaipur district.
             </p>
           </section>
 
@@ -1416,8 +1703,15 @@ function App() {
                   <span>🏛️</span>
                   Farm Context (AgriStack Format)
                 </h2>
-                <p style={{ margin: "3px 0 0", color: "#475569", fontSize: "13px" }}>
-                  Digital Public Infrastructure for Agriculture • Farmer &amp; Plot Schema
+                <p
+                  style={{
+                    margin: "3px 0 0",
+                    color: "#475569",
+                    fontSize: "13px",
+                  }}
+                >
+                  Digital Public Infrastructure for Agriculture • Farmer &amp;
+                  Plot Schema
                 </p>
               </div>
               <span className="km-badge km-badge-amber">
@@ -1447,7 +1741,13 @@ function App() {
                 ["Soil Texture", result.agristack?.farm?.soil_type],
               ].map(([label, value]) => (
                 <div key={label} className="km-agristack-item">
-                  <div style={{ fontSize: "11px", color: "#64748b", fontWeight: "600" }}>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      color: "#64748b",
+                      fontWeight: "600",
+                    }}
+                  >
                     {label}
                   </div>
                   <div
@@ -1523,13 +1823,22 @@ function App() {
               >
                 Farmer AI Chat
               </h2>
-              <p style={{ margin: "2px 0 0", color: "#64748b", fontSize: "13px" }}>
-                Ask agricultural questions in Hindi or English (Symptoms, precautions, fertilizer advice)
+              <p
+                style={{
+                  margin: "2px 0 0",
+                  color: "#64748b",
+                  fontSize: "13px",
+                }}
+              >
+                Ask agricultural questions in Hindi or English (Symptoms,
+                precautions, fertilizer advice)
               </p>
             </div>
           </div>
           <span className="km-badge km-badge-green">
-            {language === "hinglish" ? "Active: हिंदी / Hinglish" : "Active: English"}
+            {language === "hinglish"
+              ? "Active: हिंदी / Hinglish"
+              : "Active: English"}
           </span>
         </div>
 
@@ -1583,10 +1892,12 @@ function App() {
             }}
             placeholder={
               isListening
-                ? (language === "english" ? "Listening to your voice... Speak now" : "आपकी आवाज़ सुन रहे हैं... कृपया बोलें")
-                : (language === "english"
-                    ? "Ask a farming question (e.g., What precautions should I take for tomato crop?)..."
-                    : "अपनी फसल के बारे में पूछें (उदा. टमाटर की फसल में क्या सावधानी रखें?)...")
+                ? language === "english"
+                  ? "Listening to your voice... Speak now"
+                  : "आपकी आवाज़ सुन रहे हैं... कृपया बोलें"
+                : language === "english"
+                  ? "Ask a farming question (e.g., What precautions should I take for tomato crop?)..."
+                  : "अपनी फसल के बारे में पूछें (उदा. टमाटर की फसल में क्या सावधानी रखें?)..."
             }
           />
           <button
@@ -1596,15 +1907,26 @@ function App() {
             className={`km-mic-btn ${isListening ? "listening" : ""}`}
             title={
               isListening
-                ? (language === "english" ? "Stop listening" : "आवाज़ सुनना बंद करें")
-                : (language === "english" ? "Voice Input (Speak in English)" : "बोलकर पूछें (आवाज़ इनपुट)")
+                ? language === "english"
+                  ? "Stop listening"
+                  : "आवाज़ सुनना बंद करें"
+                : language === "english"
+                  ? "Voice Input (Speak in English)"
+                  : "बोलकर पूछें (आवाज़ इनपुट)"
             }
           >
-            <IconMic size={17} color={isListening ? "#dc2626" : "currentColor"} />
+            <IconMic
+              size={17}
+              color={isListening ? "#dc2626" : "currentColor"}
+            />
             <span className="km-mic-btn-label">
               {isListening
-                ? (language === "english" ? "Stop" : "रोकें")
-                : (language === "english" ? "Speak" : "बोलें")}
+                ? language === "english"
+                  ? "Stop"
+                  : "रोकें"
+                : language === "english"
+                  ? "Speak"
+                  : "बोलें"}
             </span>
           </button>
           <button
@@ -1640,11 +1962,7 @@ function App() {
         )}
 
         {/* Voice Error Display */}
-        {voiceError && (
-          <p className="km-voice-error">
-            {voiceError}
-          </p>
-        )}
+        {voiceError && <p className="km-voice-error">{voiceError}</p>}
 
         {chatError && (
           <p
@@ -1676,7 +1994,9 @@ function App() {
                 color: "#166534",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
                 <IconSparkles size={16} color="#16a34a" />
                 <span>KrishiMitra Assistant</span>
               </div>
@@ -1687,8 +2007,12 @@ function App() {
                   onClick={() => handleToggleSpeak(chatReply)}
                   title={
                     isSpeaking
-                      ? (language === "english" ? "Stop audio" : "आवाज़ रोकें")
-                      : (language === "english" ? "Listen to response" : "उत्तर बोलकर सुनें")
+                      ? language === "english"
+                        ? "Stop audio"
+                        : "आवाज़ रोकें"
+                      : language === "english"
+                        ? "Listen to response"
+                        : "उत्तर बोलकर सुनें"
                   }
                 >
                   {isSpeaking ? (
@@ -1713,7 +2037,14 @@ function App() {
               }}
             >
               {isChatting && chatReply === "Thinking..." ? (
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "#15803d" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    color: "#15803d",
+                  }}
+                >
                   <span className="km-spinner" />
                   <span>Thinking...</span>
                 </div>
@@ -1752,11 +2083,11 @@ function renderSoilCard(label, key, result) {
           marginTop: "6px",
         }}
       >
-        <span className={`km-badge ${badgeClass}`}>
-          {level ?? "—"}
-        </span>
+        <span className={`km-badge ${badgeClass}`}>{level ?? "—"}</span>
         {value != null && value !== "" && (
-          <span style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>
+          <span
+            style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}
+          >
             Val: {value}
           </span>
         )}
@@ -1846,12 +2177,27 @@ function formatInlineText(text) {
 }
 
 const CROP_MOISTURE_PROFILES = {
-  Mustard: { min: 30, max: 60, range: "30–60%", nameHi: "सरसों (Mustard: 30–60%)" },
+  Mustard: {
+    min: 30,
+    max: 60,
+    range: "30–60%",
+    nameHi: "सरसों (Mustard: 30–60%)",
+  },
   Wheat: { min: 40, max: 70, range: "40–70%", nameHi: "गेहूं (Wheat: 40–70%)" },
   Rice: { min: 60, max: 90, range: "60–90%", nameHi: "धान (Rice: 60–90%)" },
   Maize: { min: 45, max: 70, range: "45–70%", nameHi: "मक्का (Maize: 45–70%)" },
-  Chickpea: { min: 30, max: 60, range: "30–60%", nameHi: "चना (Chickpea: 30–60%)" },
-  Cotton: { min: 40, max: 75, range: "40–75%", nameHi: "कपास (Cotton: 40–75%)" },
+  Chickpea: {
+    min: 30,
+    max: 60,
+    range: "30–60%",
+    nameHi: "चना (Chickpea: 30–60%)",
+  },
+  Cotton: {
+    min: 40,
+    max: 75,
+    range: "40–75%",
+    nameHi: "कपास (Cotton: 40–75%)",
+  },
 };
 
 function formatCropReason(reason, language, cropName, soilMoisture) {
@@ -1862,16 +2208,24 @@ function formatCropReason(reason, language, cropName, soilMoisture) {
 
   // Crop-specific moisture statement in both English & Hindi
   if (profile && r.includes("soil moisture")) {
-    const m = soilMoisture != null && soilMoisture !== "" ? Math.round(Number(soilMoisture)) : 62;
+    const m =
+      soilMoisture != null && soilMoisture !== ""
+        ? Math.round(Number(soilMoisture))
+        : 62;
 
-    if (r === "Current soil moisture is within the crop's broad suitable range.") {
+    if (
+      r === "Current soil moisture is within the crop's broad suitable range."
+    ) {
       if (language === "english") {
         return `Current soil moisture (${m}%) is within ${cropName}'s suitable range (${profile.range}).`;
       }
       return `वर्तमान मिट्टी की नमी (${m}%) ${profile.nameHi} के अनुकूल दायरे में है।`;
     }
 
-    if (r === "Current soil moisture is slightly outside the broad suitable range.") {
+    if (
+      r ===
+      "Current soil moisture is slightly outside the broad suitable range."
+    ) {
       const isAbove = m > profile.max;
       if (language === "english") {
         return `Current soil moisture (${m}%) is slightly ${isAbove ? "above" : "below"} ${cropName}'s ideal range (${profile.range}).`;
@@ -1898,10 +2252,14 @@ function formatCropReason(reason, language, cropName, soilMoisture) {
   }
 
   // Generic soil moisture fallback
-  if (r === "Current soil moisture is within the crop's broad suitable range.") {
+  if (
+    r === "Current soil moisture is within the crop's broad suitable range."
+  ) {
     return "वर्तमान मिट्टी की नमी फसल के उपयुक्त दायरे में है।";
   }
-  if (r === "Current soil moisture is slightly outside the broad suitable range.") {
+  if (
+    r === "Current soil moisture is slightly outside the broad suitable range."
+  ) {
     return "वर्तमान मिट्टी की नमी उपयुक्त दायरे से थोड़ी बाहर है।";
   }
   if (r === "Current soil moisture is outside the broad suitable range.") {
@@ -1909,7 +2267,9 @@ function formatCropReason(reason, language, cropName, soilMoisture) {
   }
 
   // Rainfall
-  const rainMatch = r.match(/Available rainfall probability data was considered \((\d+)%\)\./);
+  const rainMatch = r.match(
+    /Available rainfall probability data was considered \((\d+)%\)\./,
+  );
   if (rainMatch) {
     return `उपलब्ध वर्षा संभावना डेटा (${rainMatch[1]}%) को ध्यान में रखा गया।`;
   }
@@ -1931,7 +2291,10 @@ function formatCropLimitation(limitation, language) {
   if (phUnmappedMatch) {
     return `मिट्टी pH श्रेणी '${phUnmappedMatch[1]}' मैप नहीं है।`;
   }
-  if (l === "Soil pH category is unavailable." || l === "Soil pH is unavailable.") {
+  if (
+    l === "Soil pH category is unavailable." ||
+    l === "Soil pH is unavailable."
+  ) {
     return "मिट्टी का pH उपलब्ध नहीं है।";
   }
   if (l === "Current soil moisture is unavailable.") {
@@ -1951,23 +2314,44 @@ function formatAdvisoryHeader(title, language) {
   if (!title) return title;
   const t = title.trim().toLowerCase();
   if (language === "hinglish") {
-    if (t.includes("main risk") || t.includes("agricultural risk") || t.includes("identified risk")) {
+    if (
+      t.includes("main risk") ||
+      t.includes("agricultural risk") ||
+      t.includes("identified risk")
+    ) {
       return "मुख्य जोखिम (Main Risk):";
     }
-    if (t.includes("why the risk matters") || t.includes("why the risk is higher") || t.includes("risk factor") || t.includes("important factor")) {
+    if (
+      t.includes("why the risk matters") ||
+      t.includes("why the risk is higher") ||
+      t.includes("risk factor") ||
+      t.includes("important factor")
+    ) {
       return "जोखिम क्यों महत्वपूर्ण है (Why the Risk Matters):";
     }
-    if (t.includes("what to do now") || t.includes("practical action") || t.includes("action step") || t.includes("recommended action")) {
+    if (
+      t.includes("what to do now") ||
+      t.includes("practical action") ||
+      t.includes("action step") ||
+      t.includes("recommended action")
+    ) {
       return "अभी क्या करें (What to Do Now):";
     }
-    if (t.includes("more information needed") || t.includes("additional information") || t.includes("more info")) {
+    if (
+      t.includes("more information needed") ||
+      t.includes("additional information") ||
+      t.includes("more info")
+    ) {
       return "अतिरिक्त जानकारी की आवश्यकता (More Info Needed):";
     }
   } else if (language === "english") {
     if (t.includes("मुख्य जोखिम")) {
       return "Main Agricultural Risk:";
     }
-    if (t.includes("जोखिम क्यों महत्वपूर्ण है") || t.includes("जोखिम के कारण")) {
+    if (
+      t.includes("जोखिम क्यों महत्वपूर्ण है") ||
+      t.includes("जोखिम के कारण")
+    ) {
       return "Why the Risk Matters:";
     }
     if (t.includes("अभी क्या करें") || t.includes("व्यावहारिक कदम")) {
@@ -2005,8 +2389,15 @@ function renderFormattedAdvisory(text, language = "hinglish") {
 
     // Bold section titles like **Main risk:** or **Practical actions:**
     const isSectionHeader =
-      (trimmed.startsWith("**") && (trimmed.endsWith("**") || trimmed.endsWith(":**") || trimmed.endsWith("**:"))) ||
-      (trimmed.endsWith(":") && !trimmed.startsWith("-") && !trimmed.startsWith("*") && !/^\d+\./.test(trimmed) && trimmed.length < 60);
+      (trimmed.startsWith("**") &&
+        (trimmed.endsWith("**") ||
+          trimmed.endsWith(":**") ||
+          trimmed.endsWith("**:"))) ||
+      (trimmed.endsWith(":") &&
+        !trimmed.startsWith("-") &&
+        !trimmed.startsWith("*") &&
+        !/^\d+\./.test(trimmed) &&
+        trimmed.length < 60);
 
     if (isSectionHeader) {
       const cleanTitle = trimmed.replace(/\*\*/g, "");
@@ -2023,7 +2414,11 @@ function renderFormattedAdvisory(text, language = "hinglish") {
       const content = trimmed.slice(2);
       return (
         <div key={idx} className="km-advisory-bullet">
-          <span style={{ color: "#16a34a", fontWeight: "800", minWidth: "12px" }}>•</span>
+          <span
+            style={{ color: "#16a34a", fontWeight: "800", minWidth: "12px" }}
+          >
+            •
+          </span>
           <span>{formatInlineText(content)}</span>
         </div>
       );
@@ -2072,7 +2467,15 @@ function renderFormattedChatReply(text) {
 
     if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
       return (
-        <div key={idx} style={{ display: "flex", gap: "6px", margin: "3px 0", paddingLeft: "4px" }}>
+        <div
+          key={idx}
+          style={{
+            display: "flex",
+            gap: "6px",
+            margin: "3px 0",
+            paddingLeft: "4px",
+          }}
+        >
           <span style={{ color: "#16a34a", fontWeight: "700" }}>•</span>
           <span>{formatInlineText(trimmed.slice(2))}</span>
         </div>
@@ -2082,8 +2485,20 @@ function renderFormattedChatReply(text) {
     const numMatch = trimmed.match(/^(\d+)\.\s*(.*)/);
     if (numMatch) {
       return (
-        <div key={idx} style={{ display: "flex", gap: "6px", margin: "3px 0", paddingLeft: "4px" }}>
-          <span style={{ color: "#16a34a", fontWeight: "700", minWidth: "16px" }}>{numMatch[1]}.</span>
+        <div
+          key={idx}
+          style={{
+            display: "flex",
+            gap: "6px",
+            margin: "3px 0",
+            paddingLeft: "4px",
+          }}
+        >
+          <span
+            style={{ color: "#16a34a", fontWeight: "700", minWidth: "16px" }}
+          >
+            {numMatch[1]}.
+          </span>
           <span>{formatInlineText(numMatch[2])}</span>
         </div>
       );

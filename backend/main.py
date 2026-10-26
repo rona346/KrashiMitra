@@ -1,10 +1,21 @@
+import os
+import sys
+import time
+import uuid
+
+# *# Configure line buffering so stdout logs flush immediately in Docker/Cloud Run*
+
+try:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(line_buffering=True)
+except Exception:
+    pass
+
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
-import requests
-import os
-import time
 from pydantic import BaseModel, Field, field_validator
-
+import requests
+from starlette.concurrency import run_in_threadpool
 
 from backend.models.harimitra.harimitra_inference import predict_disease
 from backend.gemini_service import (
@@ -57,20 +68,22 @@ def get_irrigation_recommendation(soil_moisture):
         return "Irrigation Not Required - Soil Moisture High"
 
 
-@app.post("/analyze")
-async def analyze_crop(
-    file: UploadFile = File(...),
-    soil_moisture: float = Form(62.0),
-    latitude: float = Form(24.5854),
-    longitude: float = Form(73.7125),
-    language: str = Form("hinglish"),
-):
+def _process_analyze_sync(
+    contents: bytes,
+    filename: str,
+    soil_moisture: float,
+    latitude: float,
+    longitude: float,
+    language: str,
+) -> dict:
     start_time = time.perf_counter()
-    image_path = f"temp_{file.filename}"
+    unique_id = uuid.uuid4().hex[:8]
+    safe_filename = os.path.basename(filename or "upload.jpg")
+    image_path = f"temp_{unique_id}_{safe_filename}"
 
     try:
         with open(image_path, "wb") as buffer:
-            buffer.write(await file.read())
+            buffer.write(contents)
 
         disease_start = time.perf_counter()
         result = predict_disease(image_path)
@@ -80,25 +93,20 @@ async def analyze_crop(
         weather = get_weather(latitude, longitude)
 
         satellite_start = time.perf_counter()
-
         satellite = get_satellite_context(
             latitude,
             longitude,
         )
-
         print(f"[PERF] Satellite: {time.perf_counter() - satellite_start:.2f}s")
 
         agristack_context = MOCK_FARMER
 
         soil_start = time.perf_counter()
-
         soil_data = get_soil_nutrients(
             state=MOCK_FARMER["state"],
             district=MOCK_FARMER["district"],
         )
-
         soil_profile = build_soil_profile(soil_data)
-
         print(f"[PERF] SHC Soil: {time.perf_counter() - soil_start:.2f}s")
 
         crop_recommendations = recommend_crops(
@@ -144,7 +152,7 @@ async def analyze_crop(
         print(f"[PERF] AI Advisory: {time.perf_counter() - advisory_start:.2f}s")
 
         return {
-            "filename": file.filename,
+            "filename": filename,
             "location": {
                 "latitude": latitude,
                 "longitude": longitude,
@@ -167,9 +175,32 @@ async def analyze_crop(
 
     finally:
         if os.path.exists(image_path):
-            os.remove(image_path)
+            try:
+                os.remove(image_path)
+            except Exception:
+                pass
 
         print(f"[PERF] TOTAL /analyze: {time.perf_counter() - start_time:.2f}s")
+
+
+@app.post("/analyze")
+async def analyze_crop(
+    file: UploadFile = File(...),
+    soil_moisture: float = Form(62.0),
+    latitude: float = Form(24.5854),
+    longitude: float = Form(73.7125),
+    language: str = Form("hinglish"),
+):
+    contents = await file.read()
+    return await run_in_threadpool(
+        _process_analyze_sync,
+        contents=contents,
+        filename=file.filename,
+        soil_moisture=soil_moisture,
+        latitude=latitude,
+        longitude=longitude,
+        language=language,
+    )
 
 
 class ChatRequest(BaseModel):
@@ -188,10 +219,17 @@ class ChatRequest(BaseModel):
         if not clean:
             raise ValueError("Message cannot be empty or whitespace only.")
         if len(clean) > 1000:
-            raise ValueError("Message exceeds the maximum allowed length of 1000 characters.")
+            raise ValueError(
+                "Message exceeds the maximum allowed length of 1000 characters."
+            )
         return clean
 
 
 @app.post("/chat")
 async def chat_with_gemma(request: ChatRequest):
-    return {"reply": generate_chat_reply(request.message, request.language)}
+    reply = await run_in_threadpool(
+        generate_chat_reply,
+        request.message,
+        request.language,
+    )
+    return {"reply": reply}

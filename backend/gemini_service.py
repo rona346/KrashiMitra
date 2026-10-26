@@ -14,6 +14,10 @@ client = genai.Client(
     },
 )
 
+# Disable SDK internal retry loop on 429/5xx so OpenRouter fallback triggers promptly
+if hasattr(client, "interactions") and hasattr(client.interactions, "sdk_configuration"):
+    client.interactions.sdk_configuration.retry_config = None
+
 
 class AdvisoryResult(str):
     """String subclass that also carries advisory_en and advisory_hi attributes and dict-like access."""

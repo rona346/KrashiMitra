@@ -1,12 +1,20 @@
+import concurrent.futures
+import os
 import time
 import ee
 from datetime import date
 
 EE_PROJECT = "krashimitra-ai-2026"
+SATELLITE_TIMEOUT_SECONDS = float(os.getenv("SATELLITE_TIMEOUT_SECONDS", "12.0"))
+_satellite_executor = concurrent.futures.ThreadPoolExecutor(max_workers=4)
 
 
 def initialize_earth_engine():
-    ee.Initialize(project=EE_PROJECT)
+    try:
+        ee.Initialize(project=EE_PROJECT)
+        print("[INFO] Earth Engine initialized successfully.")
+    except Exception as exc:
+        print(f"[WARNING] Earth Engine initialization failed: {exc}. Satellite features will degrade gracefully.")
 
 
 def get_sentinel_collection(latitude, longitude):
@@ -43,56 +51,78 @@ def get_recent_ndvi(latitude, longitude):
     return calculate_ndvi(image)
 
 
-def get_satellite_context(latitude, longitude):
+def _fetch_satellite_context_sync(latitude, longitude):
     satellite_start = time.perf_counter()
-    try:
-        image = get_recent_sentinel_image(latitude, longitude)
+    image = get_recent_sentinel_image(latitude, longitude)
 
-        if image is None:
-            return {
-                "available": False,
-                "observation_date": None,
-                "cloud_percentage": None,
-                "ndvi_mean": None,
-                "ndvi_median": None,
-                "ndvi_min": None,
-                "ndvi_max": None,
-                "source": "Sentinel-2 / Google Earth Engine",
-                "limitations": [
-                    "No usable Sentinel-2 scene was available for this location and time window."
-                ],
-            }
-
-        metadata = get_scene_metadata(image)
-
-        ndvi_image = calculate_ndvi(image)
-
-        ndvi_stats = get_ndvi_statistics(
-            ndvi_image,
-            latitude,
-            longitude,
-        )
-
-        print(
-            f"[PERF] Satellite internal total: {time.perf_counter() - satellite_start:.2f}s"
-        )
-
+    if image is None:
         return {
-            "available": True,
-            "observation_date": metadata["observation_date"],
-            "cloud_percentage": metadata["cloud_percentage"],
-            "ndvi_mean": ndvi_stats.get("NDVI_mean"),
-            "ndvi_median": ndvi_stats.get("NDVI_median"),
-            "ndvi_min": ndvi_stats.get("NDVI_min"),
-            "ndvi_max": ndvi_stats.get("NDVI_max"),
+            "available": False,
+            "observation_date": None,
+            "cloud_percentage": None,
+            "ndvi_mean": None,
+            "ndvi_median": None,
+            "ndvi_min": None,
+            "ndvi_max": None,
             "source": "Sentinel-2 / Google Earth Engine",
             "limitations": [
-                "NDVI indicates broader vegetation condition and is not a disease diagnosis.",
-                "Satellite observation date may differ from the current date because of cloud cover and scene availability.",
+                "No usable Sentinel-2 scene was available for this location and time window."
             ],
         }
 
+    metadata = get_scene_metadata(image)
+
+    ndvi_image = calculate_ndvi(image)
+
+    ndvi_stats = get_ndvi_statistics(
+        ndvi_image,
+        latitude,
+        longitude,
+    )
+
+    print(
+        f"[PERF] Satellite internal total: {time.perf_counter() - satellite_start:.2f}s"
+    )
+
+    return {
+        "available": True,
+        "observation_date": metadata["observation_date"],
+        "cloud_percentage": metadata["cloud_percentage"],
+        "ndvi_mean": ndvi_stats.get("NDVI_mean"),
+        "ndvi_median": ndvi_stats.get("NDVI_median"),
+        "ndvi_min": ndvi_stats.get("NDVI_min"),
+        "ndvi_max": ndvi_stats.get("NDVI_max"),
+        "source": "Sentinel-2 / Google Earth Engine",
+        "limitations": [
+            "NDVI indicates broader vegetation condition and is not a disease diagnosis.",
+            "Satellite observation date may differ from the current date because of cloud cover and scene availability.",
+        ],
+    }
+
+
+def get_satellite_context(latitude, longitude):
+    future = _satellite_executor.submit(_fetch_satellite_context_sync, latitude, longitude)
+    try:
+        return future.result(timeout=SATELLITE_TIMEOUT_SECONDS)
+    except concurrent.futures.TimeoutError:
+        print(
+            f"[WARNING] Satellite data query timed out after {SATELLITE_TIMEOUT_SECONDS}s"
+        )
+        return {
+            "available": False,
+            "observation_date": None,
+            "cloud_percentage": None,
+            "ndvi_mean": None,
+            "ndvi_median": None,
+            "ndvi_min": None,
+            "ndvi_max": None,
+            "source": "Sentinel-2 / Google Earth Engine",
+            "limitations": [
+                f"Satellite data query timed out after {SATELLITE_TIMEOUT_SECONDS:.1f}s."
+            ],
+        }
     except Exception as error:
+        print(f"[WARNING] Satellite data retrieval failed: {error}")
         return {
             "available": False,
             "observation_date": None,

@@ -18,25 +18,40 @@ def get_weather(lat: float, lon: float) -> dict:
         "forecast_days": 7,
     }
 
-    response = requests.get(url, params=params, timeout=10)
-    response.raise_for_status()
-    data = response.json()
-    daily = data.get("daily", {})
-    rain_probability = daily.get("precipitation_probability_max", [None])[0]
-    current = data["current"]
-    temperature = current.get("temperature_2m")
-    humidity = current.get("relative_humidity_2m")
-    rainfall = current.get("precipitation")
+    try:
+        response = requests.get(url, params=params, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        daily = data.get("daily", {})
+        rain_probability = daily.get("precipitation_probability_max", [None])[0]
+        current = data.get("current", {})
+        temperature = current.get("temperature_2m")
+        humidity = current.get("relative_humidity_2m")
+        rainfall = current.get("precipitation")
 
-    return {
-        "status": "available",
-        "source": "Open-Meteo",
-        "latitude": lat,
-        "longitude": lon,
-        "temperature": temperature,
-        "humidity": humidity,
-        "rainfall": rainfall,
-        "rain_probability": rain_probability,
-        "forecast": data.get("daily", {}),
-        "warnings": [],
-    }
+        return {
+            "status": "available",
+            "source": "Open-Meteo",
+            "latitude": lat,
+            "longitude": lon,
+            "temperature": temperature,
+            "humidity": humidity,
+            "rainfall": rainfall,
+            "rain_probability": rain_probability,
+            "forecast": daily,
+            "warnings": [],
+        }
+    except Exception as exc:
+        print(f"[WARNING] Weather retrieval failed: {exc}")
+        return {
+            "status": "unavailable",
+            "source": "Open-Meteo",
+            "latitude": lat,
+            "longitude": lon,
+            "temperature": None,
+            "humidity": None,
+            "rainfall": None,
+            "rain_probability": None,
+            "forecast": {},
+            "warnings": [f"Weather service temporarily unavailable: {str(exc)}"],
+        }
