@@ -5,7 +5,7 @@ steps:
       - '-f'
       - 'Dockerfile.frontend'
       - '--build-arg'
-      - 'VITE_API_URL=https://krashimitra-backend-694455455896.asia-south1.run.app'
+      - 'VITE_API_URL=https://krashimitra-backend-7n2lx7q3ua-el.a.run.app'
       - '-t'
       - 'asia-south1-docker.pkg.dev/krashimitra-ai-2026/krashimitra/krashimitra-frontend'
       - '.'
