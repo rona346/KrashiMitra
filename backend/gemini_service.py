@@ -1,4 +1,5 @@
 import time
+import re
 from google import genai
 from google.genai import types
 import os
@@ -121,6 +122,72 @@ def get_service_unavailable_advisory(display_disease: str = "Crop Condition") ->
 - बाहरी एआई सेवा सक्रिय होते ही विस्तृत परामर्श स्वतः उपलब्ध हो जाएगा।"""
 
 
+def sanitize_hindi_advisory(text: str) -> str:
+    if not text:
+        return text
+
+    # 1. "उपलब्ध contexto में वर्तमान फसल विकास चरण निर्दिष्ट नहीं है।" -> "उपलब्ध जानकारी में फसल का वर्तमान विकास चरण निर्दिष्ट नहीं है।"
+    text = re.sub(
+        r"उपलब्ध\s+contexto\s+में\s+वर्तमान\s+फसल\s+विकास\s+चरण\s+निर्दिष्ट\s+नहीं\s+है।?",
+        "उपलब्ध जानकारी में फसल का वर्तमान विकास चरण निर्दिष्ट नहीं है।",
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(
+        r"उपलब्ध\s+contexto\s+में",
+        "उपलब्ध जानकारी में",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    # 2. “ऑन-साइट soil and weather data की सत्यापन करें।” -> “खेत पर मिट्टी और मौसम के डेटा की पुष्टि करें।”
+    text = re.sub(
+        r"ऑन-साइट\s+soil\s+and\s+weather\s+data\s+(?:की|का)\s+(?:सत्यापन|पुष्टि)\s+करें।?",
+        "खेत पर मिट्टी और मौसम के डेटा की पुष्टि करें।",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    # 3. Rewrite sentence containing "specific soil moisture and nutrient sufficiency thresholds"
+    lines = text.split("\n")
+    cleaned_lines = []
+    for line in lines:
+        if re.search(
+            r"specific\s+soil\s+moisture\s+and\s+nutrient\s+sufficiency\s+thresholds",
+            line,
+            re.IGNORECASE,
+        ):
+            prefix = ""
+            trimmed = line.strip()
+            if trimmed.startswith("- "):
+                prefix = "- "
+            elif trimmed.startswith("* "):
+                prefix = "* "
+            elif re.match(r"^\d+\.\s*", trimmed):
+                prefix = re.match(r"^\d+\.\s*", trimmed).group(0)
+
+            if re.search(r"सत्यापन|पुष्टि|जांच|verify|check", line, re.IGNORECASE):
+                cleaned_lines.append(
+                    f"{prefix}खेत पर मिट्टी की उपयुक्त नमी और पोषक तत्वों के आवश्यक मानक स्तर की पुष्टि करें।"
+                )
+            else:
+                cleaned_lines.append(
+                    f"{prefix}फसल के लिए मिट्टी की उपयुक्त नमी और पोषक तत्वों के आवश्यक मानक स्तर की जानकारी उपलब्ध नहीं है।"
+                )
+        else:
+            cleaned_lines.append(line)
+    text = "\n".join(cleaned_lines)
+
+    text = re.sub(
+        r"specific\s+soil\s+moisture\s+and\s+nutrient\s+sufficiency\s+thresholds",
+        "मिट्टी की उपयुक्त नमी और पोषक तत्वों के आवश्यक मानक स्तर",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    return text
+
+
 def generate_advisory(farm_context: dict, language: str = "hinglish") -> AdvisoryResult:
     raw_disease = farm_context.get("disease", "Identified Condition")
     display_disease = str(raw_disease).replace("___", " ")
@@ -156,7 +223,10 @@ Rules:
 - If details (such as crop stage, weather, or soil thresholds) are missing, state that they are not provided and ask for them under "More information needed" / "अतिरिक्त जानकारी की आवश्यकता".
 - Treat soil_moisture as a recorded measurement value only unless crop-specific thresholds and context are provided. Do not call it favorable, high, or low, and do not link it to disease spread without evidence.
 - Give only general observation, field inspection, and verification steps when disease-specific management is not supported. Do not invent sprays, medicines, or field actions as proven treatment. For uncertain treatment, advise checking the product label and consulting a local agricultural officer.
-- In the Hindi section, use simple, natural farmer-readable Hindi in Devanagari script. Prefer short sentences and common words. Avoid awkward literal translations and mixed Hindi-English grammar.
+- In the Hindi section, use simple, natural farmer-readable Hindi in Devanagari script. Prefer short sentences and common words. Avoid awkward literal translations and mixed Hindi-English grammar:
+  * For missing crop stage, use: "उपलब्ध जानकारी में फसल का वर्तमान विकास चरण निर्दिष्ट नहीं है।" (Never use "contexto").
+  * For on-site verification, use: "खेत पर मिट्टी और मौसम के डेटा की पुष्टि करें।" (Never use "ऑन-साइट soil and weather data की सत्यापन करें").
+  * Never output English phrases like "specific soil moisture and nutrient sufficiency thresholds"; express it clearly in Hindi as: "फसल के लिए मिट्टी की उपयुक्त नमी और पोषक तत्वों के आवश्यक मानक स्तर की जानकारी उपलब्ध नहीं है।"
 - In the Hindi section, use only the readable display disease name ({display_disease}) in English/Latin script; do not repeat or output the raw technical identifier with triple underscores ({raw_disease}).
 - Keep technical terms and measurements (e.g. {display_disease}, NDVI, Sentinel-2, numbers, units, and percentages) in English/Latin script.
 - In Hindi, translate humidity as "आर्द्रता" or "हवा में नमी".
@@ -193,6 +263,7 @@ Return only the farmer advisory.
         raw_output = get_service_unavailable_advisory(display_disease)
 
     en_advisory, hi_advisory = split_bilingual_advisory(raw_output)
+    hi_advisory = sanitize_hindi_advisory(hi_advisory)
     selected_advisory = hi_advisory if language != "english" else en_advisory
     return AdvisoryResult(
         selected_advisory, advisory_en=en_advisory, advisory_hi=hi_advisory

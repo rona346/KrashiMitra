@@ -10,7 +10,9 @@ def calculate_risk(
     weather_risk = "UNKNOWN"
 
     # Disease risk
-    if disease_confidence >= 0.80:
+    if "healthy" in (disease or "").lower():
+        disease_risk = "LOW"
+    elif disease_confidence >= 0.80:
         disease_risk = "HIGH"
     elif disease_confidence >= 0.50:
         disease_risk = "MEDIUM"

@@ -309,6 +309,405 @@ function IconSquare({ size = 14, color = "currentColor" }) {
 }
 
 // -------------------------------------------------------------------
+// Centralized UI Localization Dictionary (Step 1 + Step 2)
+// -------------------------------------------------------------------
+
+const UI_STRINGS = {
+  hinglish: {
+    hero: {
+      title: "KrishiMitra AI",
+      badge: "आपका स्मार्ट कृषि साथी",
+      subtitle: "एआई-संचालित फसल रोग पहचान, मिट्टी विश्लेषण और कृषि सलाह",
+    },
+    diagnostics: {
+      title: "फसल रोग निदान एवं खेत टेलीमेट्री",
+      subtitle: "स्पष्ट पत्ती की तस्वीर अपलोड करें और खेत के पैरामीटर दर्ज कर सटीक एआई सलाह पाएं।",
+      readyBadge: (name, sizeKb) => `✓ तैयार (${name} • ${sizeKb} KB)`,
+      dropzoneTitle: "पत्ती की तस्वीर चुनें या यहाँ खींचकर छोड़ें",
+      dropzoneDesc: "सटीक रोग पहचान के लिए स्वस्थ या रोगग्रस्त पत्ती की फोटो अपलोड करें",
+      dropzoneSpecs: "समर्थित प्रारूप: JPG, JPEG, PNG, WEBP • न्यूनतम आकार: 128×128px या अधिक",
+      previewLoaded: "पत्ती की तस्वीर लोड हो गई",
+      previewImgAlt: "चुनी गई फसल पत्ती का पूर्वावलोकन",
+      changePhoto: "फोटो बदलें",
+      previewEmptyTitle: "कोई तस्वीर नहीं चुनी गई",
+      previewEmptyDesc: "विश्लेषण शुरू करने के लिए पत्ती की फोटो अपलोड करें",
+      demoLocation: "डिफ़ॉल्ट डेमो स्थान:",
+      demoLocationDetails: "उदयपुर, राजस्थान (24.5854°N, 73.7125°E) • आधारभूत नमी: 62%",
+      soilMoistureLabel: "मृदा नमी (%)",
+      soilMoisturePlaceholder: "उदा. 62",
+      latitudeLabel: "अक्षांश (Latitude)",
+      latitudePlaceholder: "उदा. 24.5854",
+      longitudeLabel: "देशांतर (Longitude)",
+      longitudePlaceholder: "उदा. 73.7125",
+      analyzeBtn: "फसल का विश्लेषण करें",
+      analyzingBtn: "फसल का विश्लेषण हो रहा है...",
+      msgInvalidImage: "कृपया मान्य छवि फ़ाइल (PNG, JPG, JPEG, WEBP) अपलोड करें।",
+      msgImageSelected: (name) => `"${name}" चुनी गई। विश्लेषण के लिए "फसल का विश्लेषण करें" पर क्लिक करें।`,
+      msgSelectImagePrompt: "कृपया पहले किसी फसल की पत्ती की तस्वीर चुनें या अपलोड करें।",
+      msgAnalyzing: "रोग निदान AI, मौसम टेलीमेट्री और Sentinel-2 विश्लेषण जारी है...",
+      msgNetworkError: "सर्वर से कनेक्ट करने में असमर्थ। कृपया बैकएंड सर्वर की स्थिति जांचें।",
+      msgAnalysisComplete: (disease, conf) => `विश्लेषण पूर्ण: ${disease} | विश्वास: ${conf}%`,
+    },
+    chat: {
+      title: "किसान एआई चैट",
+      subtitle: "हिंदी या अंग्रेजी में खेती से जुड़े सवाल पूछें (रोग के लक्षण, सावधानियां, उर्वरक सलाह)",
+      activeBadge: "सक्रिय: हिंदी / Hinglish",
+      chips: [
+        "टमाटर में पत्ती धब्बा रोग के क्या लक्षण हैं?",
+        "ड्रिप सिंचाई में कितनी खाद देनी चाहिए?",
+        "मिट्टी में नाइट्रोजन की कमी कैसे पूरी करें?",
+      ],
+      placeholderListening: "आपकी आवाज़ सुन रहे हैं... कृपया बोलें",
+      placeholderDefault: "अपनी फसल के बारे में पूछें (उदा. टमाटर की फसल में क्या सावधानियाँ रखें?)...",
+      micTitleListening: "आवाज़ सुनना बंद करें",
+      micTitleDefault: "बोलकर पूछें",
+      micLabelListening: "रोकें",
+      micLabelDefault: "बोलें",
+      askAi: "AI से पूछें",
+      thinking: "सोच रहे हैं...",
+      listeningIndicator: "सुन रहे हैं... कृपया अपना सवाल बोलें।",
+      assistantTitle: "कृषि मित्र सहायक",
+      ttsListen: "सुनें",
+      ttsStop: "रोकें",
+      ttsTitleListen: "उत्तर बोलकर सुनें",
+      ttsTitleStop: "आवाज़ रोकें",
+      emptyQuestionError: "कृपया अपना सवाल दर्ज करें।",
+      chatNetworkError: "कृषि मित्र AI से कनेक्शन नहीं हो पा रहा है। कृपया दोबारा प्रयास करें।",
+      voiceNotSupported:
+        "आपके ब्राउज़र में आवाज़ पहचान समर्थित नहीं है। कृपया Google Chrome या Microsoft Edge का उपयोग करें।",
+      micPermissionDenied:
+        "माइक्रोफ़ोन की अनुमति अस्वीकृत है। कृपया ब्राउज़र सेटिंग्स में माइक्रोफ़ोन की अनुमति दें।",
+      noSpeechDetected:
+        "कोई आवाज़ नहीं सुनाई दी। कृपया माइक्रोफ़ोन के पास साफ़ आवाज़ में बोलें।",
+      voiceRecognitionError: (err) =>
+        `आवाज़ पहचान में समस्या आई (${err})। कृपया दोबारा प्रयास करें।`,
+      voiceStartFailed:
+        "आवाज़ पहचान शुरू नहीं हो सकी। कृपया दोबारा प्रयास करें।",
+      ttsNotSupported:
+        "इस ब्राउज़र में बोलकर सुनाने की सुविधा समर्थित नहीं है।",
+    },
+    telemetry: {
+      sectionTitle: "एकीकृत टेलीमेट्री और निदान विवरण",
+      sectionSubtitle:
+        "कंप्यूटर विज़न, स्थानीय मृदा रिकॉर्ड, मौसम पूर्वानुमान और Sentinel-2 सैटेलाइट अवलोकन से एकीकृत बहुआयामी बुद्धिमत्ता।",
+      badgeLive: "लाइव टेलीमेट्री लोड हो गई",
+      badgeAwaiting: "विश्लेषण इनपुट की प्रतीक्षा है",
+      awaitingAnalysis: "विश्लेषण की प्रतीक्षा है",
+      cropConditionLabel: "पहचानी गई फसल की स्थिति",
+      classBadge: (idx) => `श्रेणी #${idx}`,
+      noConditionDetected: "कोई रोग नहीं पहचाना गया",
+      modelConfidence: (conf) => `Harimitra मॉडल विश्वास: ${conf}%`,
+      cropConditionPrompt:
+        "Harimitra AI से निदान प्राप्त करने के लिए फसल की पत्ती की तस्वीर अपलोड करें।",
+      overallRiskLabel: "खेत का समग्र जोखिम",
+      riskLevels: {
+        HIGH: "उच्च (HIGH)",
+        MEDIUM: "मध्यम (MEDIUM)",
+        LOW: "कम (LOW)",
+      },
+      riskBreakdown: (disease, water, weather) =>
+        `रोग: ${disease} • नमी: ${water} • मौसम: ${weather}`,
+      riskPrompt:
+        "रोग गंभीरता, मृदा नमी और मौसम टेलीमेट्री से आकलित।",
+      soilMoistureLabel: "मृदा नमी",
+      soilMoistureSubResult: "रूट-ज़ोन कैलिब्रेटेड",
+      irrigationLabel: "सिंचाई सलाह",
+      irrigationSubResult: "स्वचालित थ्रेशोल्ड आधारित",
+      irrigationLevels: {
+        "Irrigation Required": "सिंचाई आवश्यक है",
+        "Irrigation Not Required": "सिंचाई की आवश्यकता नहीं है",
+        "Irrigation Not Required - Soil Moisture High":
+          "सिंचाई की आवश्यकता नहीं है - नमी पर्याप्त है",
+      },
+      weatherLabel: "मौसम एवं तापमान",
+      humiditySub: (hum) => `आर्द्रता: ${hum}% (Open-Meteo)`,
+      rainForecastLabel: "वर्षा का पूर्वानुमान",
+      precipitationProbSub: "वर्षा की संभावना",
+      satelliteNdviLabel: "सैटेलाइट NDVI",
+      satelliteBadge: "Sentinel-2",
+      unavailable: "अनुपलब्ध",
+      meanVegetationIndex: "औसत वनस्पति सूचकांक",
+      observationLabel: "अवलोकन तारीख:",
+      cloudLabel: "बादल:",
+      sourceLabel: "डेटा स्रोत:",
+      defaultSource: "Sentinel-2 / Google Earth Engine",
+    },
+    advisory: {
+      sectionTitle: "एआई कृषि सलाह",
+      sectionSubtitle:
+        "Harimitra रोग चेतावनी, मृदा स्वास्थ्य कार्ड और मौसम टेलीमेट्री से उत्पन्न कृषि सलाह",
+      providerBadge: "Gemini प्राथमिक • OpenRouter बैकअप",
+      emptyAdvisory: "एआई कृषि सलाह वर्तमान में उपलब्ध नहीं है।",
+    },
+    actions: {
+      sectionTitle: "प्राथमिकता-आधारित खेत कार्रवाइयां",
+      sectionSubtitle:
+        "सभी डायग्नोस्टिक और टेलीमेट्री डेटा से तैयार की गई प्राथमिकता-आधारित खेत कार्रवाइयां।",
+      badgeReady: () => "कार्रवाइयां तैयार",
+      labelAction: "कार्रवाई:",
+      labelRationale: "कारण:",
+      labelEvidence: "साक्ष्य:",
+      labelDataSource: "डेटा स्रोत:",
+      emptyActions:
+        "वर्तमान परिस्थितियों के आधार पर किसी तत्काल कार्रवाई की आवश्यकता नहीं है।",
+    },
+    crops: {
+      sectionTitle: "वैकल्पिक फसल सिफारिशें",
+      currentCropLabel: "वर्तमान खेत की फसल:",
+      rankedSubtitle: "• कृषि उपयुक्तता के आधार पर रैंक किया गया",
+      completenessBadge: (comp) => {
+        const localizedComp =
+          comp === "GOOD"
+            ? "उत्कृष्ट (GOOD)"
+            : comp === "PARTIAL"
+              ? "आंशिक (PARTIAL)"
+              : comp === "INSUFFICIENT"
+                ? "अपर्याप्त (INSUFFICIENT)"
+                : comp;
+        return `डेटा पूर्णता: ${localizedComp}`;
+      },
+      suitabilityLabels: {
+        HIGH: "उच्च उपयुक्तता (HIGH)",
+        MODERATE: "मध्यम उपयुक्तता (MODERATE)",
+        LOW: "कम उपयुक्तता (LOW)",
+      },
+      matchScoreLabel: "मैच स्कोर:",
+      rationaleHeading: "सिफारिश के कृषि संबंधी कारण:",
+      emptyRecommendations:
+        "वर्तमान परिस्थितियों के लिए कोई वैकल्पिक फसल सिफारिश उपलब्ध नहीं है।",
+      limitationsHeading: "डेटा संबंधी सीमाएं:",
+    },
+    soil: {
+      sectionTitle: "मृदा स्वास्थ्य कार्ड (12 पैरामीटर)",
+      sectionSubtitle:
+        "राष्ट्रीय मृदा स्वास्थ्य कार्ड योजना बेंचमार्क डेटा • उदयपुर ज़िला, राजस्थान",
+      badgeLoaded: "12 पैरामीटर लोड हुए",
+      primaryMacronutrients: "प्रमुख पोषक तत्व",
+      secondaryMicronutrients: "द्वितीयक एवं सूक्ष्म पोषक तत्व",
+      physicalChemical: "भौतिक एवं रासायनिक गुण",
+      dataSource:
+        "डेटा स्रोत: मृदा स्वास्थ्य कार्ड पोर्टल रिकॉर्ड, राजस्थान राज्य, उदयपुर ज़िला।",
+    },
+    agristack: {
+      sectionTitle: "खेत का विवरण (AgriStack प्रारूप)",
+      sectionSubtitle:
+        "कृषि हेतु डिजिटल सार्वजनिक अवसंरचना • किसान एवं भूखंड विवरण",
+      badgeDemo: "डेमो / सिंथेटिक डेटा",
+      labels: {
+        farmerId: "किसान पहचान संख्या (ID)",
+        farmerName: "किसान का नाम",
+        location: "स्थान",
+        registeredCrop: "पंजीकृत फसल",
+        plotArea: "भूखंड का क्षेत्रफल",
+        season: "फसल मौसम",
+        irrigation: "सिंचाई पद्धति",
+        soilTexture: "मिट्टी का प्रकार",
+      },
+      acresUnit: "एकड़",
+      disclaimer:
+        "डेमो / सिंथेटिक डेटा — यह आधिकारिक लाइव AgriStack रिकॉर्ड नहीं है।",
+    },
+    footer: {
+      title:
+        "कृषि मित्र AI • स्मार्ट फसल निदान एवं कृषि टेलीमेट्री • BUILD 2036",
+      disclaimer:
+        "एआई सलाह केवल निर्णय समर्थन हेतु है। रासायनिक उपचार से पहले हमेशा स्थानीय कृषि विज्ञान केंद्र (KVK) से पुष्टि करें।",
+    },
+  },
+  english: {
+    hero: {
+      title: "KrishiMitra AI",
+      badge: "Your Smart Farming Companion",
+      subtitle: "AI-powered crop disease detection, soil insights & farm advisory",
+    },
+    diagnostics: {
+      title: "Crop Disease Diagnostics & Field Telemetry",
+      subtitle: "Upload a clear leaf photo and provide farm parameters to get AI-powered insights.",
+      readyBadge: (name, sizeKb) => `✓ Ready (${name} • ${sizeKb} KB)`,
+      dropzoneTitle: "Click or Drag & Drop a Leaf Photo",
+      dropzoneDesc: "Upload healthy or diseased leaf images for pathology diagnosis",
+      dropzoneSpecs: "Supported: JPG, JPEG, PNG, WEBP • Target: 128×128px or higher",
+      previewLoaded: "Leaf Image Loaded",
+      previewImgAlt: "Selected crop leaf preview",
+      changePhoto: "Change Photo",
+      previewEmptyTitle: "No image selected",
+      previewEmptyDesc: "Upload a leaf image to begin analysis",
+      demoLocation: "Default Demo Location:",
+      demoLocationDetails: "Udaipur, Rajasthan (24.5854°N, 73.7125°E) • Baseline Moisture: 62%",
+      soilMoistureLabel: "Soil Moisture (%)",
+      soilMoisturePlaceholder: "e.g. 62",
+      latitudeLabel: "Latitude",
+      latitudePlaceholder: "e.g. 24.5854",
+      longitudeLabel: "Longitude",
+      longitudePlaceholder: "e.g. 73.7125",
+      analyzeBtn: "Analyze Crop",
+      analyzingBtn: "Analyzing Crop...",
+      msgInvalidImage: "Please upload an image file (PNG, JPG, JPEG, WEBP).",
+      msgImageSelected: (name) => `Selected "${name}". Click "Analyze Crop" to evaluate.`,
+      msgSelectImagePrompt: "Please select or upload a crop leaf image first.",
+      msgAnalyzing: "Running Harimitra Disease AI, weather telemetry & Sentinel-2 analysis...",
+      msgNetworkError: "Unable to connect to backend server. Please verify backend status.",
+      msgAnalysisComplete: (disease, conf) => `Analysis complete: ${disease} | Confidence: ${conf}%`,
+    },
+    chat: {
+      title: "Farmer AI Chat",
+      subtitle: "Ask agricultural questions in Hindi or English (Symptoms, precautions, fertilizer advice)",
+      activeBadge: "Active: English",
+      chips: [
+        "What precautions to take for tomato target spot?",
+        "How often should I run drip irrigation?",
+        "How to treat nitrogen deficiency in soil?",
+      ],
+      placeholderListening: "Listening to your voice... Speak now",
+      placeholderDefault: "Ask a farming question (e.g., What precautions should I take for tomato crop?)...",
+      micTitleListening: "Stop listening",
+      micTitleDefault: "Voice Input (Speak in English)",
+      micLabelListening: "Stop",
+      micLabelDefault: "Speak",
+      askAi: "Ask AI",
+      thinking: "Thinking...",
+      listeningIndicator: "Listening... Speak your question now.",
+      assistantTitle: "KrishiMitra Assistant",
+      ttsListen: "Listen",
+      ttsStop: "Stop",
+      ttsTitleListen: "Listen to response",
+      ttsTitleStop: "Stop audio",
+      emptyQuestionError: "Please enter a question.",
+      chatNetworkError: "Unable to connect to KrishiMitra AI assistant. Please try again.",
+      voiceNotSupported:
+        "Speech recognition is not supported in this browser. Please use Google Chrome or Microsoft Edge.",
+      micPermissionDenied:
+        "Microphone access denied. Please allow microphone access in browser permissions.",
+      noSpeechDetected:
+        "No speech detected. Please speak clearly into your microphone.",
+      voiceRecognitionError: (err) =>
+        `Voice recognition error (${err}). Please try again.`,
+      voiceStartFailed:
+        "Unable to start speech recognition. Please try again.",
+      ttsNotSupported:
+        "Text-to-speech is not supported in this browser.",
+    },
+    telemetry: {
+      sectionTitle: "Unified Telemetry & Diagnostics Overview",
+      sectionSubtitle:
+        "Integrated multi-modal intelligence across computer vision, in-situ soil records, meteorological forecasts & Sentinel-2 satellite observation.",
+      badgeLive: "Live Telemetry Loaded",
+      badgeAwaiting: "Awaiting Analysis Input",
+      awaitingAnalysis: "Awaiting analysis",
+      cropConditionLabel: "Detected Crop Condition",
+      classBadge: (idx) => `Class #${idx}`,
+      noConditionDetected: "No condition detected",
+      modelConfidence: (conf) => `Harimitra Model Confidence: ${conf}%`,
+      cropConditionPrompt:
+        "Upload a crop leaf photo to run Harimitra AI inference.",
+      overallRiskLabel: "Overall Farm Risk",
+      riskLevels: {
+        HIGH: "HIGH",
+        MEDIUM: "MEDIUM",
+        LOW: "LOW",
+      },
+      riskBreakdown: (disease, water, weather) =>
+        `Disease: ${disease} • Moisture: ${water} • Weather: ${weather}`,
+      riskPrompt:
+        "Computed from disease severity, moisture & forecast telemetry.",
+      soilMoistureLabel: "Soil Moisture",
+      soilMoistureSubResult: "Root-zone calibrated",
+      irrigationLabel: "Irrigation Advice",
+      irrigationSubResult: "Automated threshold",
+      irrigationLevels: {
+        "Irrigation Required": "Irrigation Required",
+        "Irrigation Not Required": "Irrigation Not Required",
+        "Irrigation Not Required - Soil Moisture High":
+          "Irrigation Not Required - Soil Moisture High",
+      },
+      weatherLabel: "Weather & Temperature",
+      humiditySub: (hum) => `Humidity: ${hum}% (Open-Meteo)`,
+      rainForecastLabel: "Rain Forecast",
+      precipitationProbSub: "Precipitation probability",
+      satelliteNdviLabel: "Satellite NDVI",
+      satelliteBadge: "Sentinel-2",
+      unavailable: "Unavailable",
+      meanVegetationIndex: "Mean vegetation index",
+      observationLabel: "Observation:",
+      cloudLabel: "Cloud:",
+      sourceLabel: "Source:",
+      defaultSource: "Sentinel-2 / Google Earth Engine",
+    },
+    advisory: {
+      sectionTitle: "AI Agricultural Advisory",
+      sectionSubtitle:
+        "Agronomic recommendations generated from Harimitra disease alert, soil health card & weather telemetry",
+      providerBadge: "Gemini Primary • OpenRouter Fallback",
+      emptyAdvisory: "AI advisory is currently unavailable.",
+    },
+    actions: {
+      sectionTitle: "Prioritized Farm Actions",
+      sectionSubtitle:
+        "Field-grounded, prioritized actions synthesized across all diagnostic and telemetry streams.",
+      badgeReady: (count) => (count === 1 ? "Action Ready" : "Actions Ready"),
+      labelAction: "Action:",
+      labelRationale: "Rationale:",
+      labelEvidence: "Evidence:",
+      labelDataSource: "Data Source:",
+      emptyActions:
+        "No immediate field actions required based on current telemetry.",
+    },
+    crops: {
+      sectionTitle: "Alternative Crop Recommendations",
+      currentCropLabel: "Current Farm Crop:",
+      rankedSubtitle: "• Ranked by deterministic agronomic suitability",
+      completenessBadge: (comp) => `Completeness: ${comp}`,
+      suitabilityLabels: {
+        HIGH: "HIGH SUITABILITY",
+        MODERATE: "MODERATE SUITABILITY",
+        LOW: "LOW SUITABILITY",
+      },
+      matchScoreLabel: "Match Score:",
+      rationaleHeading: "Agronomic Rationale:",
+      emptyRecommendations:
+        "No alternative crop recommendations available for current telemetry.",
+      limitationsHeading: "Data Limitations:",
+    },
+    soil: {
+      sectionTitle: "Soil Health Card (12 Parameters)",
+      sectionSubtitle:
+        "National Soil Health Card Scheme benchmark data • Udaipur District, Rajasthan",
+      badgeLoaded: "12 Parameters Loaded",
+      primaryMacronutrients: "Primary Macronutrients",
+      secondaryMicronutrients: "Secondary & Micronutrients",
+      physicalChemical: "Physical & Chemical",
+      dataSource:
+        "Data source: Soil Health Card portal records for Rajasthan state, Udaipur district.",
+    },
+    agristack: {
+      sectionTitle: "Farm Context (AgriStack Format)",
+      sectionSubtitle:
+        "Digital Public Infrastructure for Agriculture • Farmer & Plot Schema",
+      badgeDemo: "Demo / Synthetic Data",
+      labels: {
+        farmerId: "Farmer ID",
+        farmerName: "Farmer Name",
+        location: "Location",
+        registeredCrop: "Registered Crop",
+        plotArea: "Plot Area",
+        season: "Season",
+        irrigation: "Irrigation",
+        soilTexture: "Soil Texture",
+      },
+      acresUnit: "acres",
+      disclaimer:
+        "Demo / Synthetic Data — not an official live AgriStack record.",
+    },
+    footer: {
+      title:
+        "KrishiMitra AI • Smart Crop Diagnostics & Agronomic Telemetry • BUILD 2036",
+      disclaimer:
+        "AI advisory is decision-support only. Always verify with local agricultural experts (KVK) before applying chemical treatments.",
+    },
+  },
+};
+
+// -------------------------------------------------------------------
 // Main Component
 // -------------------------------------------------------------------
 
@@ -323,6 +722,7 @@ function App() {
   const [isChatting, setIsChatting] = useState(false);
   const [chatError, setChatError] = useState("");
   const [language, setLanguage] = useState("hinglish");
+  const strings = UI_STRINGS[language] || UI_STRINGS.hinglish;
   const [soilMoisture, setSoilMoisture] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -371,6 +771,7 @@ function App() {
   // Safe language switcher that stops any active voice sessions and clears input
   const handleLanguageChange = (newLang) => {
     if (newLang === language) return;
+    const nextStrings = UI_STRINGS[newLang] || UI_STRINGS.hinglish;
 
     // 1. Immediately clear the chat message input, including any existing voice transcript
     setMessage("");
@@ -386,7 +787,7 @@ function App() {
     }
     setIsSpeaking(false);
 
-    // 2. Stop any active speech recognition
+    // 3. Stop any active speech recognition
     if (recognitionRef.current) {
       try {
         recognitionRef.current.onresult = null;
@@ -401,21 +802,31 @@ function App() {
     setIsListening(false);
     setVoiceError("");
 
-    // 3. Update language ref & state so the next microphone session uses the new language (hi-IN or en-IN)
+    // 4. Update status banner if an image or analysis is active
+    if (selectedFile && !result) {
+      setAnalysis(nextStrings.diagnostics.msgImageSelected(selectedFile.name));
+    } else if (result) {
+      const diseaseLabel = result.analysis?.replaceAll("___", " ") || "Processed";
+      const confPct = (result.confidence * 100).toFixed(1);
+      setAnalysis(nextStrings.diagnostics.msgAnalysisComplete(diseaseLabel, confPct));
+    }
+
+    // 5. Update language ref & state so the next microphone session uses the new language (hi-IN or en-IN)
     languageRef.current = newLang;
     setLanguage(newLang);
   };
 
   // Handle image selection
   const handleFile = (file) => {
+    const s = UI_STRINGS[languageRef.current || language] || UI_STRINGS.hinglish;
     if (!file) return;
     if (!file.type.startsWith("image/")) {
-      setAnalysis("Please upload an image file (PNG, JPG, JPEG, WEBP).");
+      setAnalysis(s.diagnostics.msgInvalidImage);
       return;
     }
     setSelectedFile(file);
     setImagePreview(URL.createObjectURL(file));
-    setAnalysis(`Selected "${file.name}". Click "Analyze Crop" to evaluate.`);
+    setAnalysis(s.diagnostics.msgImageSelected(file.name));
   };
 
   // Drag and drop handlers
@@ -451,14 +862,13 @@ function App() {
 
   // POST /analyze
   const handleAnalyze = async () => {
+    const s = UI_STRINGS[languageRef.current || language] || UI_STRINGS.hinglish;
     if (!selectedFile) {
-      setAnalysis("Please select or upload a crop leaf image first.");
+      setAnalysis(s.diagnostics.msgSelectImagePrompt);
       return;
     }
 
-    setAnalysis(
-      "Running Harimitra Disease AI, weather telemetry & Sentinel-2 analysis...",
-    );
+    setAnalysis(s.diagnostics.msgAnalyzing);
     setIsAnalyzing(true);
 
     const formData = new FormData();
@@ -483,14 +893,12 @@ function App() {
 
       const data = await response.json();
       setResult(data);
-      setAnalysis(
-        `Analysis complete: ${data.analysis?.replaceAll("___", " ") || "Processed"} | Confidence: ${(data.confidence * 100).toFixed(1)}%`,
-      );
+      const diseaseLabel = data.analysis?.replaceAll("___", " ") || "Processed";
+      const confPct = (data.confidence * 100).toFixed(1);
+      setAnalysis(s.diagnostics.msgAnalysisComplete(diseaseLabel, confPct));
     } catch (error) {
       console.error("Analyze error:", error);
-      setAnalysis(
-        "Unable to connect to backend server. Please verify backend status.",
-      );
+      setAnalysis(s.diagnostics.msgNetworkError);
     } finally {
       setIsAnalyzing(false);
     }
@@ -498,12 +906,13 @@ function App() {
 
   // POST /chat
   const handleChat = async (customQuestion) => {
+    const s = UI_STRINGS[languageRef.current || language] || UI_STRINGS.hinglish;
     if (isChatting) return;
     const questionText = (
       typeof customQuestion === "string" ? customQuestion : message
     ).trim();
     if (!questionText) {
-      setChatError("Please enter a question.");
+      setChatError(s.chat.emptyQuestionError);
       return;
     }
 
@@ -533,7 +942,7 @@ function App() {
 
     setChatError("");
     setVoiceError("");
-    setChatReply("Thinking...");
+    setChatReply(s.chat.thinking);
     setIsChatting(true);
 
     try {
@@ -556,7 +965,7 @@ function App() {
       setChatReply(data.reply);
     } catch (error) {
       console.error("Chat error:", error);
-      setChatReply("KrishiMitra AI se connection nahi ho pa raha.");
+      setChatReply(s.chat.chatNetworkError);
     } finally {
       setIsChatting(false);
     }
@@ -574,16 +983,13 @@ function App() {
     }
 
     const currentLang = languageRef.current || language;
+    const currentStrings = UI_STRINGS[currentLang] || UI_STRINGS.hinglish;
     const SpeechRecognition =
       typeof window !== "undefined" &&
       (window.SpeechRecognition || window.webkitSpeechRecognition);
 
     if (!SpeechRecognition) {
-      setVoiceError(
-        currentLang === "english"
-          ? "Speech recognition is not supported in this browser. Please use Google Chrome or Microsoft Edge."
-          : "आपके ब्राउज़र में आवाज़ पहचान समर्थित नहीं है। कृपया Google Chrome या Microsoft Edge का उपयोग करें।",
-      );
+      setVoiceError(currentStrings.chat.voiceNotSupported);
       return;
     }
 
@@ -637,27 +1043,16 @@ function App() {
         setIsListening(false);
         recognitionRef.current = null;
         const errLang = languageRef.current || language;
+        const errStrings = UI_STRINGS[errLang] || UI_STRINGS.hinglish;
         if (
           event.error === "not-allowed" ||
           event.error === "permission-denied"
         ) {
-          setVoiceError(
-            errLang === "english"
-              ? "Microphone access denied. Please allow microphone access in browser permissions."
-              : "माइक्रोफ़ोन की अनुमति अस्वीकृत है। कृपया ब्राउज़र सेटिंग्स में माइक्रोफ़ोन की अनुमति दें।",
-          );
+          setVoiceError(errStrings.chat.micPermissionDenied);
         } else if (event.error === "no-speech") {
-          setVoiceError(
-            errLang === "english"
-              ? "No speech detected. Please speak clearly into your microphone."
-              : "कोई आवाज़ नहीं सुनाई दी। कृपया माइक्रोफ़ोन के पास साफ़ आवाज़ में बोलें।",
-          );
+          setVoiceError(errStrings.chat.noSpeechDetected);
         } else if (event.error !== "aborted") {
-          setVoiceError(
-            errLang === "english"
-              ? `Voice recognition error (${event.error}). Please try again.`
-              : `आवाज़ पहचान में समस्या आई (${event.error})। कृपया दोबारा प्रयास करें।`,
-          );
+          setVoiceError(errStrings.chat.voiceRecognitionError(event.error));
         }
       };
 
@@ -673,23 +1068,17 @@ function App() {
       setIsListening(false);
       recognitionRef.current = null;
       const errLang = languageRef.current || language;
-      setVoiceError(
-        errLang === "english"
-          ? "Unable to start speech recognition. Please try again."
-          : "आवाज़ पहचान शुरू नहीं हो सकी। कृपया दोबारा प्रयास करें।",
-      );
+      const errStrings = UI_STRINGS[errLang] || UI_STRINGS.hinglish;
+      setVoiceError(errStrings.chat.voiceStartFailed);
     }
   };
 
   // Voice Output (TTS) Toggle
   const handleToggleSpeak = (rawText) => {
     const activeLang = languageRef.current || language;
+    const activeStrings = UI_STRINGS[activeLang] || UI_STRINGS.hinglish;
     if (typeof window === "undefined" || !("speechSynthesis" in window)) {
-      setVoiceError(
-        activeLang === "english"
-          ? "Text-to-speech is not supported in this browser."
-          : "इस ब्राउज़र में बोलकर सुनाने की सुविधा समर्थित नहीं है।",
-      );
+      setVoiceError(activeStrings.chat.ttsNotSupported);
       return;
     }
 
@@ -764,14 +1153,13 @@ function App() {
             </div>
             <div className="km-hero-title-group">
               <div className="km-hero-title-row">
-                <h1 className="km-hero-title">KrishiMitra AI</h1>
+                <h1 className="km-hero-title">{strings.hero.title}</h1>
                 <span className="km-hero-badge">
-                  Your Smart Farming Companion
+                  {strings.hero.badge}
                 </span>
               </div>
               <p className="km-hero-subtitle">
-                AI-powered crop disease detection, soil insights &amp; farm
-                advisory
+                {strings.hero.subtitle}
               </p>
             </div>
           </div>
@@ -804,17 +1192,18 @@ function App() {
           <div>
             <h2 className="km-section-title">
               <IconCamera size={20} color="#15803d" />
-              Crop Disease Diagnostics &amp; Field Telemetry
+              {strings.diagnostics.title}
             </h2>
             <p className="km-section-subtitle">
-              Upload a clear leaf photo and provide farm parameters to get
-              AI-powered insights.
+              {strings.diagnostics.subtitle}
             </p>
           </div>
           {selectedFile && (
             <span className="km-badge km-badge-green">
-              ✓ Ready ({selectedFile.name} •{" "}
-              {(selectedFile.size / 1024).toFixed(1)} KB)
+              {strings.diagnostics.readyBadge(
+                selectedFile.name,
+                (selectedFile.size / 1024).toFixed(1),
+              )}
             </span>
           )}
         </div>
@@ -844,13 +1233,13 @@ function App() {
               <IconUpload size={26} color="#15803d" />
             </div>
             <div className="km-dropzone-title">
-              Click or Drag &amp; Drop a Leaf Photo
+              {strings.diagnostics.dropzoneTitle}
             </div>
             <div className="km-dropzone-desc">
-              Upload healthy or diseased leaf images for pathology diagnosis
+              {strings.diagnostics.dropzoneDesc}
             </div>
             <div className="km-dropzone-specs">
-              Supported: JPG, JPEG, PNG, WEBP • Target: 128×128px or higher
+              {strings.diagnostics.dropzoneSpecs}
             </div>
           </div>
 
@@ -860,7 +1249,7 @@ function App() {
               <div className="km-preview-content">
                 <img
                   src={imagePreview}
-                  alt="Selected crop leaf preview"
+                  alt={strings.diagnostics.previewImgAlt}
                   className="km-preview-img"
                 />
                 <div className="km-preview-meta">
@@ -871,7 +1260,7 @@ function App() {
                       color: "#14532d",
                     }}
                   >
-                    Leaf Image Loaded
+                    {strings.diagnostics.previewLoaded}
                   </div>
                   <div
                     style={{
@@ -898,7 +1287,7 @@ function App() {
                       cursor: "pointer",
                     }}
                   >
-                    Change Photo
+                    {strings.diagnostics.changePhoto}
                   </button>
                 </div>
               </div>
@@ -914,7 +1303,7 @@ function App() {
                     color: "#475569",
                   }}
                 >
-                  No image selected
+                  {strings.diagnostics.previewEmptyTitle}
                 </div>
                 <div
                   style={{
@@ -924,7 +1313,7 @@ function App() {
                     maxWidth: "200px",
                   }}
                 >
-                  Upload a leaf image to begin analysis
+                  {strings.diagnostics.previewEmptyDesc}
                 </div>
               </div>
             )}
@@ -939,15 +1328,15 @@ function App() {
                   <IconPin size={15} color="#059669" />
                 </span>
                 <div>
-                  <strong>Default Demo Location:</strong> Udaipur, Rajasthan
-                  (24.5854°N, 73.7125°E) • Baseline Moisture: 62%
+                  <strong>{strings.diagnostics.demoLocation}</strong>{" "}
+                  {strings.diagnostics.demoLocationDetails}
                 </div>
               </div>
 
               <div className="km-form-group">
                 <label className="km-form-label">
                   <IconDroplet size={14} color="#0284c7" />
-                  Soil Moisture (%)
+                  {strings.diagnostics.soilMoistureLabel}
                 </label>
                 <input
                   type="number"
@@ -956,14 +1345,14 @@ function App() {
                   className="km-input"
                   value={soilMoisture}
                   onChange={(e) => setSoilMoisture(e.target.value)}
-                  placeholder="e.g. 62"
+                  placeholder={strings.diagnostics.soilMoisturePlaceholder}
                 />
               </div>
 
               <div className="km-form-group">
                 <label className="km-form-label">
                   <IconPin size={14} color="#16a34a" />
-                  Latitude
+                  {strings.diagnostics.latitudeLabel}
                 </label>
                 <input
                   type="number"
@@ -971,14 +1360,14 @@ function App() {
                   className="km-input"
                   value={latitude}
                   onChange={(e) => setLatitude(e.target.value)}
-                  placeholder="e.g. 24.5854"
+                  placeholder={strings.diagnostics.latitudePlaceholder}
                 />
               </div>
 
               <div className="km-form-group">
                 <label className="km-form-label">
                   <IconPin size={14} color="#16a34a" />
-                  Longitude
+                  {strings.diagnostics.longitudeLabel}
                 </label>
                 <input
                   type="number"
@@ -986,7 +1375,7 @@ function App() {
                   className="km-input"
                   value={longitude}
                   onChange={(e) => setLongitude(e.target.value)}
-                  placeholder="e.g. 73.7125"
+                  placeholder={strings.diagnostics.longitudePlaceholder}
                 />
               </div>
             </div>
@@ -1001,12 +1390,12 @@ function App() {
                 {isAnalyzing ? (
                   <>
                     <span className="km-spinner" />
-                    <span>Analyzing Crop...</span>
+                    <span>{strings.diagnostics.analyzingBtn}</span>
                   </>
                 ) : (
                   <>
                     <IconSparkles size={16} color="#ffffff" />
-                    <span>Analyze Crop</span>
+                    <span>{strings.diagnostics.analyzeBtn}</span>
                   </>
                 )}
               </button>
@@ -1045,16 +1434,16 @@ function App() {
           <div>
             <h2 className="km-section-title">
               <IconShield size={20} color="#15803d" />
-              Unified Telemetry &amp; Diagnostics Overview
+              {strings.telemetry.sectionTitle}
             </h2>
             <p className="km-section-subtitle">
-              Integrated multi-modal intelligence across computer vision,
-              in-situ soil records, meteorological forecasts &amp; Sentinel-2
-              satellite observation.
+              {strings.telemetry.sectionSubtitle}
             </p>
           </div>
           <span className="km-badge km-badge-gray">
-            {result ? "Live Telemetry Loaded" : "Awaiting Analysis Input"}
+            {result
+              ? strings.telemetry.badgeLive
+              : strings.telemetry.badgeAwaiting}
           </span>
         </div>
 
@@ -1071,11 +1460,11 @@ function App() {
             <div className="km-metric-header">
               <span className="km-metric-label">
                 <IconLeaf size={16} color="#16a34a" />
-                Detected Crop Condition
+                {strings.telemetry.cropConditionLabel}
               </span>
               {result && (
                 <span className="km-badge km-badge-green">
-                  Class #{result.class_index}
+                  {strings.telemetry.classBadge(result.class_index)}
                 </span>
               )}
             </div>
@@ -1092,7 +1481,7 @@ function App() {
                   }}
                 >
                   {result.analysis?.replaceAll("___", " ") ||
-                    "No condition detected"}
+                    strings.telemetry.noConditionDetected}
                 </div>
               ) : (
                 <div
@@ -1102,15 +1491,17 @@ function App() {
                     color: "#94a3b8",
                   }}
                 >
-                  Awaiting analysis
+                  {strings.telemetry.awaitingAnalysis}
                 </div>
               )}
             </div>
 
             <div className="km-metric-sub">
               {result
-                ? `Harimitra Model Confidence: ${(result.confidence * 100).toFixed(2)}%`
-                : "Upload a crop leaf photo to run Harimitra AI inference."}
+                ? strings.telemetry.modelConfidence(
+                    (result.confidence * 100).toFixed(2),
+                  )
+                : strings.telemetry.cropConditionPrompt}
             </div>
           </div>
 
@@ -1128,7 +1519,7 @@ function App() {
                   size={16}
                   color={getRiskColor(result?.risk?.overall_risk)}
                 />
-                Overall Farm Risk
+                {strings.telemetry.overallRiskLabel}
               </span>
               {result?.risk?.overall_risk && (
                 <span
@@ -1139,7 +1530,8 @@ function App() {
                     border: `1px solid ${getRiskColor(result.risk.overall_risk)}33`,
                   }}
                 >
-                  {result.risk.overall_risk}
+                  {strings.telemetry.riskLevels[result.risk.overall_risk] ||
+                    result.risk.overall_risk}
                 </span>
               )}
             </div>
@@ -1154,7 +1546,8 @@ function App() {
                     lineHeight: "1.25",
                   }}
                 >
-                  {result.risk.overall_risk}
+                  {strings.telemetry.riskLevels[result.risk.overall_risk] ||
+                    result.risk.overall_risk}
                 </div>
               ) : (
                 <div
@@ -1164,15 +1557,22 @@ function App() {
                     color: "#94a3b8",
                   }}
                 >
-                  Awaiting analysis
+                  {strings.telemetry.awaitingAnalysis}
                 </div>
               )}
             </div>
 
             <div className="km-metric-sub">
               {result?.risk
-                ? `Disease: ${result.risk.disease_risk} • Moisture: ${result.risk.water_risk} • Weather: ${result.risk.weather_risk}`
-                : "Computed from disease severity, moisture & forecast telemetry."}
+                ? strings.telemetry.riskBreakdown(
+                    strings.telemetry.riskLevels[result.risk.disease_risk] ||
+                      result.risk.disease_risk,
+                    strings.telemetry.riskLevels[result.risk.water_risk] ||
+                      result.risk.water_risk,
+                    strings.telemetry.riskLevels[result.risk.weather_risk] ||
+                      result.risk.weather_risk,
+                  )
+                : strings.telemetry.riskPrompt}
             </div>
           </div>
         </div>
@@ -1184,14 +1584,16 @@ function App() {
             <div className="km-metric-header">
               <span className="km-metric-label">
                 <IconDroplet size={15} color="#0284c7" />
-                Soil Moisture
+                {strings.telemetry.soilMoistureLabel}
               </span>
             </div>
             <div className="km-metric-value" style={{ color: "#0284c7" }}>
               {result ? `${result.soil_moisture}%` : "—"}
             </div>
             <p className="km-metric-sub">
-              {result ? "Root-zone calibrated" : "Awaiting analysis"}
+              {result
+                ? strings.telemetry.soilMoistureSubResult
+                : strings.telemetry.awaitingAnalysis}
             </p>
           </div>
 
@@ -1200,7 +1602,7 @@ function App() {
             <div className="km-metric-header">
               <span className="km-metric-label">
                 <IconWaterTap size={15} color="#059669" />
-                Irrigation Advice
+                {strings.telemetry.irrigationLabel}
               </span>
             </div>
             <div
@@ -1216,10 +1618,15 @@ function App() {
                 margin: "6px 0 4px",
               }}
             >
-              {result ? result.irrigation : "—"}
+              {result
+                ? strings.telemetry.irrigationLevels[result.irrigation] ||
+                  result.irrigation
+                : "—"}
             </div>
             <p className="km-metric-sub">
-              {result ? "Automated threshold" : "Awaiting analysis"}
+              {result
+                ? strings.telemetry.irrigationSubResult
+                : strings.telemetry.awaitingAnalysis}
             </p>
           </div>
 
@@ -1228,7 +1635,7 @@ function App() {
             <div className="km-metric-header">
               <span className="km-metric-label">
                 <IconSun size={15} color="#ea580c" />
-                Weather &amp; Temperature
+                {strings.telemetry.weatherLabel}
               </span>
             </div>
             <div className="km-metric-value" style={{ color: "#ea580c" }}>
@@ -1238,8 +1645,8 @@ function App() {
             </div>
             <p className="km-metric-sub">
               {result?.weather?.humidity != null
-                ? `Humidity: ${result.weather.humidity}% (Open-Meteo)`
-                : "Awaiting analysis"}
+                ? strings.telemetry.humiditySub(result.weather.humidity)
+                : strings.telemetry.awaitingAnalysis}
             </p>
           </div>
 
@@ -1248,14 +1655,16 @@ function App() {
             <div className="km-metric-header">
               <span className="km-metric-label">
                 <IconCloudRain size={15} color="#2563eb" />
-                Rain Forecast
+                {strings.telemetry.rainForecastLabel}
               </span>
             </div>
             <div className="km-metric-value" style={{ color: "#2563eb" }}>
               {rainProbability != null ? `${rainProbability}%` : "—"}
             </div>
             <p className="km-metric-sub">
-              {result ? "Precipitation probability" : "Awaiting analysis"}
+              {result
+                ? strings.telemetry.precipitationProbSub
+                : strings.telemetry.awaitingAnalysis}
             </p>
           </div>
 
@@ -1270,13 +1679,13 @@ function App() {
             <div className="km-metric-header">
               <span className="km-metric-label">
                 <IconSatellite size={15} color="#059669" />
-                Satellite NDVI
+                {strings.telemetry.satelliteNdviLabel}
               </span>
               <span
                 className="km-badge km-badge-green"
                 style={{ fontSize: "10px", padding: "1px 6px" }}
               >
-                Sentinel-2
+                {strings.telemetry.satelliteBadge}
               </span>
             </div>
 
@@ -1294,11 +1703,11 @@ function App() {
                 typeof result.satellite.ndvi_mean === "number"
                   ? result.satellite.ndvi_mean.toFixed(2)
                   : result
-                    ? "Unavailable"
+                    ? strings.telemetry.unavailable
                     : "—"}
               </div>
               <div style={{ fontSize: "11px", color: "#64748b" }}>
-                Mean vegetation index
+                {strings.telemetry.meanVegetationIndex}
               </div>
             </div>
 
@@ -1314,20 +1723,23 @@ function App() {
             >
               {result?.satellite?.observation_date && (
                 <div>
-                  <strong>Observation:</strong>{" "}
-                  {formatObservationDate(result.satellite.observation_date)}
+                  <strong>{strings.telemetry.observationLabel}</strong>{" "}
+                  {formatObservationDate(
+                    result.satellite.observation_date,
+                    language,
+                  )}
                 </div>
               )}
               {result?.satellite?.cloud_percentage != null && (
                 <div>
-                  <strong>Cloud:</strong>{" "}
+                  <strong>{strings.telemetry.cloudLabel}</strong>{" "}
                   {result.satellite.cloud_percentage.toFixed(1)}%
                 </div>
               )}
               <div style={{ color: "#64748b", marginTop: "2px" }}>
-                <strong>Source:</strong>{" "}
+                <strong>{strings.telemetry.sourceLabel}</strong>{" "}
                 {result?.satellite?.source ||
-                  "Sentinel-2 / Google Earth Engine"}
+                  strings.telemetry.defaultSource}
               </div>
             </div>
           </div>
@@ -1373,7 +1785,7 @@ function App() {
                   }}
                 >
                   <IconSparkles size={20} color="#15803d" />
-                  AI Agricultural Advisory
+                  {strings.advisory.sectionTitle}
                 </h2>
                 <p
                   style={{
@@ -1382,12 +1794,11 @@ function App() {
                     fontSize: "13px",
                   }}
                 >
-                  Agronomic recommendations generated from Harimitra disease
-                  alert, soil health card &amp; weather telemetry
+                  {strings.advisory.sectionSubtitle}
                 </p>
               </div>
               <span className="km-badge km-badge-green">
-                Gemini Primary • OpenRouter Fallback
+                {strings.advisory.providerBadge}
               </span>
             </div>
 
@@ -1399,6 +1810,127 @@ function App() {
                 language,
               )}
             </div>
+          </section>
+
+          {/* PRIORITIZED FARM ACTIONS */}
+          <section className="km-card km-actions-card">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "8px",
+                marginBottom: "16px",
+                borderBottom: "1px solid #e2e8f0",
+                paddingBottom: "10px",
+              }}
+            >
+              <div>
+                <h2
+                  style={{
+                    margin: 0,
+                    color: "#14532d",
+                    fontSize: "19px",
+                    fontWeight: "800",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <IconShield size={20} color="#15803d" />
+                  {strings.actions.sectionTitle}
+                </h2>
+                <p
+                  style={{
+                    margin: "3px 0 0",
+                    color: "#64748b",
+                    fontSize: "13px",
+                  }}
+                >
+                  {strings.actions.sectionSubtitle}
+                </p>
+              </div>
+              {Array.isArray(result?.farm_actions) && result.farm_actions.length > 0 && (
+                <span className="km-badge km-badge-green">
+                  {result.farm_actions.length}{" "}
+                  {strings.actions.badgeReady(result.farm_actions.length)}
+                </span>
+              )}
+            </div>
+
+            {Array.isArray(result?.farm_actions) && result.farm_actions.length > 0 ? (
+              <div className="km-actions-grid">
+                {result.farm_actions.map((act, index) => {
+                  const localized = getLocalizedFarmAction(act, language);
+                  return (
+                    <div
+                      key={act?.id || index}
+                      className={`km-action-item ${act?.priority === 1 ? "km-action-priority-1" : ""}`}
+                    >
+                      <div className="km-action-badges">
+                        <span className={`km-badge ${getActionPriorityBadge(act?.priority)}`}>
+                          {localized.priorityLabel}
+                        </span>
+                        {localized.timeframe && (
+                          <span className="km-badge km-badge-blue">
+                            {localized.timeframe}
+                          </span>
+                        )}
+                        {localized.category && (
+                          <span className="km-badge km-badge-gray">
+                            {localized.category}
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 className="km-action-title">{localized.title}</h3>
+
+                      <div className="km-action-content">
+                        <p className="km-action-text">
+                          <strong style={{ color: "#14532d" }}>
+                            {strings.actions.labelAction}
+                          </strong>{" "}
+                          {localized.action}
+                        </p>
+                        {localized.rationale && (
+                          <p className="km-action-rationale">
+                            <strong style={{ color: "#334155" }}>
+                              {strings.actions.labelRationale}
+                            </strong>{" "}
+                            {localized.rationale}
+                          </p>
+                        )}
+                        <div className="km-action-meta-row">
+                          {localized.evidence && (
+                            <span className="km-action-evidence">
+                              <strong>
+                                {strings.actions.labelEvidence}
+                              </strong>{" "}
+                              {localized.evidence}
+                            </span>
+                          )}
+                          {localized.data_source && (
+                            <span className="km-action-source">
+                              <strong>
+                                {strings.actions.labelDataSource}
+                              </strong>{" "}
+                              {localized.data_source}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="km-actions-empty">
+                <p style={{ margin: 0 }}>
+                  {strings.actions.emptyActions}
+                </p>
+              </div>
+            )}
           </section>
 
           {/* 8. ALTERNATIVE CROP RECOMMENDATIONS */}
@@ -1426,7 +1958,7 @@ function App() {
                   }}
                 >
                   <IconLeaf size={20} color="#166534" />
-                  Alternative Crop Recommendations
+                  {strings.crops.sectionTitle}
                 </h2>
                 <p
                   style={{
@@ -1435,16 +1967,18 @@ function App() {
                     fontSize: "13px",
                   }}
                 >
-                  Current Farm Crop:{" "}
+                  {strings.crops.currentCropLabel}{" "}
                   <strong style={{ color: "#166534" }}>
                     {result.crop_recommendations?.current_crop || "Tomato"}
                   </strong>{" "}
-                  • Ranked by deterministic agronomic suitability
+                  {strings.crops.rankedSubtitle}
                 </p>
               </div>
               {result.crop_recommendations?.data_completeness && (
                 <span className="km-badge km-badge-green">
-                  Completeness: {result.crop_recommendations.data_completeness}
+                  {strings.crops.completenessBadge(
+                    result.crop_recommendations.data_completeness,
+                  )}
                 </span>
               )}
             </div>
@@ -1482,10 +2016,8 @@ function App() {
                                   : "km-badge-red"
                             }`}
                           >
-                            {crop.suitability}{" "}
-                            {language === "english"
-                              ? "SUITABILITY"
-                              : "उपयुक्तता"}
+                            {strings.crops.suitabilityLabels[crop.suitability] ||
+                              crop.suitability}
                           </span>
                         </div>
 
@@ -1496,7 +2028,7 @@ function App() {
                             marginBottom: "10px",
                           }}
                         >
-                          Match Score:{" "}
+                          {strings.crops.matchScoreLabel}{" "}
                           <strong
                             style={{ color: "#166534", fontSize: "15px" }}
                           >
@@ -1509,9 +2041,7 @@ function App() {
                             <strong
                               style={{ fontSize: "12px", color: "#334155" }}
                             >
-                              {language === "english"
-                                ? "Agronomic Rationale:"
-                                : "सिफारिश का कारण (Agronomic Rationale):"}
+                              {strings.crops.rationaleHeading}
                             </strong>
                             <ul
                               style={{
@@ -1542,9 +2072,7 @@ function App() {
               </div>
             ) : (
               <p style={{ margin: 0, color: "#64748b", fontSize: "14px" }}>
-                {language === "english"
-                  ? "No alternative crop recommendations available for current telemetry."
-                  : "वर्तमान परिस्थितियों के लिए कोई वैकल्पिक फसल सिफारिश उपलब्ध नहीं है।"}
+                {strings.crops.emptyRecommendations}
               </p>
             )}
 
@@ -1560,11 +2088,7 @@ function App() {
                   fontSize: "12px",
                 }}
               >
-                <strong>
-                  {language === "english"
-                    ? "Data Limitations:"
-                    : "डेटा सीमाएं (Data Limitations):"}
-                </strong>
+                <strong>{strings.crops.limitationsHeading}</strong>
                 <ul style={{ margin: "4px 0 0", paddingLeft: "16px" }}>
                   {result.crop_recommendations.limitations.map((lim, lIdx) => (
                     <li key={lIdx}>{formatCropLimitation(lim, language)}</li>
@@ -1601,7 +2125,7 @@ function App() {
                   }}
                 >
                   <IconDroplet size={20} color="#166534" />
-                  Soil Health Card (12 Parameters)
+                  {strings.soil.sectionTitle}
                 </h2>
                 <p
                   style={{
@@ -1610,19 +2134,18 @@ function App() {
                     fontSize: "13px",
                   }}
                 >
-                  National Soil Health Card Scheme benchmark data • Udaipur
-                  District, Rajasthan
+                  {strings.soil.sectionSubtitle}
                 </p>
               </div>
               <span className="km-badge km-badge-green">
-                12 Parameters Loaded
+                {strings.soil.badgeLoaded}
               </span>
             </div>
 
             {/* Primary Macronutrients */}
             <div className="km-soil-group">
               <div className="km-soil-group-title">
-                <span>🌱</span> Primary Macronutrients
+                <span>🌱</span> {strings.soil.primaryMacronutrients}
               </div>
               <div className="km-soil-grid-3">
                 {[
@@ -1636,7 +2159,7 @@ function App() {
             {/* Secondary & Micronutrients */}
             <div className="km-soil-group">
               <div className="km-soil-group-title">
-                <span>🔬</span> Secondary &amp; Micronutrients
+                <span>🔬</span> {strings.soil.secondaryMicronutrients}
               </div>
               <div className="km-soil-grid-6">
                 {[
@@ -1653,7 +2176,7 @@ function App() {
             {/* Physical & Chemical */}
             <div className="km-soil-group">
               <div className="km-soil-group-title">
-                <span>🧪</span> Physical &amp; Chemical
+                <span>🧪</span> {strings.soil.physicalChemical}
               </div>
               <div className="km-soil-grid-3">
                 {[
@@ -1671,8 +2194,7 @@ function App() {
                 color: "#64748b",
               }}
             >
-              Data source: Soil Health Card portal records for Rajasthan state,
-              Udaipur district.
+              {strings.soil.dataSource}
             </p>
           </section>
 
@@ -1701,7 +2223,7 @@ function App() {
                   }}
                 >
                   <span>🏛️</span>
-                  Farm Context (AgriStack Format)
+                  {strings.agristack.sectionTitle}
                 </h2>
                 <p
                   style={{
@@ -1710,35 +2232,49 @@ function App() {
                     fontSize: "13px",
                   }}
                 >
-                  Digital Public Infrastructure for Agriculture • Farmer &amp;
-                  Plot Schema
+                  {strings.agristack.sectionSubtitle}
                 </p>
               </div>
               <span className="km-badge km-badge-amber">
-                Demo / Synthetic Data
+                {strings.agristack.badgeDemo}
               </span>
             </div>
 
             <div className="km-agristack-grid">
               {[
-                ["Farmer ID", result.agristack?.farmer_id || "KM-FARMER-001"],
-                ["Farmer Name", result.agristack?.name],
                 [
-                  "Location",
+                  strings.agristack.labels.farmerId,
+                  result.agristack?.farmer_id || "KM-FARMER-001",
+                ],
+                [strings.agristack.labels.farmerName, result.agristack?.name],
+                [
+                  strings.agristack.labels.location,
                   result.agristack?.district && result.agristack?.state
                     ? `${result.agristack.district}, ${result.agristack.state}`
                     : null,
                 ],
-                ["Registered Crop", result.agristack?.farm?.crop],
                 [
-                  "Plot Area",
+                  strings.agristack.labels.registeredCrop,
+                  result.agristack?.farm?.crop,
+                ],
+                [
+                  strings.agristack.labels.plotArea,
                   result.agristack?.farm?.area_acres != null
-                    ? `${result.agristack.farm.area_acres} acres`
+                    ? `${result.agristack.farm.area_acres} ${strings.agristack.acresUnit}`
                     : null,
                 ],
-                ["Season", result.agristack?.farm?.season],
-                ["Irrigation", result.agristack?.farm?.irrigation],
-                ["Soil Texture", result.agristack?.farm?.soil_type],
+                [
+                  strings.agristack.labels.season,
+                  result.agristack?.farm?.season,
+                ],
+                [
+                  strings.agristack.labels.irrigation,
+                  result.agristack?.farm?.irrigation,
+                ],
+                [
+                  strings.agristack.labels.soilTexture,
+                  result.agristack?.farm?.soil_type,
+                ],
               ].map(([label, value]) => (
                 <div key={label} className="km-agristack-item">
                   <div
@@ -1775,7 +2311,7 @@ function App() {
                 display: "inline-block",
               }}
             >
-              Demo / Synthetic Data — not an official live AgriStack record.
+              {strings.agristack.disclaimer}
             </p>
           </section>
         </div>
@@ -1821,7 +2357,7 @@ function App() {
                   fontWeight: "800",
                 }}
               >
-                Farmer AI Chat
+                {strings.chat.title}
               </h2>
               <p
                 style={{
@@ -1830,32 +2366,18 @@ function App() {
                   fontSize: "13px",
                 }}
               >
-                Ask agricultural questions in Hindi or English (Symptoms,
-                precautions, fertilizer advice)
+                {strings.chat.subtitle}
               </p>
             </div>
           </div>
           <span className="km-badge km-badge-green">
-            {language === "hinglish"
-              ? "Active: हिंदी / Hinglish"
-              : "Active: English"}
+            {strings.chat.activeBadge}
           </span>
         </div>
 
         {/* Suggested Quick Questions */}
         <div className="km-chat-chips">
-          {(language === "hinglish"
-            ? [
-                "टमाटर में पत्ती धब्बा रोग के क्या लक्षण हैं?",
-                "ड्रिप सिंचाई में कितनी खाद देनी चाहिए?",
-                "मिट्टी में नाइट्रोजन की कमी कैसे पूरी करें?",
-              ]
-            : [
-                "What precautions to take for tomato target spot?",
-                "How often should I run drip irrigation?",
-                "How to treat nitrogen deficiency in soil?",
-              ]
-          ).map((chipText, idx) => (
+          {strings.chat.chips.map((chipText, idx) => (
             <button
               key={idx}
               type="button"
@@ -1892,12 +2414,8 @@ function App() {
             }}
             placeholder={
               isListening
-                ? language === "english"
-                  ? "Listening to your voice... Speak now"
-                  : "आपकी आवाज़ सुन रहे हैं... कृपया बोलें"
-                : language === "english"
-                  ? "Ask a farming question (e.g., What precautions should I take for tomato crop?)..."
-                  : "अपनी फसल के बारे में पूछें (उदा. टमाटर की फसल में क्या सावधानी रखें?)..."
+                ? strings.chat.placeholderListening
+                : strings.chat.placeholderDefault
             }
           />
           <button
@@ -1907,12 +2425,8 @@ function App() {
             className={`km-mic-btn ${isListening ? "listening" : ""}`}
             title={
               isListening
-                ? language === "english"
-                  ? "Stop listening"
-                  : "आवाज़ सुनना बंद करें"
-                : language === "english"
-                  ? "Voice Input (Speak in English)"
-                  : "बोलकर पूछें (आवाज़ इनपुट)"
+                ? strings.chat.micTitleListening
+                : strings.chat.micTitleDefault
             }
           >
             <IconMic
@@ -1921,12 +2435,8 @@ function App() {
             />
             <span className="km-mic-btn-label">
               {isListening
-                ? language === "english"
-                  ? "Stop"
-                  : "रोकें"
-                : language === "english"
-                  ? "Speak"
-                  : "बोलें"}
+                ? strings.chat.micLabelListening
+                : strings.chat.micLabelDefault}
             </span>
           </button>
           <button
@@ -1938,11 +2448,11 @@ function App() {
             {isChatting ? (
               <>
                 <span className="km-spinner" />
-                <span>Thinking...</span>
+                <span>{strings.chat.thinking}</span>
               </>
             ) : (
               <>
-                <span>{language === "english" ? "Ask AI" : "AI से पूछें"}</span>
+                <span>{strings.chat.askAi}</span>
                 <IconSend size={15} color="#ffffff" />
               </>
             )}
@@ -1953,11 +2463,7 @@ function App() {
         {isListening && (
           <div className="km-voice-listening-indicator">
             <span className="km-voice-pulse" />
-            <span>
-              {language === "english"
-                ? "Listening... Speak your question now."
-                : "सुन रहे हैं... कृपया अपना सवाल बोलें।"}
-            </span>
+            <span>{strings.chat.listeningIndicator}</span>
           </div>
         )}
 
@@ -1998,32 +2504,28 @@ function App() {
                 style={{ display: "flex", alignItems: "center", gap: "8px" }}
               >
                 <IconSparkles size={16} color="#16a34a" />
-                <span>KrishiMitra Assistant</span>
+                <span>{strings.chat.assistantTitle}</span>
               </div>
-              {!isChatting && chatReply !== "Thinking..." && (
+              {!isChatting && chatReply !== "Thinking..." && chatReply !== strings.chat.thinking && (
                 <button
                   type="button"
                   className={`km-tts-btn ${isSpeaking ? "playing" : ""}`}
                   onClick={() => handleToggleSpeak(chatReply)}
                   title={
                     isSpeaking
-                      ? language === "english"
-                        ? "Stop audio"
-                        : "आवाज़ रोकें"
-                      : language === "english"
-                        ? "Listen to response"
-                        : "उत्तर बोलकर सुनें"
+                      ? strings.chat.ttsTitleStop
+                      : strings.chat.ttsTitleListen
                   }
                 >
                   {isSpeaking ? (
                     <>
                       <IconSquare size={13} color="currentColor" />
-                      <span>{language === "english" ? "Stop" : "रोकें"}</span>
+                      <span>{strings.chat.ttsStop}</span>
                     </>
                   ) : (
                     <>
                       <IconVolume size={15} color="currentColor" />
-                      <span>{language === "english" ? "Listen" : "सुनें"}</span>
+                      <span>{strings.chat.ttsListen}</span>
                     </>
                   )}
                 </button>
@@ -2036,7 +2538,7 @@ function App() {
                 fontSize: "14px",
               }}
             >
-              {isChatting && chatReply === "Thinking..." ? (
+              {isChatting && (chatReply === "Thinking..." || chatReply === strings.chat.thinking) ? (
                 <div
                   style={{
                     display: "flex",
@@ -2046,7 +2548,7 @@ function App() {
                   }}
                 >
                   <span className="km-spinner" />
-                  <span>Thinking...</span>
+                  <span>{strings.chat.thinking}</span>
                 </div>
               ) : (
                 renderFormattedChatReply(chatReply)
@@ -2055,6 +2557,28 @@ function App() {
           </div>
         )}
       </section>
+
+      {/* ===================================================================
+          11. FOOTER
+          =================================================================== */}
+      <footer
+        className="km-footer"
+        style={{
+          textAlign: "center",
+          padding: "24px 16px 12px",
+          borderTop: "1px solid #e2e8f0",
+          marginTop: "24px",
+          color: "#64748b",
+          fontSize: "12px",
+        }}
+      >
+        <p style={{ margin: 0, fontWeight: "600", color: "#475569" }}>
+          {strings.footer.title}
+        </p>
+        <p style={{ margin: "6px 0 0", fontSize: "11.5px", color: "#94a3b8" }}>
+          {strings.footer.disclaimer}
+        </p>
+      </footer>
     </div>
   );
 }
@@ -2145,12 +2669,203 @@ function getRiskBg(risk) {
   return "#f1f5f9";
 }
 
-function formatObservationDate(dateStr) {
+function getActionPriorityBadge(priority) {
+  if (priority === 1) return "km-badge-red";
+  if (priority === 2) return "km-badge-amber";
+  return "km-badge-green";
+}
+
+function getLocalizedFarmAction(act, language = "hinglish") {
+  if (!act) {
+    return {
+      priorityLabel: "Priority",
+      title: "",
+      action: "",
+      rationale: "",
+      timeframe: "",
+      category: "",
+      evidence: "",
+      data_source: "",
+    };
+  }
+
+  const priorityLabel =
+    language === "english"
+      ? `Priority ${act.priority || ""}`.trim()
+      : `प्राथमिकता ${act.priority || ""}`.trim();
+
+  // If English selected, preserve exact English strings
+  if (language === "english") {
+    return {
+      priorityLabel,
+      title: act.title || "",
+      action: act.action || "",
+      rationale: act.rationale || "",
+      timeframe: act.timeframe ? act.timeframe.replace(/_/g, " ") : "",
+      category: act.category ? act.category.replace(/_/g, " ") : "",
+      evidence: act.evidence || "",
+      data_source: act.data_source || "",
+    };
+  }
+
+  // Hindi / Hinglish localization maps (Clean labels without English in parentheses)
+  const timeframeMap = {
+    NEXT_FIELD_VISIT: "अगली खेत-जाँच",
+    BEFORE_APPLICATION: "छिड़काव से पहले",
+    THIS_SEASON: "इस फसल सत्र",
+  };
+
+  const categoryMap = {
+    PATHOLOGY_VERIFICATION: "रोग-जाँच",
+    WEATHER_PRECAUTION: "मौसम सावधानी",
+    WATER_OBSERVATION: "नमी निगरानी",
+    SOIL_BENCHMARK: "मृदा संदर्भ",
+    SATELLITE_CONTEXT: "सैटेलाइट संदर्भ",
+  };
+
+  const timeframe =
+    timeframeMap[act.timeframe] ||
+    (act.timeframe ? act.timeframe.replace(/_/g, " ") : "");
+  const category =
+    categoryMap[act.category] ||
+    (act.category ? act.category.replace(/_/g, " ") : "");
+
+  let title = act.title || "";
+  let action = act.action || "";
+  let rationale = act.rationale || "";
+  let evidence = act.evidence || "";
+  let data_source = act.data_source || "";
+
+  switch (act.id) {
+    case "ACTION_FOLIAR_HEALTHY_OBSERVATION":
+      title = "पत्तियों की नियमित निगरानी जारी रखें";
+      action =
+        "पत्ती की इमेज जांच से फसल स्वस्थ दिखाई दे रही है। किसी भी कीट या रोग के शुरुआती लक्षणों की समय पर पहचान के लिए खेत का नियमित मुआयना जारी रखें।";
+      rationale =
+        "जांचे गए पत्ती के नमूने में रोग के कोई लक्षण नहीं पाए गए हैं। नियमित निगरानी से फसल स्वस्थ बनी रहती है।";
+      evidence = "पत्ती रोग स्क्रीनिंग: स्वस्थ पौधा";
+      data_source = "Harimitra Disease AI";
+      break;
+
+    case "ACTION_PATHOLOGY_FIELD_VERIFICATION": {
+      const diseaseName = act.title
+        ? act.title.replace(/^Physically Verify Suspected\s*/i, "").trim()
+        : "संदिग्ध रोग";
+      const confMatch =
+        (act.action || "").match(/confidence:\s*([0-9.]+%?)/i) ||
+        (act.evidence || "").match(/([0-9.]+%?)\s*confidence/i);
+      const confStr = confMatch ? confMatch[1] : "";
+
+      title = `खेत में ${diseaseName} के लक्षणों की पुष्टि करें`;
+      action = `एआई स्क्रीनिंग में संदिग्ध ${diseaseName}${confStr ? ` (विश्वास: ${confStr})` : ""} की पहचान हुई है। खेत में जाकर कई पौधों का भौतिक मुआयना करें और पत्तियों की निचली सतह की जांच करें कि क्या लक्षण इस स्थिति से मेल खाते हैं। कोई भी रासायनिक या कीटनाशक छिड़काव करने से पहले सटीक पहचान के लिए अपने स्थानीय कृषि विज्ञान केंद्र (KVK) या कृषि विशेषज्ञ से परामर्श अवश्य लें।`;
+      rationale =
+        "एक पत्ती की कंप्यूटर विज़न स्क्रीनिंग केवल प्रारंभिक जांच है, पक्का निदान नहीं। कई पौधों की खेत में पुष्टि करने से अनावश्यक रासायनिक छिड़काव और गलत निदान से बचा जा सकता है।";
+      evidence = `स्क्रीनिंग पहचान: ${diseaseName}${confStr ? ` (${confStr} विश्वास)` : ""}`;
+      data_source = "Harimitra Disease AI";
+      break;
+    }
+
+    case "ACTION_WEATHER_RAINFAST_CHECK": {
+      const rainMatch =
+        (act.action || "").match(/probability of\s*([0-9]+)%/i) ||
+        (act.evidence || "").match(/([0-9]+)%/);
+      const rainStr = rainMatch ? `${rainMatch[1]}%` : "";
+
+      title = "दवा लेबल पर रेनफास्ट अवधि की जांच करें";
+      action = `मौसम पूर्वानुमान में ${rainStr ? `${rainStr} ` : ""}वर्षा की अधिक संभावना दिखाई गई है। यदि आप किसी दवा या टॉनिक के छिड़काव की योजना बना रहे हैं, तो उत्पाद के कंटेनर लेबल पर प्रमाणित रेनफास्ट अवधि अवश्य जांचें और छिड़काव से पहले स्थानीय मौसम पर नजर रखें।`;
+      rationale =
+        "दवा की प्रमाणित रेनफास्ट अवधि पूरी होने से पहले बारिश होने पर दवा के असरदार तत्व धुल सकते हैं, जिससे छिड़काव व्यर्थ हो सकता है।";
+      evidence = `पूर्वानुमानित वर्षा की संभावना: ${rainStr || "60%+"}`;
+      data_source = "Open-Meteo";
+      break;
+    }
+
+    case "ACTION_SOIL_MOISTURE_IN_SITU_CHECK": {
+      const moistMatch =
+        (act.evidence || "").match(/([0-9.]+)%/) ||
+        (act.action || "").match(/([0-9.]+)%/);
+      const moistStr = moistMatch ? `${moistMatch[1]}%` : "";
+
+      title = "जड़ क्षेत्र में मिट्टी की नमी की जांच करें";
+      action = `मिट्टी में ${moistStr ? `${moistStr} ` : ""}नमी दर्ज की गई है। फसल की अवस्था, मिट्टी के प्रकार और मौसम के अनुसार पानी की आवश्यकता बदलती है, इसलिए सिंचाई में कोई भी बदलाव करने से पहले खेत में जाकर जड़ क्षेत्र की भौतिक नमी की जांच जरूर करें।`;
+      rationale =
+        "केवल प्रपत्र में दर्ज सतह की नमी से पानी की सही आवश्यकता तय नहीं हो सकती। जड़ क्षेत्र की सीधी जांच से फसल को अधिक सिंचाई या नमी की कमी के तनाव से बचाया जा सकता है।";
+      evidence = `दर्ज की गई मिट्टी की नमी: ${moistStr || ""}`;
+      data_source = "खेत में दर्ज नमी (किसान इनपुट)";
+      break;
+    }
+
+    case "ACTION_WEATHER_HUMIDITY_SCOUTING": {
+      const humMatch = (act.evidence || "").match(/humidity:\s*([0-9.]+%?)/i);
+      const humStr = humMatch ? humMatch[1] : "";
+      const tempMatch = (act.evidence || "").match(/temperature:\s*([0-9.]+(?:°C)?)/i);
+      const tempStr = tempMatch ? tempMatch[1] : "";
+
+      title = "घनी पत्तियों और निचली शाखाओं का मुआयना करें";
+      action = `खेत में ${humStr ? `${humStr} ` : ""}उच्च सापेक्ष आर्द्रता दर्ज की गई है। हालांकि पौधे के अंदर का सूक्ष्म मौसम अलग हो सकता है, फिर भी अधिक नमी में नियमित रूप से पौधों की निचली पत्तियों और घने हिस्सों की दृश्य जांच करते रहें।`;
+      rationale =
+        "लगातार उच्च आर्द्रता से पत्तियों पर नमी अधिक समय तक बनी रह सकती है। नियमित निगरानी से बीमारी के किसी भी लक्षण का समय रहते पता लगाया जा सकता है।";
+      evidence = `वातावरण नमी: ${humStr || ""}${tempStr ? `, तापमान: ${tempStr}` : ""}`;
+      data_source = "Open-Meteo";
+      break;
+    }
+
+    case "ACTION_SOIL_SHC_BENCHMARK_REVIEW": {
+      const nutrientName = act.title
+        ? act.title.replace(/^Review Soil Health Card Benchmark for\s*/i, "").trim()
+        : "पोषक तत्व";
+      const levelMatch = (act.evidence || "").match(/is\s+([a-zA-Z]+)/i);
+      const nutrientLevel = levelMatch ? levelMatch[1] : "";
+
+      title = `मृदा स्वास्थ्य कार्ड में ${nutrientName} स्तर की समीक्षा करें`;
+      action = `मृदा स्वास्थ्य कार्ड संदर्भ डेटा के अनुसार ${nutrientName} का स्तर ${nutrientLevel ? `'${nutrientLevel}' ` : ""}श्रेणी में है। अपने खेत के आधिकारिक मृदा स्वास्थ्य कार्ड या कृषि विस्तार अधिकारी की सलाह के अनुसार ही संतुलित खाद का उपयोग करें (अपुष्ट मात्रा में उर्वरक न डालें)।`;
+      rationale =
+        "मृदा स्वास्थ्य कार्ड क्षेत्रीय पोषण कमियों को उजागर करता है। आधिकारिक दिशानिर्देशों का पालन संतुलित खाद प्रबंधन सुनिश्चित करता है।";
+      evidence = `मृदा स्वास्थ्य कार्ड संदर्भ रेटिंग: ${nutrientName} (${nutrientLevel})`;
+      data_source = "National Soil Health Card Portal";
+      break;
+    }
+
+    case "ACTION_SATELLITE_REGIONAL_CONTEXT": {
+      const ndviMatch = (act.action || "").match(/mean NDVI of\s*([0-9.]+)/i);
+      const ndviVal = ndviMatch ? ndviMatch[1] : "";
+      const dateMatch = (act.evidence || "").match(/observed:\s*([^,)]+)/i);
+      const cloudMatch = (act.evidence || "").match(/cloud:\s*([^)]+)/i);
+      const dateStr = dateMatch ? dateMatch[1] : "";
+      const cloudStr = cloudMatch ? cloudMatch[1] : "";
+
+      title = "Sentinel-2 सैटेलाइट से क्षेत्रीय वनस्पति घनत्व की समीक्षा करें";
+      action = `Sentinel-2 सैटेलाइट अवलोकन में 500 मीटर आसपास के क्षेत्र का औसत NDVI ${ndviVal ? `${ndviVal} ` : ""}दर्ज किया गया है। ध्यान दें कि सैटेलाइट NDVI व्यापक क्षेत्र का कैनोपी घनत्व दर्शाता है, यह किसी एक पौधे का वास्तविक समय का रोग निदान नहीं है; खेत में फसल की स्थिति व्यक्तिगत रूप से अवश्य देखें।`;
+      rationale =
+        "500 मीटर के दायरे में रिमोट सेंसिंग पूरे परिदृश्य की हरियाली को दर्ज करती है, किसी एक पौधे की नहीं। खेत में जाकर फसल देखना आवश्यक है।";
+      evidence = `Sentinel-2 औसत NDVI: ${ndviVal || ""}${dateStr ? ` (तारीख: ${dateStr}` : ""}${cloudStr ? `, बादल: ${cloudStr})` : dateStr ? ")" : ""}`;
+      data_source = "Sentinel-2 / Google Earth Engine";
+      break;
+    }
+
+    default:
+      break;
+  }
+
+  return {
+    priorityLabel,
+    title,
+    action,
+    rationale,
+    timeframe,
+    category,
+    evidence,
+    data_source,
+  };
+}
+
+function formatObservationDate(dateStr, language = "english") {
   if (!dateStr) return "—";
   try {
     const d = new Date(dateStr);
     if (isNaN(d.getTime())) return dateStr;
-    return d.toLocaleDateString("en-GB", {
+    const locale = language === "hinglish" ? "hi-IN" : "en-GB";
+    return d.toLocaleDateString(locale, {
       day: "numeric",
       month: "short",
       year: "numeric",
@@ -2177,27 +2892,12 @@ function formatInlineText(text) {
 }
 
 const CROP_MOISTURE_PROFILES = {
-  Mustard: {
-    min: 30,
-    max: 60,
-    range: "30–60%",
-    nameHi: "सरसों (Mustard: 30–60%)",
-  },
-  Wheat: { min: 40, max: 70, range: "40–70%", nameHi: "गेहूं (Wheat: 40–70%)" },
-  Rice: { min: 60, max: 90, range: "60–90%", nameHi: "धान (Rice: 60–90%)" },
-  Maize: { min: 45, max: 70, range: "45–70%", nameHi: "मक्का (Maize: 45–70%)" },
-  Chickpea: {
-    min: 30,
-    max: 60,
-    range: "30–60%",
-    nameHi: "चना (Chickpea: 30–60%)",
-  },
-  Cotton: {
-    min: 40,
-    max: 75,
-    range: "40–75%",
-    nameHi: "कपास (Cotton: 40–75%)",
-  },
+  Mustard: { min: 30, max: 60, range: "30–60%", nameHi: "सरसों" },
+  Wheat: { min: 40, max: 70, range: "40–70%", nameHi: "गेहूं" },
+  Rice: { min: 60, max: 90, range: "60–90%", nameHi: "धान" },
+  Maize: { min: 45, max: 70, range: "45–70%", nameHi: "मक्का" },
+  Chickpea: { min: 30, max: 60, range: "30–60%", nameHi: "चना" },
+  Cotton: { min: 40, max: 75, range: "40–75%", nameHi: "कपास" },
 };
 
 function formatCropReason(reason, language, cropName, soilMoisture) {
@@ -2219,7 +2919,7 @@ function formatCropReason(reason, language, cropName, soilMoisture) {
       if (language === "english") {
         return `Current soil moisture (${m}%) is within ${cropName}'s suitable range (${profile.range}).`;
       }
-      return `वर्तमान मिट्टी की नमी (${m}%) ${profile.nameHi} के अनुकूल दायरे में है।`;
+      return `वर्तमान मिट्टी की नमी (${m}%) ${profile.nameHi} के अनुकूल दायरे (${profile.range}) में है।`;
     }
 
     if (
@@ -2230,14 +2930,14 @@ function formatCropReason(reason, language, cropName, soilMoisture) {
       if (language === "english") {
         return `Current soil moisture (${m}%) is slightly ${isAbove ? "above" : "below"} ${cropName}'s ideal range (${profile.range}).`;
       }
-      return `वर्तमान मिट्टी की नमी (${m}%) ${profile.nameHi} के आदर्श दायरे से थोड़ी ${isAbove ? "अधिक" : "कम"} है।`;
+      return `वर्तमान मिट्टी की नमी (${m}%) ${profile.nameHi} के आदर्श दायरे (${profile.range}) से थोड़ी ${isAbove ? "अधिक" : "कम"} है।`;
     }
 
     if (r === "Current soil moisture is outside the broad suitable range.") {
       if (language === "english") {
         return `Current soil moisture (${m}%) is outside ${cropName}'s suitable range (${profile.range}).`;
       }
-      return `वर्तमान मिट्टी की नमी (${m}%) ${profile.nameHi} के उपयुक्त दायरे से बाहर है।`;
+      return `वर्तमान मिट्टी की नमी (${m}%) ${profile.nameHi} के उपयुक्त दायरे (${profile.range}) से बाहर है।`;
     }
   }
 
@@ -2319,7 +3019,7 @@ function formatAdvisoryHeader(title, language) {
       t.includes("agricultural risk") ||
       t.includes("identified risk")
     ) {
-      return "मुख्य जोखिम (Main Risk):";
+      return "मुख्य जोखिम:";
     }
     if (
       t.includes("why the risk matters") ||
@@ -2327,7 +3027,7 @@ function formatAdvisoryHeader(title, language) {
       t.includes("risk factor") ||
       t.includes("important factor")
     ) {
-      return "जोखिम क्यों महत्वपूर्ण है (Why the Risk Matters):";
+      return "यह जोखिम क्यों महत्वपूर्ण है:";
     }
     if (
       t.includes("what to do now") ||
@@ -2335,14 +3035,14 @@ function formatAdvisoryHeader(title, language) {
       t.includes("action step") ||
       t.includes("recommended action")
     ) {
-      return "अभी क्या करें (What to Do Now):";
+      return "अभी क्या कदम उठाएं:";
     }
     if (
       t.includes("more information needed") ||
       t.includes("additional information") ||
       t.includes("more info")
     ) {
-      return "अतिरिक्त जानकारी की आवश्यकता (More Info Needed):";
+      return "अतिरिक्त आवश्यक जानकारी:";
     }
   } else if (language === "english") {
     if (t.includes("मुख्य जोखिम")) {
@@ -2366,9 +3066,51 @@ function formatAdvisoryHeader(title, language) {
 
 // Custom Markdown parser for AI Advisory without raw symbols
 function renderFormattedAdvisory(text, language = "hinglish") {
-  if (!text) return <p>AI advisory is currently unavailable.</p>;
+  const emptyMsg =
+    language === "english"
+      ? "AI advisory is currently unavailable."
+      : "एआई कृषि सलाह वर्तमान में उपलब्ध नहीं है।";
+  if (!text) return <p>{emptyMsg}</p>;
 
-  const lines = text.split("\n");
+  let normalizedText = text;
+  if (language === "hinglish") {
+    normalizedText = normalizedText
+      .replace(
+        /उपलब्ध\s+contexto\s+में\s+वर्तमान\s+फसल\s+विकास\s+चरण\s+निर्दिष्ट\s+नहीं\s+है।?/gi,
+        "उपलब्ध जानकारी में फसल का वर्तमान विकास चरण निर्दिष्ट नहीं है।"
+      )
+      .replace(
+        /उपलब्ध\s+contexto\s+में/gi,
+        "उपलब्ध जानकारी में"
+      )
+      .replace(
+        /ऑन-साइट\s+soil\s+and\s+weather\s+data\s+(?:की|का)\s+(?:सत्यापन|पुष्टि)\s+करें।?/gi,
+        "खेत पर मिट्टी और मौसम के डेटा की पुष्टि करें।"
+      );
+  }
+
+  const rawLines = normalizedText.split("\n");
+  const lines = rawLines.map((line) => {
+    if (
+      language === "hinglish" &&
+      /specific\s+soil\s+moisture\s+and\s+nutrient\s+sufficiency\s+thresholds/i.test(
+        line
+      )
+    ) {
+      const trimmed = line.trim();
+      let prefix = "";
+      if (trimmed.startsWith("- ")) prefix = "- ";
+      else if (trimmed.startsWith("* ")) prefix = "* ";
+      else if (/^\d+\.\s*/.test(trimmed)) {
+        prefix = trimmed.match(/^\d+\.\s*/)[0];
+      }
+      if (/सत्यापन|पुष्टि|जांच|verify|check/i.test(line)) {
+        return `${prefix}खेत पर मिट्टी की उपयुक्त नमी और पोषक तत्वों के आवश्यक मानक स्तर की पुष्टि करें।`;
+      }
+      return `${prefix}फसल के लिए मिट्टी की उपयुक्त नमी और पोषक तत्वों के आवश्यक मानक स्तर की जानकारी उपलब्ध नहीं है।`;
+    }
+    return line;
+  });
 
   return lines.map((line, idx) => {
     const trimmed = line.trim();

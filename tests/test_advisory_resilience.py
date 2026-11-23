@@ -12,6 +12,7 @@ if PROJECT_ROOT not in sys.path:
 
 from fastapi.testclient import TestClient
 from backend.main import app
+from backend.risk_engine import calculate_risk
 from backend.gemini_service import (
     generate_advisory,
     generate_chat_reply,
@@ -19,6 +20,7 @@ from backend.gemini_service import (
     get_service_unavailable_advisory,
     AdvisoryResult,
     split_bilingual_advisory,
+    sanitize_hindi_advisory,
 )
 
 
@@ -357,6 +359,43 @@ class TestAdvisoryResilience(unittest.TestCase):
         self.assertIn("एआई कृषि परामर्श सेवा वर्तमान में अस्थायी रूप से अनुपलब्ध है", data["advisory"])
         self.assertIn("AI advisory service is temporarily unavailable", data["advisory_en"])
         self.assertIn("Tomato Early_blight", data["advisory_en"])
+
+    def test_healthy_disease_class_yields_low_disease_risk(self):
+        """
+        Verify that a healthy disease class (e.g. 'Tomato___healthy') with high
+        confidence does not trigger HIGH disease risk or elevate overall farm risk.
+        """
+        risk = calculate_risk(
+            disease="Tomato___healthy",
+            disease_confidence=0.98,
+            soil_moisture=50.0,
+            weather={"status": "available", "rain_probability": 10},
+        )
+        self.assertEqual(risk["disease_risk"], "LOW")
+        self.assertEqual(risk["water_risk"], "LOW")
+        self.assertEqual(risk["weather_risk"], "LOW")
+        self.assertEqual(risk["overall_risk"], "LOW")
+
+    def test_sanitize_hindi_advisory_polishes_awkward_phrases(self):
+        """
+        Verify that sanitize_hindi_advisory fixes the 3 awkward Hindi/Hinglish phrases:
+        1. 'उपलब्ध contexto में वर्तमान फसल विकास चरण निर्दिष्ट नहीं है।'
+        2. 'ऑन-साइट soil and weather data की सत्यापन करें।'
+        3. Sentences containing 'specific soil moisture and nutrient sufficiency thresholds'
+        """
+        raw_hindi = (
+            "**अतिरिक्त जानकारी की आवश्यकता:**\n"
+            "- उपलब्ध contexto में वर्तमान फसल विकास चरण निर्दिष्ट नहीं है।\n"
+            "- ऑन-साइट soil and weather data की सत्यापन करें।\n"
+            "- specific soil moisture and nutrient sufficiency thresholds उपलब्ध नहीं हैं।"
+        )
+        cleaned = sanitize_hindi_advisory(raw_hindi)
+        self.assertNotIn("contexto", cleaned)
+        self.assertIn("उपलब्ध जानकारी में फसल का वर्तमान विकास चरण निर्दिष्ट नहीं है।", cleaned)
+        self.assertNotIn("ऑन-साइट soil and weather data", cleaned)
+        self.assertIn("खेत पर मिट्टी और मौसम के डेटा की पुष्टि करें।", cleaned)
+        self.assertNotIn("specific soil moisture and nutrient sufficiency thresholds", cleaned)
+        self.assertIn("मिट्टी की उपयुक्त नमी और पोषक तत्वों के आवश्यक मानक स्तर", cleaned)
 
 
 if __name__ == "__main__":

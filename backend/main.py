@@ -31,6 +31,7 @@ from backend.soil_service import build_soil_profile, get_soil_nutrients
 from backend.crop_recommendation import recommend_crops
 from backend.satellite_service import get_satellite_context, initialize_earth_engine
 from backend.mock_agristack import MOCK_FARMER
+from backend.action_engine import generate_farm_actions
 
 app = FastAPI()
 
@@ -137,6 +138,7 @@ def _process_analyze_sync(
             "risk": risk,
             "crop_recommendations": crop_recommendations,
         }
+        farm_actions = generate_farm_actions(farm_context)
         advisory_start = time.perf_counter()
         try:
             advisory = generate_advisory(farm_context, language=language)
@@ -166,6 +168,7 @@ def _process_analyze_sync(
             "satellite": satellite,
             "irrigation": irrigation,
             "risk": risk,
+            "farm_actions": farm_actions,
             "crop_recommendations": crop_recommendations,
             "agristack": agristack_context,
             "advisory": advisory,
