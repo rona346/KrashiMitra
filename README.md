@@ -14,7 +14,7 @@
 4. **Earth Observation Remote Sensing:** Multispectral vegetation health indexing (Sentinel-2 NDVI) via Google Earth Engine with automated fallback.
 5. **Priority-Ranked Field Actions:** Grounded, non-hallucinatory action directives categorized by urgency, timeframe, and explicit telemetry evidence.
 
-These signals feed into a deterministic agronomic logic engine and a strictly guarded dual-LLM advisory pipeline (Google Gemini primary with automated OpenRouter fallback), delivering twin advisories in natural Devanagari Hindi and English through a responsive web dashboard with browser-native voice assistance.
+These signals feed into a deterministic agronomic logic engine and a strictly guarded dual-LLM advisory pipeline (Google Gemini primary with automated OpenRouter fallback), delivering twin advisories in natural Devanagari Hindi and English through a responsive web dashboard with browser-native voice assistance and permission-based current location detection alongside manual coordinate entry.
 
 ---
 
@@ -56,6 +56,7 @@ KrashiMitra addresses these challenges through a unified **multi-modal farm cont
 | **Bilingual AI Advisory** | Generative AI | **Implemented** | Structured 4-part advisory (Main Risk, Why Risk Matters, What to Do Now, More Information Needed) in English and natural Devanagari Hindi using Gemini with OpenRouter fallback. |
 | **Prompt Injection Defense** | Security | **Implemented** | Delimiter-based input encapsulation (`<farmer_message>`), tag sanitization, and strict system boundary enforcement for farmer chat. |
 | **Bilingual Voice Companion** | Accessibility | **Implemented (Web Speech API)** | Browser-native speech recognition (STT) and speech synthesis (TTS) supporting `hi-IN` and `en-IN` without external audio API costs. |
+| **Current Location Detection** | Frontend UX | **Implemented (Browser Geolocation API)** | Permission-based **"Use My Current Location"** button (`मेरा वर्तमान स्थान उपयोग करें`) that retrieves browser coordinates and fills latitude and longitude automatically with loading, confirmation, and error states, while keeping manual coordinate entry available. |
 | **AgriStack Context Card** | Public Digital Infra | **Mock / Demo Schema** | Synthesized farmer and plot profile (`KM-FARMER-001`, 2.5 acres, Tomato) demonstrating schema interoperability with Digital Public Infrastructure (DPI). |
 
 ---
@@ -131,11 +132,13 @@ flowchart TD
     Chat -->|"Direct Response"| UI
 ```
 
+*Client-Side Coordinate Input Note:* On the browser client, the optional **"Use My Current Location"** control uses the Browser Geolocation API to populate the latitude and longitude inputs prior to submission. This operates solely in the browser and does not modify the FastAPI backend API or frozen system architecture.
+
 ---
 
 ## 6. How the Analysis Workflow Works
 
-When a farmer submits a leaf image and farm parameters via `POST /analyze`:
+Before submitting an analysis request, the farmer can optionally click **"Use My Current Location"** to populate latitude and longitude via the Browser Geolocation API (subject to browser permission) or enter coordinates manually (blank inputs default to `24.5854`, `73.7125` in `src/App.jsx`). When a farmer submits a leaf image and farm parameters via `POST /analyze`:
 
 ```
 1. Image Buffering ──► Uploaded file saved temporarily with a unique UUID prefix
@@ -162,6 +165,7 @@ When a farmer submits a leaf image and farm parameters via `POST /analyze`:
 * **Styling:** Modular Pure CSS3 (`App.css`, `index.css`) — Zero third-party UI framework overhead
 * **Graphics & Icons:** 14 standalone SVG functional components (zero external icon library bloat)
 * **Voice Engine:** Web Speech API (`SpeechRecognition` / `webkitSpeechRecognition` and `SpeechSynthesis`)
+* **Location Input:** Browser Geolocation API (`navigator.geolocation.getCurrentPosition`) for permission-based current coordinate detection with manual input fallback
 * **Localization:** Centralized `UI_STRINGS` dictionary supporting English and natural farmer-friendly Hindi/Hinglish
 
 ### Backend & API
@@ -210,7 +214,7 @@ The user interface is designed for low-cognitive-load farmer interaction, pairin
 
 | Section | Description | Visual Reference |
 | :--- | :--- | :--- |
-| **Diagnostics & Telemetry Input** | Drag-and-drop leaf photo uploader, image preview panel, and farm telemetry inputs (soil moisture, latitude, longitude) with default Udaipur anchor. | *Dropzone & Telemetry Input Panel* |
+| **Diagnostics & Telemetry Input** | Drag-and-drop leaf photo uploader, image preview panel, permission-based **"Use My Current Location"** button (Browser Geolocation API), and manual farm telemetry inputs (soil moisture, latitude, longitude) with default Udaipur anchor. | *Dropzone & Telemetry Input Panel* |
 | **Unified Diagnostics Overview** | Real-time telemetry summary displaying detected disease condition, overall farm risk, soil moisture, irrigation advice, ambient weather, rain forecast, and Sentinel-2 NDVI. | *Telemetry Overview Cards* |
 | **Priority-Ranked Field Actions** | Structured, evidence-backed action directives (e.g. Next Field Visit, Before Application) with action steps, rationale, and verified data provenance. | *Field Actions Panel* |
 | **Bilingual AI Advisory** | Four-part structured agronomic guidance (Main Risk, Why Risk Matters, What to Do Now, More Information Needed) presented in natural Devanagari Hindi or English. | *AI Agricultural Advisory Card* |
@@ -222,7 +226,20 @@ The user interface is designed for low-cognitive-load farmer interaction, pairin
 
 ---
 
-## 10. Local Setup & Installation
+## 10. Current Location Feature
+
+The diagnostics telemetry panel in [`src/App.jsx`](src/App.jsx) (styled in [`src/App.css`](src/App.css)) includes a bilingual **"Use My Current Location"** (`मेरा वर्तमान स्थान उपयोग करें`) button to simplify entering farm coordinates:
+
+* **Browser Geolocation API:** Uses `navigator.geolocation.getCurrentPosition` (`enableHighAccuracy: true`, `timeout: 10000`, `maximumAge: 60000`) directly in the browser.
+* **Permission-Based Access:** Location is only requested when the user clicks the button and triggers the browser's standard location permission prompt.
+* **Automatic Coordinate Fill:** Once permission is granted and finite coordinates are returned, the frontend formats `latitude` and `longitude` to 6 decimal places and populates the existing input fields automatically.
+* **Manual Coordinate Alternative:** Both **Latitude** and **Longitude** inputs remain editable at all times so farmers can enter or adjust coordinates manually (if left blank on submission, `handleAnalyze` sends the default Udaipur values `24.5854` and `73.7125`).
+* **Loading, Success & Error Handling:** Disables the button with a loading spinner (`Getting Location...` / `स्थान प्राप्त किया जा रहा है...`) while fetching, shows a confirmation banner (`role="status"`) on success, and displays localized bilingual error alerts (`role="alert"`) for unsupported browsers, denied permission, unavailable position, timeouts, or unknown errors.
+* **Unchanged Backend & Architecture:** Populated coordinates are sent through the existing `POST /analyze` `FormData` workflow without modifying the backend API or frozen system architecture.
+
+---
+
+## 11. Local Setup & Installation
 
 ### Prerequisites
 * **Python:** 3.10 (or a compatible virtual environment)
@@ -248,7 +265,7 @@ source .venv/bin/activate
 # Install backend dependencies
 pip install -r requirements.txt
 
-# Configure environment variables (see Section 11)
+# Configure environment variables (see Section 12)
 # On Windows PowerShell:
 $env:GEMINI_API_KEY="your-gemini-api-key"
 $env:OPENROUTER_API_KEY="your-openrouter-api-key"
@@ -299,7 +316,7 @@ OK
 
 ---
 
-## 11. Environment Variables
+## 12. Environment Variables
 
 The backend and frontend reference the following environment variable names (do not commit secrets or API keys to version control):
 
@@ -314,7 +331,7 @@ The backend and frontend reference the following environment variable names (do 
 
 ---
 
-## 12. API Endpoints
+## 13. API Endpoints
 
 ### `GET /`
 * **Description:** Health check verifying that the backend server is running.
@@ -361,7 +378,7 @@ The backend and frontend reference the following environment variable names (do 
 
 ---
 
-## 13. Current Limitations
+## 14. Current Limitations
 
 Honest transparency is essential for rigorous evaluation and production deployment. The following limitations apply to the current prototype:
 
@@ -375,7 +392,7 @@ Honest transparency is essential for rigorous evaluation and production deployme
 
 ---
 
-## 14. Future Scope & Roadmap
+## 15. Future Scope & Roadmap
 
 * **Dedicated Entomological Pest Detection:**
   * *Current Status:* The Harimitra vision model includes class 46 (`Tomato___Spider_mites Two-spotted_spider_mite`), which detects *foliar damage pathology* caused by spider mites on tomato leaves. It is **not** an insect recognition model.
@@ -387,7 +404,7 @@ Honest transparency is essential for rigorous evaluation and production deployme
 
 ---
 
-## 15. Project Status & Event Context
+## 16. Project Status & Event Context
 
 * **Project Status:** Prototype for Evaluation
 * **Submission Event:** BUILD 2036
