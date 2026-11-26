@@ -232,6 +232,28 @@ function IconPin({ size = 14, color = "currentColor" }) {
   );
 }
 
+function IconLocate({ size = 15, color = "currentColor" }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="12" y1="2" x2="12" y2="5" />
+      <line x1="12" y1="19" x2="12" y2="22" />
+      <line x1="2" y1="12" x2="5" y2="12" />
+      <line x1="19" y1="12" x2="22" y2="12" />
+      <circle cx="12" cy="12" r="7" />
+      <circle cx="12" cy="12" r="2.5" />
+    </svg>
+  );
+}
+
 function IconWaterTap({ size = 18, color = "currentColor" }) {
   return (
     <svg
@@ -339,6 +361,15 @@ const UI_STRINGS = {
       latitudePlaceholder: "उदा. 24.5854",
       longitudeLabel: "देशांतर (Longitude)",
       longitudePlaceholder: "उदा. 73.7125",
+      useCurrentLocationBtn: "मेरा वर्तमान स्थान उपयोग करें",
+      locatingBtn: "स्थान प्राप्त किया जा रहा है...",
+      locationHelperHint: "या नीचे अक्षांश और देशांतर मैन्युअल रूप से दर्ज करें",
+      locationSuccessMsg: "वर्तमान खेत का स्थान भर दिया गया है। आवश्यकता होने पर आप नीचे मान बदल सकते हैं।",
+      locationUnsupportedMsg: "आपका ब्राउज़र स्थान (GPS) सुविधा का समर्थन नहीं करता। कृपया नीचे अक्षांश और देशांतर मैन्युअल रूप से दर्ज करें।",
+      locationPermissionDeniedMsg: "स्थान की अनुमति अस्वीकृत है। कृपया ब्राउज़र सेटिंग्स में लोकेशन की अनुमति दें या नीचे अक्षांश और देशांतर मैन्युअल रूप से दर्ज करें।",
+      locationUnavailableMsg: "वर्तमान स्थान उपलब्ध नहीं हो सका। कृपया डिवाइस GPS/इंटरनेट जांचें या नीचे अक्षांश और देशांतर मैन्युअल रूप से दर्ज करें।",
+      locationTimeoutMsg: "स्थान प्राप्त करने में समय समाप्त हो गया। कृपया दोबारा प्रयास करें या नीचे अक्षांश और देशांतर मैन्युअल रूप से दर्ज करें।",
+      locationUnknownErrorMsg: "स्थान प्राप्त करने में समस्या आई। कृपया दोबारा प्रयास करें या नीचे अक्षांश और देशांतर मैन्युअल रूप से दर्ज करें।",
       analyzeBtn: "फसल का विश्लेषण करें",
       analyzingBtn: "फसल का विश्लेषण हो रहा है...",
       msgInvalidImage: "कृपया मान्य छवि फ़ाइल (PNG, JPG, JPEG, WEBP) अपलोड करें।",
@@ -540,6 +571,15 @@ const UI_STRINGS = {
       latitudePlaceholder: "e.g. 24.5854",
       longitudeLabel: "Longitude",
       longitudePlaceholder: "e.g. 73.7125",
+      useCurrentLocationBtn: "Use My Current Location",
+      locatingBtn: "Getting Location...",
+      locationHelperHint: "Or enter latitude and longitude manually below",
+      locationSuccessMsg: "Current location filled. You can still edit the coordinates below if needed.",
+      locationUnsupportedMsg: "Geolocation is not supported by your browser. Please enter latitude and longitude manually below.",
+      locationPermissionDeniedMsg: "Location permission was denied. Please allow location access in your browser settings or enter latitude and longitude manually below.",
+      locationUnavailableMsg: "Unable to determine your location right now. Please check GPS/network or enter latitude and longitude manually below.",
+      locationTimeoutMsg: "Location request timed out. Please try again or enter latitude and longitude manually below.",
+      locationUnknownErrorMsg: "Could not retrieve your location. Please try again or enter latitude and longitude manually below.",
       analyzeBtn: "Analyze Crop",
       analyzingBtn: "Analyzing Crop...",
       msgInvalidImage: "Please upload an image file (PNG, JPG, JPEG, WEBP).",
@@ -726,6 +766,8 @@ function App() {
   const [soilMoisture, setSoilMoisture] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+  const [isLocating, setIsLocating] = useState(false);
+  const [locationStatus, setLocationStatus] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
 
   // Voice Assistant State
@@ -736,6 +778,7 @@ function App() {
   const fileInputRef = useRef(null);
   const recognitionRef = useRef(null);
   const languageRef = useRef(language);
+  const isMountedRef = useRef(true);
   const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
   console.log("Current API_URL:", API_URL);
 
@@ -746,7 +789,9 @@ function App() {
 
   // Cleanup speech synthesis and recognition on unmount
   useEffect(() => {
+    isMountedRef.current = true;
     return () => {
+      isMountedRef.current = false;
       if (recognitionRef.current) {
         try {
           recognitionRef.current.onresult = null;
@@ -858,6 +903,87 @@ function App() {
     setImagePreview("");
     setAnalysis("");
     if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  // Use browser Geolocation API to fill farm latitude & longitude
+  const handleUseCurrentLocation = () => {
+    if (isLocating) return;
+
+    if (
+      typeof navigator === "undefined" ||
+      !navigator.geolocation ||
+      typeof navigator.geolocation.getCurrentPosition !== "function"
+    ) {
+      setLocationStatus({ type: "error", reason: "unsupported" });
+      return;
+    }
+
+    setIsLocating(true);
+    setLocationStatus(null);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        if (!isMountedRef.current) return;
+        const { latitude: lat, longitude: lon } = position.coords || {};
+        if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+          setLocationStatus({ type: "error", reason: "unavailable" });
+          setIsLocating(false);
+          return;
+        }
+        setLatitude(lat.toFixed(6));
+        setLongitude(lon.toFixed(6));
+        setLocationStatus({ type: "success" });
+        setIsLocating(false);
+      },
+      (error) => {
+        if (!isMountedRef.current) return;
+        let reason = "unknown";
+        if (error) {
+          if (error.code === error.PERMISSION_DENIED || error.code === 1) {
+            reason = "permission_denied";
+          } else if (
+            error.code === error.POSITION_UNAVAILABLE ||
+            error.code === 2
+          ) {
+            reason = "unavailable";
+          } else if (error.code === error.TIMEOUT || error.code === 3) {
+            reason = "timeout";
+          }
+        }
+        setLocationStatus({ type: "error", reason });
+        setIsLocating(false);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 60000,
+      },
+    );
+  };
+
+  const getLocationErrorMessage = (reason) => {
+    switch (reason) {
+      case "unsupported":
+        return strings.diagnostics.locationUnsupportedMsg;
+      case "permission_denied":
+        return strings.diagnostics.locationPermissionDeniedMsg;
+      case "unavailable":
+        return strings.diagnostics.locationUnavailableMsg;
+      case "timeout":
+        return strings.diagnostics.locationTimeoutMsg;
+      default:
+        return strings.diagnostics.locationUnknownErrorMsg;
+    }
+  };
+
+  const handleLatitudeChange = (e) => {
+    setLatitude(e.target.value);
+    if (locationStatus) setLocationStatus(null);
+  };
+
+  const handleLongitudeChange = (e) => {
+    setLongitude(e.target.value);
+    if (locationStatus) setLocationStatus(null);
   };
 
   // POST /analyze
@@ -1349,32 +1475,83 @@ function App() {
                 />
               </div>
 
+              <div className="km-location-actions">
+                <button
+                  type="button"
+                  onClick={handleUseCurrentLocation}
+                  disabled={isLocating}
+                  className="km-btn-location"
+                >
+                  {isLocating ? (
+                    <>
+                      <span className="km-spinner km-spinner-dark" />
+                      <span>{strings.diagnostics.locatingBtn}</span>
+                    </>
+                  ) : (
+                    <>
+                      <IconLocate size={15} color="#15803d" />
+                      <span>{strings.diagnostics.useCurrentLocationBtn}</span>
+                    </>
+                  )}
+                </button>
+
+                {locationStatus?.type === "success" && (
+                  <div
+                    className="km-location-feedback km-location-feedback-success"
+                    role="status"
+                  >
+                    <span>✓</span>
+                    <span>{strings.diagnostics.locationSuccessMsg}</span>
+                  </div>
+                )}
+
+                {locationStatus?.type === "error" && (
+                  <div
+                    className="km-location-feedback km-location-feedback-error"
+                    role="alert"
+                  >
+                    <span>⚠</span>
+                    <span>
+                      {getLocationErrorMessage(locationStatus.reason)}
+                    </span>
+                  </div>
+                )}
+
+                {!locationStatus && (
+                  <div className="km-location-hint">
+                    {strings.diagnostics.locationHelperHint}
+                  </div>
+                )}
+              </div>
+
               <div className="km-form-group">
-                <label className="km-form-label">
+                <label className="km-form-label" htmlFor="km-latitude-input">
                   <IconPin size={14} color="#16a34a" />
                   {strings.diagnostics.latitudeLabel}
                 </label>
                 <input
+                  id="km-latitude-input"
                   type="number"
                   step="any"
                   className="km-input"
                   value={latitude}
-                  onChange={(e) => setLatitude(e.target.value)}
+                  onChange={handleLatitudeChange}
                   placeholder={strings.diagnostics.latitudePlaceholder}
                 />
               </div>
 
               <div className="km-form-group">
-                <label className="km-form-label">
+                <label className="km-form-label" htmlFor="km-longitude-input">
                   <IconPin size={14} color="#16a34a" />
                   {strings.diagnostics.longitudeLabel}
                 </label>
                 <input
+                  id="km-longitude-input"
                   type="number"
                   step="any"
                   className="km-input"
                   value={longitude}
-                  onChange={(e) => setLongitude(e.target.value)}
+                  onChange={handleLongitudeChange}
                   placeholder={strings.diagnostics.longitudePlaceholder}
                 />
               </div>
